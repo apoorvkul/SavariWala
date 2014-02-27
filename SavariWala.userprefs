@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/LoginActivity.cs">
+    <Files>
+      <File FileName="SavariWala/RequestBookingActivity.cs" Line="15" Column="32" />
+      <File FileName="SavariWala/App.cs" Line="38" Column="1" />
+      <File FileName="SavariWala/LocationProvider.cs" Line="78" Column="30" />
+      <File FileName="SavariWala/FBWebViewAuthActivity.cs" Line="1" Column="1" />
+      <File FileName="SavariWala/LoginActivity.cs" Line="35" Column="1" />
+      <File FileName="SavariWala/Utils.cs" Line="31" Column="1" />
+      <File FileName="SavariWala/Common/AppCommon.cs" Line="66" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/LoginActivity.cs" line="35" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.SimpleMapDemo MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />
+  <MonoDevelop.Ide.ItemProperties.FacebookSample.Android MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" />
+  <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />
+</Properties>
