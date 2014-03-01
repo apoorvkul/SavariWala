@@ -13,18 +13,16 @@ using System.Threading;
 
 namespace SavariWala.AndroidApp
 {
+	// Application will have 2 singletons:
+	//	1. App (owning platform specific objects) 
+	//	2. AppCommon (ownig cross platfrom objects)
+	// Cross platorm objects should access other cross platorm objects through AppCommon
+	// Platform specific objects can access all other object via App or AppCommon
 	[Application]
 	public class App : Application
 	{
 
 		public static App Inst { get; private set;}
-
-		private AppCommon appCommon_;
-		public static AppCommon Common { 
-			get { 
-				return Inst.appCommon_; 
-			} 
-		}
 
 		public LocationProvider LocationProvider { get; private set; }
 
@@ -34,11 +32,14 @@ namespace SavariWala.AndroidApp
 		public override void OnCreate()
 		{
 			Inst = this;
-			appCommon_ = new AppCommon();
+			base.OnCreate ();
+
+			// TODO Hardcoding API key for now. Get from manifest
+			new AppCommon("AIzaSyBjclPxE1Y_XkiaFIFDQCMr1hdSaFHw124", "AIzaSyBK3goB0EEh36HN_CiG-OW2GjnBdl2j1SQ");
 			LocationProvider = new LocationProvider ();
 			ThreadPool.QueueUserWorkItem ((x) => LocationProvider.Connect ());
 
-			base.OnCreate ();
+
 		}
 	}
 }

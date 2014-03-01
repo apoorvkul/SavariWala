@@ -8,7 +8,12 @@
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/login.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/values/styles.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/drawable/redbackground.xml
-/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/requestbooking.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/reqbookingsrc.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/reqdetails.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/reqbookingdst.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/listitem.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/placeslist.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/res/layout/reqconfirm.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/R.cs.flag
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/bin/Debug/com.savariwala.androidapp-Signed.apk
 /Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/obj/Debug/uploadflags.txt

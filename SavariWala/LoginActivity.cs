@@ -37,14 +37,15 @@ namespace SavariWala.AndroidApp
 			switch (resultCode) {
 			case Result.Ok:
 
-				App.Common.FbAccessToken = data.GetStringExtra ("AccessToken");
+				AppCommon.Inst.FbAccessToken = data.GetStringExtra ("AccessToken");
 				string error = data.GetStringExtra ("Exception");
 
 				if (!String.IsNullOrEmpty(error))
 					Utils.Alert (this, "Failed to Log In", "Reason: " + error, false);
 				else {
-					App.Common.InitUser (data.GetStringExtra ("UserId"), true);
-					StartActivity(new Intent(this, typeof(RequestBookingActivity)));
+					AppCommon.Inst.InitUser (data.GetStringExtra ("UserId"), true);
+					this.StartNextActivity<ReqBookingSrcActivity> ();
+					//StartActivity(new Intent(this, typeof(ReqBookingSrcActivity)));
 				}
 				break;
 			case Result.Canceled:

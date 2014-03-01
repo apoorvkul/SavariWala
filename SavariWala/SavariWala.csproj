@@ -57,6 +57,7 @@
       <HintPath>..\Components\googleplayservicesjellybean-15.0\lib\android\GooglePlayServicesLib.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android.Support.v4" />
+    <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -70,7 +71,17 @@
     <Compile Include="App.cs" />
     <Compile Include="Common\AppCommon.cs" />
     <Compile Include="LocationProvider.cs" />
-    <Compile Include="RequestBookingActivity.cs" />
+    <Compile Include="ReqBookingSrcActivity.cs">
+      <DependentUpon>Utils.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReqBookingDstActivity.cs" />
+    <Compile Include="MapPointsActivityBase.cs" />
+    <Compile Include="ReqDetailsActivity.cs" />
+    <Compile Include="Common\PlacesProvider.cs" />
+    <Compile Include="GenericListAdapter.cs" />
+    <Compile Include="ReqConfirmActivity.cs" />
+    <Compile Include="Common\FluencyHelper.cs" />
+    <Compile Include="FleuncyHelperAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -83,7 +94,12 @@
     <AndroidResource Include="Resources\layout\Login.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\drawable\RedBackground.xml" />
-    <AndroidResource Include="Resources\layout\RequestBooking.axml" />
+    <AndroidResource Include="Resources\layout\ReqBookingSrc.axml" />
+    <AndroidResource Include="Resources\layout\ReqDetails.axml" />
+    <AndroidResource Include="Resources\layout\ReqBookingDst.axml" />
+    <AndroidResource Include="Resources\layout\ListItem.axml" />
+    <AndroidResource Include="Resources\layout\PlacesList.axml" />
+    <AndroidResource Include="Resources\layout\ReqConfirm.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

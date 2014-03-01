@@ -19,27 +19,24 @@ namespace SavariWala.Common
 			Console.WriteLine (sev.ToString () + ": " + msg);
 		}
 
-		public void Fatal(Object o) 
+		public void Fatal(string format, params Object[] obj) 
 		{
-			Log (Severity.Fatal, o.ToString ());
+			Log (Severity.Fatal, obj.Length > 0? String.Format (format, obj) : format );
 		}
-
-
-		public void Error(Object o) 
+			
+		public void Error(string format, params Object[] obj) 
 		{
-			Log (Severity.Error, o.ToString ());
+			Log (Severity.Error, obj.Length > 0? String.Format (format, obj) : format );
 		}
-
-
-		public void Info(Object o) 
+			
+		public void Info(string format, params Object[] obj) 
 		{
-			Log (Severity.Info, o.ToString ());
+			Log (Severity.Info, obj.Length > 0? String.Format (format, obj) : format );
 		}
-
-
-		public void Debug(Object o) 
+			
+		public void Debug(string format, params Object[] obj) 
 		{
-			Log (Severity.Debug, o.ToString ());
+			Log (Severity.Debug, obj.Length > 0? String.Format (format, obj) : format );
 		}
 			
 	}

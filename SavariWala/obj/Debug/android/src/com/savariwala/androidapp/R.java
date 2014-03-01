@@ -213,22 +213,39 @@ containing a value of this type.
         public static final int redbackground=0x7f02001e;
     }
     public static final class id {
+        public static final int buttonLt=0x7f05000a;
+        public static final int buttonRt=0x7f05000c;
         public static final int fbButton=0x7f050005;
+        public static final int gridLayout1=0x7f050009;
         public static final int hybrid=0x7f050004;
-        public static final int map=0x7f050008;
+        public static final int listViewDst=0x7f050014;
+        public static final int map=0x7f05000d;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int textView1=0x7f050006;
-        public static final int textView2=0x7f050007;
+        public static final int textAddress=0x7f050007;
+        public static final int textDest=0x7f050011;
+        public static final int textDidYouMean=0x7f050012;
+        public static final int textName=0x7f050006;
+        public static final int textStartTime=0x7f050010;
+        public static final int textView1=0x7f050008;
+        public static final int textView3=0x7f050013;
+        public static final int textViewReaching=0x7f05000f;
+        public static final int viewDstPoint=0x7f05000b;
+        public static final int viewSrcPoint=0x7f05000e;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
-        public static final int login=0x7f030000;
-        public static final int requestbooking=0x7f030001;
+        public static final int listitem=0x7f030000;
+        public static final int login=0x7f030001;
+        public static final int placeslist=0x7f030002;
+        public static final int reqbookingdst=0x7f030003;
+        public static final int reqbookingsrc=0x7f030004;
+        public static final int reqconfirm=0x7f030005;
+        public static final int reqdetails=0x7f030006;
     }
     public static final class string {
         public static final int appLogin=0x7f06001c;
@@ -327,13 +344,22 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int dest=0x7f060021;
+        public static final int dest=0x7f06001f;
+        public static final int didYouMean=0x7f060026;
+        public static final int dstResults=0x7f060025;
+        /**  Localization Strings 
+         */
         public static final int facebookLogin=0x7f06001b;
         public static final int from=0x7f06001e;
+        public static final int leavingTo=0x7f060022;
         public static final int library_name=0x7f06001a;
-        public static final int selectSrc=0x7f060022;
-        public static final int start=0x7f06001f;
-        public static final int to=0x7f060020;
+        public static final int reachingSrc=0x7f060021;
+        public static final int reqBookingDst=0x7f060023;
+        public static final int reqBookingSrc=0x7f060024;
+        public static final int reqConfirm=0x7f060029;
+        public static final int reqDetails=0x7f060028;
+        public static final int selectDst=0x7f060027;
+        public static final int selectSrc=0x7f060020;
     }
     public static final class style {
         public static final int DarkenOnClick=0x7f080001;

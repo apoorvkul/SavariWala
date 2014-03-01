@@ -39,16 +39,6 @@ namespace SavariWala.AndroidApp
 		}
 
 		LocationClient locClient_;
-		global::Android.Locations.Location location_;
-		public global::Android.Locations.Location Location {
-			get {
-				return location_;
-			}
-			private set {
-				location_ = value;
-				onPropertyChanged ();
-			}
-		}
 
 		public void Connect()
 		{
@@ -58,13 +48,15 @@ namespace SavariWala.AndroidApp
 
 		public void OnLocationChanged (global::Android.Locations.Location p0)
 		{
-			Location = p0;
+			AppCommon.Inst.CurLoc = new GeoLoc { Lat =  p0.Latitude, Lng = p0.Longitude };
 		}
 
 		public void OnConnected (Bundle p0)
 		{
-			Location = locClient_.LastLocation;
+			var loc = locClient_.LastLocation;
+			AppCommon.Inst.CurLoc = new GeoLoc { Lat =  loc.Latitude, Lng = loc.Longitude };
 		}
+
 		public void OnDisconnected ()
 		{}
 
