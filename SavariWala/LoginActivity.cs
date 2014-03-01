@@ -45,7 +45,6 @@ namespace SavariWala.AndroidApp
 				else {
 					AppCommon.Inst.InitUser (data.GetStringExtra ("UserId"), true);
 					this.StartNextActivity<ReqBookingSrcActivity> ();
-					//StartActivity(new Intent(this, typeof(ReqBookingSrcActivity)));
 				}
 				break;
 			case Result.Canceled:

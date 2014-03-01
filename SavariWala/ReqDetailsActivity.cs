@@ -22,16 +22,23 @@ namespace SavariWala.AndroidApp
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.ReqDetails);
+
+			var textStartTime = FindViewById<EditText> (Resource.Id.textStartTime);
+			textStartTime.Text = DateTime.Now.TimeOfDay.ToString ("c").Substring (0, 5) +
+				"(Omins from now)";
+			//TODO: Only current booking for now
+			textStartTime.Enabled = false;
+
 			var textDest = FindViewById<AutoCompleteTextView> (Resource.Id.textDest);
-			//var textStartTime = FindViewById<Button> (Resource.Id.textStartTime);
-
 			textDest.TextChanged += AutoCompletePlaces;
-
 			textDest.EditorAction += (sender, e) => {
 				if (e.ActionId == ImeAction.Go) {
 					var curLoc = AppCommon.Inst.CurLoc;
 					AppCommon.Inst.PlacesProvider.SearchAsync (x => RunOnUiThread(() => ShowSearchResults(x)),
 						textDest.Text, curLoc.Lat, curLoc.Lng);
+					// Hide keyboard
+					var imm = (InputMethodManager) GetSystemService(Context.InputMethodService);
+					imm.HideSoftInputFromWindow(textDest.WindowToken, 0);
 					e.Handled = true; 
 				}
 			};
@@ -58,7 +65,6 @@ namespace SavariWala.AndroidApp
 			lstViewDst.ItemClick += (s, e) => { 
 				AppCommon.Inst.Destination = results[e.Position].Loc;
 				this.StartNextActivity<ReqBookingDstActivity>();
-				//StartActivity(new Intent(this, typeof(ReqBookingDstActivity)));
 			};
 		}
 	}

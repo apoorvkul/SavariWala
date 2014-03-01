@@ -41,7 +41,6 @@ namespace SavariWala.AndroidApp
 
 			AppCommon.Inst.CurrentReq = new Request { Src = place }; 
 			this.StartNextActivity<ReqDetailsActivity> ();
-			//StartActivity(new Intent(this, typeof(ReqDetailsActivity)));
 		}
 	}
 }

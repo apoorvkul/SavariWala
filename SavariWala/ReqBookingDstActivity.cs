@@ -40,7 +40,6 @@ namespace SavariWala.AndroidApp
 		{
 			AppCommon.Inst.CurrentReq.Dst = place; 
 			this.StartNextActivity<ReqConfirmActivity>();
-			//StartActivity(new Intent(this, typeof(ReqConfirmActivity)));
 		}
 	}
 }
