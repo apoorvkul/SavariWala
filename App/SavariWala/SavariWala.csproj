@@ -58,6 +58,9 @@
     </Reference>
     <Reference Include="Mono.Android.Support.v4" />
     <Reference Include="System.Json" />
+    <Reference Include="Thrift">
+      <HintPath>..\ext\Thrift.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -82,6 +85,12 @@
     <Compile Include="ReqConfirmActivity.cs" />
     <Compile Include="Common\FluencyHelper.cs" />
     <Compile Include="FleuncyHelperAndroid.cs" />
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\User.cs">
+      <Link>gen-csharp\SavariWala\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
+      <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -104,6 +113,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Common\" />
+    <Folder Include="gen-csharp\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="facebook-sdk">
