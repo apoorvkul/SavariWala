@@ -23,6 +23,8 @@ namespace SavariWala.AndroidApp
 
 			SetContentView (Resource.Layout.ReqDetails);
 
+			AppCommon.Inst.CurrentReq.StartTime = DateTime.Now.Add (TimeSpan.FromMinutes (0));
+
 			var textStartTime = FindViewById<EditText> (Resource.Id.textStartTime);
 			textStartTime.Text = DateTime.Now.TimeOfDay.ToString ("c").Substring (0, 5) +
 				"(Omins from now)";
@@ -49,7 +51,7 @@ namespace SavariWala.AndroidApp
 			var curLoc = AppCommon.Inst.CurLoc;
 			var textDst = (AutoCompleteTextView)sender;
 			AppCommon.Inst.PlacesProvider.AutoCompleteAsync (
-				lst => RunOnUiThread(() => textDst.Adapter = new ArrayAdapter (this, Resource.Layout.ListItem, lst)),
+				lst => RunOnUiThread(() => textDst.Adapter = new ArrayAdapter (this, Android.Resource.Layout.SimpleListItem1, lst)),
 				textDst.Text, textDst.SelectionEnd, curLoc.Lat, curLoc.Lng);
 		}
 

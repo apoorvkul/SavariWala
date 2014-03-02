@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SavariWala.Common;
 
 namespace SavariWala.AndroidApp
 {
@@ -18,7 +19,68 @@ namespace SavariWala.AndroidApp
 		{
 			base.OnCreate (bundle);
 
-			// Create your application here
+			SetContentView (Resource.Layout.ReqConfirm);
+
+			var req = AppCommon.Inst.CurrentReq;
+
+			var textStartPt = FindViewById<TextView> (Resource.Id.textStartPt);
+			textStartPt.Text = req.Src.ToString ();
+
+			var textEndPt = FindViewById<TextView> (Resource.Id.textEndPt);
+			textEndPt.Text = req.Dst.ToString ();
+
+			var textStartTime = FindViewById<TextView> (Resource.Id.textStartTm);
+			textStartTime.Text = req.StartTime.ToString ("f");
+
+
+			SetupConfirm (false);
+		}
+
+		void SetupConfirm (bool reset)
+		{
+			var btnAction = FindViewById<TextView> (Resource.Id.btnAction);
+			btnAction.Click += (sender, e) => {
+				btnAction.Enabled = false;
+				SendConfirm ();
+			};
+
+			if(reset)
+			{
+				var textPending = FindViewById<TextView> (Resource.Id.textPending);
+				textPending.Visibility = ViewStates.Invisible;
+
+				btnAction.Text = Resources.GetString(Resource.String.submit);
+				this.Window.SetTitle(Resources.GetString(Resource.String.reqConfirm));
+				btnAction.Enabled = true;
+			}
+		}
+
+		void SendConfirm ()
+		{
+			// Send async request. Post send call in UI thread afterwards:
+			SetupCancel ();
+		}
+
+		void SendCancel ()
+		{
+			// Send async request. Post send call in UI thread afterwards:
+			SetupConfirm (true);
+		}
+
+		void SetupCancel ()
+		{
+			var textPending = FindViewById<TextView> (Resource.Id.textPending);
+			textPending.Visibility = ViewStates.Visible;
+
+			var btnAction = FindViewById<Button> (Resource.Id.btnAction);
+			btnAction.Text = Resources.GetString(Resource.String.cancel);
+			btnAction.Enabled = true;
+			this.Window.SetTitle(Resources.GetString(Resource.String.reqCancel));
+
+			btnAction.Click += (sender, e) => {
+				btnAction.Enabled = false;
+				SendCancel();
+			};
 		}
 	}
 }

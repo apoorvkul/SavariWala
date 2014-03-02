@@ -213,25 +213,32 @@ containing a value of this type.
         public static final int redbackground=0x7f02001e;
     }
     public static final class id {
+        public static final int btnAction=0x7f050014;
         public static final int buttonLt=0x7f05000a;
         public static final int buttonRt=0x7f05000c;
         public static final int fbButton=0x7f050005;
         public static final int gridLayout1=0x7f050009;
         public static final int hybrid=0x7f050004;
-        public static final int listViewDst=0x7f050014;
+        public static final int linearLayout1=0x7f050013;
+        public static final int listViewDst=0x7f05001b;
         public static final int map=0x7f05000d;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
         public static final int textAddress=0x7f050007;
-        public static final int textDest=0x7f050011;
-        public static final int textDidYouMean=0x7f050012;
+        public static final int textDest=0x7f050018;
+        public static final int textDidYouMean=0x7f050019;
+        public static final int textEndPt=0x7f050011;
         public static final int textName=0x7f050006;
-        public static final int textStartTime=0x7f050010;
+        public static final int textPending=0x7f050015;
+        public static final int textStartPt=0x7f05000f;
+        public static final int textStartTime=0x7f050017;
+        public static final int textStartTm=0x7f050012;
         public static final int textView1=0x7f050008;
-        public static final int textView3=0x7f050013;
-        public static final int textViewReaching=0x7f05000f;
+        public static final int textView2=0x7f050010;
+        public static final int textView3=0x7f05001a;
+        public static final int textViewReaching=0x7f050016;
         public static final int viewDstPoint=0x7f05000b;
         public static final int viewSrcPoint=0x7f05000e;
     }
@@ -250,6 +257,7 @@ containing a value of this type.
     public static final class string {
         public static final int appLogin=0x7f06001c;
         public static final int app_name=0x7f06001d;
+        public static final int at=0x7f06002d;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -273,6 +281,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
+        public static final int cancel=0x7f060031;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -347,19 +356,26 @@ containing a value of this type.
         public static final int dest=0x7f06001f;
         public static final int didYouMean=0x7f060026;
         public static final int dstResults=0x7f060025;
+        public static final int endPt=0x7f06002c;
         /**  Localization Strings 
          */
         public static final int facebookLogin=0x7f06001b;
         public static final int from=0x7f06001e;
         public static final int leavingTo=0x7f060022;
         public static final int library_name=0x7f06001a;
+        public static final int pendingWait=0x7f060030;
         public static final int reachingSrc=0x7f060021;
         public static final int reqBookingDst=0x7f060023;
         public static final int reqBookingSrc=0x7f060024;
+        public static final int reqCancel=0x7f060032;
         public static final int reqConfirm=0x7f060029;
         public static final int reqDetails=0x7f060028;
         public static final int selectDst=0x7f060027;
         public static final int selectSrc=0x7f060020;
+        public static final int startPt=0x7f06002a;
+        public static final int startTime=0x7f06002e;
+        public static final int submit=0x7f06002f;
+        public static final int to=0x7f06002b;
     }
     public static final class style {
         public static final int DarkenOnClick=0x7f080001;

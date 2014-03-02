@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
     <AutoCompleteTextView
-        android:text="@string/dest"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +40,8 @@
         android:selectAllOnFocus="true"
         android:imeOptions="actionGo"
         android:cursorVisible="true"
-        android:inputType="text" />
+        android:inputType="text"
+        android:hint="@string/dest" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="match_parent"

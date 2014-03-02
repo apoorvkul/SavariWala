@@ -23,7 +23,7 @@ namespace SavariWala.AndroidApp
 			{ 
 				var lst = new List<Place> ();
 				lst.Add( new Place{ 
-					Name = "Dummy Destination", Address = "Dummy Address", Loc = AppCommon.Inst.CurLoc 
+					Name = "Dummy Point", Address = "Dummy Address", Loc = AppCommon.Inst.CurLoc 
 				});
 				return lst;
 			} 

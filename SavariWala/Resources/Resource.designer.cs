@@ -251,6 +251,9 @@ namespace SavariWala.AndroidApp
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050014
+			public const int btnAction = 2131034132;
+			
 			// aapt resource value: 0x7f05000a
 			public const int buttonLt = 2131034122;
 			
@@ -266,8 +269,11 @@ namespace SavariWala.AndroidApp
 			// aapt resource value: 0x7f050004
 			public const int hybrid = 2131034116;
 			
-			// aapt resource value: 0x7f050014
-			public const int listViewDst = 2131034132;
+			// aapt resource value: 0x7f050013
+			public const int linearLayout1 = 2131034131;
+			
+			// aapt resource value: 0x7f05001b
+			public const int listViewDst = 2131034139;
 			
 			// aapt resource value: 0x7f05000d
 			public const int map = 2131034125;
@@ -287,26 +293,41 @@ namespace SavariWala.AndroidApp
 			// aapt resource value: 0x7f050007
 			public const int textAddress = 2131034119;
 			
-			// aapt resource value: 0x7f050011
-			public const int textDest = 2131034129;
+			// aapt resource value: 0x7f050018
+			public const int textDest = 2131034136;
 			
-			// aapt resource value: 0x7f050012
-			public const int textDidYouMean = 2131034130;
+			// aapt resource value: 0x7f050019
+			public const int textDidYouMean = 2131034137;
+			
+			// aapt resource value: 0x7f050011
+			public const int textEndPt = 2131034129;
 			
 			// aapt resource value: 0x7f050006
 			public const int textName = 2131034118;
 			
-			// aapt resource value: 0x7f050010
-			public const int textStartTime = 2131034128;
+			// aapt resource value: 0x7f050015
+			public const int textPending = 2131034133;
+			
+			// aapt resource value: 0x7f05000f
+			public const int textStartPt = 2131034127;
+			
+			// aapt resource value: 0x7f050017
+			public const int textStartTime = 2131034135;
+			
+			// aapt resource value: 0x7f050012
+			public const int textStartTm = 2131034130;
 			
 			// aapt resource value: 0x7f050008
 			public const int textView1 = 2131034120;
 			
-			// aapt resource value: 0x7f050013
-			public const int textView3 = 2131034131;
+			// aapt resource value: 0x7f050010
+			public const int textView2 = 2131034128;
 			
-			// aapt resource value: 0x7f05000f
-			public const int textViewReaching = 2131034127;
+			// aapt resource value: 0x7f05001a
+			public const int textView3 = 2131034138;
+			
+			// aapt resource value: 0x7f050016
+			public const int textViewReaching = 2131034134;
 			
 			// aapt resource value: 0x7f05000b
 			public const int viewDstPoint = 2131034123;
@@ -383,6 +404,9 @@ namespace SavariWala.AndroidApp
 			// aapt resource value: 0x7f06001d
 			public const int app_name = 2131099677;
 			
+			// aapt resource value: 0x7f06002d
+			public const int at = 2131099693;
+			
 			// aapt resource value: 0x7f060015
 			public const int auth_client_needs_enabling_title = 2131099669;
 			
@@ -400,6 +424,9 @@ namespace SavariWala.AndroidApp
 			
 			// aapt resource value: 0x7f060014
 			public const int auth_client_using_bad_version_title = 2131099668;
+			
+			// aapt resource value: 0x7f060031
+			public const int cancel = 2131099697;
 			
 			// aapt resource value: 0x7f060006
 			public const int common_google_play_services_enable_button = 2131099654;
@@ -470,6 +497,9 @@ namespace SavariWala.AndroidApp
 			// aapt resource value: 0x7f060025
 			public const int dstResults = 2131099685;
 			
+			// aapt resource value: 0x7f06002c
+			public const int endPt = 2131099692;
+			
 			// aapt resource value: 0x7f06001b
 			public const int facebookLogin = 2131099675;
 			
@@ -482,6 +512,9 @@ namespace SavariWala.AndroidApp
 			// aapt resource value: 0x7f06001a
 			public const int library_name = 2131099674;
 			
+			// aapt resource value: 0x7f060030
+			public const int pendingWait = 2131099696;
+			
 			// aapt resource value: 0x7f060021
 			public const int reachingSrc = 2131099681;
 			
@@ -490,6 +523,9 @@ namespace SavariWala.AndroidApp
 			
 			// aapt resource value: 0x7f060024
 			public const int reqBookingSrc = 2131099684;
+			
+			// aapt resource value: 0x7f060032
+			public const int reqCancel = 2131099698;
 			
 			// aapt resource value: 0x7f060029
 			public const int reqConfirm = 2131099689;
@@ -502,6 +538,18 @@ namespace SavariWala.AndroidApp
 			
 			// aapt resource value: 0x7f060020
 			public const int selectSrc = 2131099680;
+			
+			// aapt resource value: 0x7f06002a
+			public const int startPt = 2131099690;
+			
+			// aapt resource value: 0x7f06002e
+			public const int startTime = 2131099694;
+			
+			// aapt resource value: 0x7f06002f
+			public const int submit = 2131099695;
+			
+			// aapt resource value: 0x7f06002b
+			public const int to = 2131099691;
 			
 			static String()
 			{

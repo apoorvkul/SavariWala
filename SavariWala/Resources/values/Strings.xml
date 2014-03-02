@@ -16,5 +16,14 @@
 	<string name="selectDst">Select Drop Off Point</string>
 	<string name="reqDetails">Request Details</string>
 	<string name="reqConfirm">Confirm Request</string>
-
+	<string name="startPt">Starting Point</string>
+	<string name="to">To</string>
+	<string name="endPt">End Point</string>
+	<string name="reqConfirm">Confirm Request</string>
+	<string name="at">At</string>
+	<string name="startTime">Start Time</string>
+	<string name="submit">Submit</string>
+	<string name="pendingWait">Request Pending. Please Wait...</string>
+	<string name="cancel">Cancel</string>
+	<string name="reqCancel">Cancel Request</string>
 </resources>
