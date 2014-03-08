@@ -1,0 +1,12 @@
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Release/SavariWala.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/lib/android/Facebook.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googleplayservicesjellybean-15.0/lib/android/GooglePlayServicesLib.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/ext/Thrift.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v4.4/Mono.Android.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/mscorlib.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/System.Xml.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/System.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/Mono.Security.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/System.Core.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/System.Json.dll
+/Library/Frameworks/Mono.framework/External/xbuild-frameworks/MonoAndroid/v1.0/System.Runtime.Serialization.dll

@@ -85,6 +85,12 @@
     <Compile Include="ReqConfirmActivity.cs" />
     <Compile Include="Common\FluencyHelper.cs" />
     <Compile Include="FleuncyHelperAndroid.cs" />
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ErrorCode.cs">
+      <Link>gen-csharp\SavariWala\ErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ServerError.cs">
+      <Link>gen-csharp\SavariWala\ServerError.cs</Link>
+    </Compile>
     <Compile Include="..\..\idl\gen-csharp\SavariWala\User.cs">
       <Link>gen-csharp\SavariWala\User.cs</Link>
     </Compile>

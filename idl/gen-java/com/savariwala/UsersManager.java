@@ -36,9 +36,9 @@ public class UsersManager {
 
   public interface Iface {
 
-    public User getUser(String fbUserId) throws org.apache.thrift.TException;
+    public User getUser(String fbUserId) throws com.savariwala.ServerError, org.apache.thrift.TException;
 
-    public void addUser(User user) throws org.apache.thrift.TException;
+    public void addUser(User user) throws com.savariwala.ServerError, org.apache.thrift.TException;
 
   }
 
@@ -70,7 +70,7 @@ public class UsersManager {
       super(iprot, oprot);
     }
 
-    public User getUser(String fbUserId) throws org.apache.thrift.TException
+    public User getUser(String fbUserId) throws com.savariwala.ServerError, org.apache.thrift.TException
     {
       send_getUser(fbUserId);
       return recv_getUser();
@@ -83,17 +83,20 @@ public class UsersManager {
       sendBase("getUser", args);
     }
 
-    public User recv_getUser() throws org.apache.thrift.TException
+    public User recv_getUser() throws com.savariwala.ServerError, org.apache.thrift.TException
     {
       getUser_result result = new getUser_result();
       receiveBase(result, "getUser");
       if (result.isSetSuccess()) {
         return result.success;
       }
+      if (result.err != null) {
+        throw result.err;
+      }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getUser failed: unknown result");
     }
 
-    public void addUser(User user) throws org.apache.thrift.TException
+    public void addUser(User user) throws com.savariwala.ServerError, org.apache.thrift.TException
     {
       send_addUser(user);
       recv_addUser();
@@ -106,10 +109,13 @@ public class UsersManager {
       sendBase("addUser", args);
     }
 
-    public void recv_addUser() throws org.apache.thrift.TException
+    public void recv_addUser() throws com.savariwala.ServerError, org.apache.thrift.TException
     {
       addUser_result result = new addUser_result();
       receiveBase(result, "addUser");
+      if (result.err != null) {
+        throw result.err;
+      }
       return;
     }
 
@@ -153,7 +159,7 @@ public class UsersManager {
         prot.writeMessageEnd();
       }
 
-      public User getResult() throws org.apache.thrift.TException {
+      public User getResult() throws com.savariwala.ServerError, org.apache.thrift.TException {
         if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
@@ -185,7 +191,7 @@ public class UsersManager {
         prot.writeMessageEnd();
       }
 
-      public void getResult() throws org.apache.thrift.TException {
+      public void getResult() throws com.savariwala.ServerError, org.apache.thrift.TException {
         if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
@@ -228,7 +234,11 @@ public class UsersManager {
 
       public getUser_result getResult(I iface, getUser_args args) throws org.apache.thrift.TException {
         getUser_result result = new getUser_result();
-        result.success = iface.getUser(args.fbUserId);
+        try {
+          result.success = iface.getUser(args.fbUserId);
+        } catch (com.savariwala.ServerError err) {
+          result.err = err;
+        }
         return result;
       }
     }
@@ -248,7 +258,11 @@ public class UsersManager {
 
       public addUser_result getResult(I iface, addUser_args args) throws org.apache.thrift.TException {
         addUser_result result = new addUser_result();
-        iface.addUser(args.user);
+        try {
+          iface.addUser(args.user);
+        } catch (com.savariwala.ServerError err) {
+          result.err = err;
+        }
         return result;
       }
     }
@@ -298,6 +312,12 @@ public class UsersManager {
             byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
             org.apache.thrift.TBase msg;
             getUser_result result = new getUser_result();
+            if (e instanceof com.savariwala.ServerError) {
+                        result.err = (com.savariwala.ServerError) e;
+                        result.setErrIsSet(true);
+                        msg = result;
+            }
+             else 
             {
               msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
               msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
@@ -348,6 +368,12 @@ public class UsersManager {
             byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
             org.apache.thrift.TBase msg;
             addUser_result result = new addUser_result();
+            if (e instanceof com.savariwala.ServerError) {
+                        result.err = (com.savariwala.ServerError) e;
+                        result.setErrIsSet(true);
+                        msg = result;
+            }
+             else 
             {
               msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
               msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
@@ -732,6 +758,7 @@ public class UsersManager {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getUser_result");
 
     private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
+    private static final org.apache.thrift.protocol.TField ERR_FIELD_DESC = new org.apache.thrift.protocol.TField("err", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -740,10 +767,12 @@ public class UsersManager {
     }
 
     public User success; // required
+    public com.savariwala.ServerError err; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      SUCCESS((short)0, "success");
+      SUCCESS((short)0, "success"),
+      ERR((short)1, "err");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -760,6 +789,8 @@ public class UsersManager {
         switch(fieldId) {
           case 0: // SUCCESS
             return SUCCESS;
+          case 1: // ERR
+            return ERR;
           default:
             return null;
         }
@@ -805,6 +836,8 @@ public class UsersManager {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, User.class)));
+      tmpMap.put(_Fields.ERR, new org.apache.thrift.meta_data.FieldMetaData("err", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getUser_result.class, metaDataMap);
     }
@@ -813,10 +846,12 @@ public class UsersManager {
     }
 
     public getUser_result(
-      User success)
+      User success,
+      com.savariwala.ServerError err)
     {
       this();
       this.success = success;
+      this.err = err;
     }
 
     /**
@@ -825,6 +860,9 @@ public class UsersManager {
     public getUser_result(getUser_result other) {
       if (other.isSetSuccess()) {
         this.success = new User(other.success);
+      }
+      if (other.isSetErr()) {
+        this.err = new com.savariwala.ServerError(other.err);
       }
     }
 
@@ -835,6 +873,7 @@ public class UsersManager {
     @Override
     public void clear() {
       this.success = null;
+      this.err = null;
     }
 
     public User getSuccess() {
@@ -861,6 +900,30 @@ public class UsersManager {
       }
     }
 
+    public com.savariwala.ServerError getErr() {
+      return this.err;
+    }
+
+    public getUser_result setErr(com.savariwala.ServerError err) {
+      this.err = err;
+      return this;
+    }
+
+    public void unsetErr() {
+      this.err = null;
+    }
+
+    /** Returns true if field err is set (has been assigned a value) and false otherwise */
+    public boolean isSetErr() {
+      return this.err != null;
+    }
+
+    public void setErrIsSet(boolean value) {
+      if (!value) {
+        this.err = null;
+      }
+    }
+
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
       case SUCCESS:
@@ -871,6 +934,14 @@ public class UsersManager {
         }
         break;
 
+      case ERR:
+        if (value == null) {
+          unsetErr();
+        } else {
+          setErr((com.savariwala.ServerError)value);
+        }
+        break;
+
       }
     }
 
@@ -878,6 +949,9 @@ public class UsersManager {
       switch (field) {
       case SUCCESS:
         return getSuccess();
+
+      case ERR:
+        return getErr();
 
       }
       throw new IllegalStateException();
@@ -892,6 +966,8 @@ public class UsersManager {
       switch (field) {
       case SUCCESS:
         return isSetSuccess();
+      case ERR:
+        return isSetErr();
       }
       throw new IllegalStateException();
     }
@@ -915,6 +991,15 @@ public class UsersManager {
         if (!(this_present_success && that_present_success))
           return false;
         if (!this.success.equals(that.success))
+          return false;
+      }
+
+      boolean this_present_err = true && this.isSetErr();
+      boolean that_present_err = true && that.isSetErr();
+      if (this_present_err || that_present_err) {
+        if (!(this_present_err && that_present_err))
+          return false;
+        if (!this.err.equals(that.err))
           return false;
       }
 
@@ -944,6 +1029,16 @@ public class UsersManager {
           return lastComparison;
         }
       }
+      lastComparison = Boolean.valueOf(isSetErr()).compareTo(other.isSetErr());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetErr()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.err, other.err);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
       return 0;
     }
 
@@ -969,6 +1064,14 @@ public class UsersManager {
         sb.append("null");
       } else {
         sb.append(this.success);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("err:");
+      if (this.err == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.err);
       }
       first = false;
       sb.append(")");
@@ -1026,6 +1129,15 @@ public class UsersManager {
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
+            case 1: // ERR
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.err = new com.savariwala.ServerError();
+                struct.err.read(iprot);
+                struct.setErrIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
             default:
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
@@ -1044,6 +1156,11 @@ public class UsersManager {
         if (struct.success != null) {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           struct.success.write(oprot);
+          oprot.writeFieldEnd();
+        }
+        if (struct.err != null) {
+          oprot.writeFieldBegin(ERR_FIELD_DESC);
+          struct.err.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -1067,20 +1184,31 @@ public class UsersManager {
         if (struct.isSetSuccess()) {
           optionals.set(0);
         }
-        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetErr()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
         if (struct.isSetSuccess()) {
           struct.success.write(oprot);
+        }
+        if (struct.isSetErr()) {
+          struct.err.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, getUser_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
+        BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
           struct.success = new User();
           struct.success.read(iprot);
           struct.setSuccessIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.err = new com.savariwala.ServerError();
+          struct.err.read(iprot);
+          struct.setErrIsSet(true);
         }
       }
     }
@@ -1449,6 +1577,7 @@ public class UsersManager {
   public static class addUser_result implements org.apache.thrift.TBase<addUser_result, addUser_result._Fields>, java.io.Serializable, Cloneable, Comparable<addUser_result>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("addUser_result");
 
+    private static final org.apache.thrift.protocol.TField ERR_FIELD_DESC = new org.apache.thrift.protocol.TField("err", org.apache.thrift.protocol.TType.STRUCT, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -1456,10 +1585,11 @@ public class UsersManager {
       schemes.put(TupleScheme.class, new addUser_resultTupleSchemeFactory());
     }
 
+    public com.savariwala.ServerError err; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-;
+      ERR((short)1, "err");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -1474,6 +1604,8 @@ public class UsersManager {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
+          case 1: // ERR
+            return ERR;
           default:
             return null;
         }
@@ -1512,9 +1644,13 @@ public class UsersManager {
         return _fieldName;
       }
     }
+
+    // isset id assignments
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.ERR, new org.apache.thrift.meta_data.FieldMetaData("err", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRUCT)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addUser_result.class, metaDataMap);
     }
@@ -1522,10 +1658,20 @@ public class UsersManager {
     public addUser_result() {
     }
 
+    public addUser_result(
+      com.savariwala.ServerError err)
+    {
+      this();
+      this.err = err;
+    }
+
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public addUser_result(addUser_result other) {
+      if (other.isSetErr()) {
+        this.err = new com.savariwala.ServerError(other.err);
+      }
     }
 
     public addUser_result deepCopy() {
@@ -1534,15 +1680,51 @@ public class UsersManager {
 
     @Override
     public void clear() {
+      this.err = null;
+    }
+
+    public com.savariwala.ServerError getErr() {
+      return this.err;
+    }
+
+    public addUser_result setErr(com.savariwala.ServerError err) {
+      this.err = err;
+      return this;
+    }
+
+    public void unsetErr() {
+      this.err = null;
+    }
+
+    /** Returns true if field err is set (has been assigned a value) and false otherwise */
+    public boolean isSetErr() {
+      return this.err != null;
+    }
+
+    public void setErrIsSet(boolean value) {
+      if (!value) {
+        this.err = null;
+      }
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
+      case ERR:
+        if (value == null) {
+          unsetErr();
+        } else {
+          setErr((com.savariwala.ServerError)value);
+        }
+        break;
+
       }
     }
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
+      case ERR:
+        return getErr();
+
       }
       throw new IllegalStateException();
     }
@@ -1554,6 +1736,8 @@ public class UsersManager {
       }
 
       switch (field) {
+      case ERR:
+        return isSetErr();
       }
       throw new IllegalStateException();
     }
@@ -1571,6 +1755,15 @@ public class UsersManager {
       if (that == null)
         return false;
 
+      boolean this_present_err = true && this.isSetErr();
+      boolean that_present_err = true && that.isSetErr();
+      if (this_present_err || that_present_err) {
+        if (!(this_present_err && that_present_err))
+          return false;
+        if (!this.err.equals(that.err))
+          return false;
+      }
+
       return true;
     }
 
@@ -1587,6 +1780,16 @@ public class UsersManager {
 
       int lastComparison = 0;
 
+      lastComparison = Boolean.valueOf(isSetErr()).compareTo(other.isSetErr());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetErr()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.err, other.err);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
       return 0;
     }
 
@@ -1607,6 +1810,13 @@ public class UsersManager {
       StringBuilder sb = new StringBuilder("addUser_result(");
       boolean first = true;
 
+      sb.append("err:");
+      if (this.err == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.err);
+      }
+      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -1650,6 +1860,15 @@ public class UsersManager {
             break;
           }
           switch (schemeField.id) {
+            case 1: // ERR
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.err = new com.savariwala.ServerError();
+                struct.err.read(iprot);
+                struct.setErrIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
             default:
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
@@ -1665,6 +1884,11 @@ public class UsersManager {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.err != null) {
+          oprot.writeFieldBegin(ERR_FIELD_DESC);
+          struct.err.write(oprot);
+          oprot.writeFieldEnd();
+        }
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -1682,11 +1906,25 @@ public class UsersManager {
       @Override
       public void write(org.apache.thrift.protocol.TProtocol prot, addUser_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetErr()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetErr()) {
+          struct.err.write(oprot);
+        }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, addUser_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.err = new com.savariwala.ServerError();
+          struct.err.read(iprot);
+          struct.setErrIsSet(true);
+        }
       }
     }
 

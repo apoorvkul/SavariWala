@@ -69,6 +69,7 @@ class MonoPackageManager_Resources {
 		"SavariWala.dll",
 		"Facebook.dll",
 		"GooglePlayServicesLib.dll",
+		"Thrift.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};

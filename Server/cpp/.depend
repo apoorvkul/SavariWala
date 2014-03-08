@@ -1,0 +1,39 @@
+MapPointProviderSvc.o: MapPointProviderSvc.cpp \
+ /usr/local/include/thrift/protocol/TBinaryProtocol.h \
+ /usr/local/include/thrift/protocol/TProtocol.h \
+ /usr/local/include/thrift/transport/TTransport.h \
+ /usr/local/include/thrift/Thrift.h \
+ /usr/local/include/thrift/transport/PlatformSocket.h \
+ /usr/local/include/thrift/thrift-config.h \
+ /usr/local/include/thrift/config.h /usr/local/include/thrift/TLogging.h \
+ /usr/local/include/thrift/transport/TTransportException.h \
+ /usr/local/include/thrift/protocol/TProtocolException.h \
+ /usr/local/include/thrift/protocol/TVirtualProtocol.h \
+ /usr/local/include/thrift/protocol/TBinaryProtocol.tcc \
+ /usr/local/include/thrift/server/TSimpleServer.h \
+ /usr/local/include/thrift/server/TServer.h \
+ /usr/local/include/thrift/TProcessor.h \
+ /usr/local/include/thrift/transport/TServerTransport.h \
+ /usr/local/include/thrift/concurrency/Thread.h \
+ /usr/local/include/thrift/transport/TServerSocket.h \
+ /usr/local/include/thrift/transport/TTransportUtils.h \
+ /usr/local/include/thrift/transport/TBufferTransports.h \
+ /usr/local/include/thrift/transport/TVirtualTransport.h \
+ /usr/local/include/thrift/transport/TFileTransport.h \
+ /usr/local/include/thrift/concurrency/Mutex.h \
+ /usr/local/include/thrift/concurrency/Monitor.h \
+ /usr/local/include/thrift/concurrency/Exception.h \
+ /usr/local/include/thrift/concurrency/PlatformThreadFactory.h \
+ /usr/local/include/thrift/concurrency/PosixThreadFactory.h \
+ /usr/local/include/cppdb/frontend.h /usr/local/include/cppdb/defs.h \
+ /usr/local/include/cppdb/errors.h /usr/local/include/cppdb/ref_ptr.h \
+ /usr/local/include/cppdb/atomic_counter.h \
+ /Users/apoorvkulshrestha/Projects/SavariWala/idl/gen-cpp/MapPointProvider.h \
+ /usr/local/include/thrift/TDispatchProcessor.h \
+ /Users/apoorvkulshrestha/Projects/SavariWala/idl/gen-cpp/NearestPoint_types.h \
+ /usr/local/include/thrift/TApplicationException.h \
+ /usr/local/include/thrift/cxxfunctional.h \
+ /usr/local/include/glog/logging.h /usr/local/include/glog/log_severity.h \
+ /usr/local/include/glog/vlog_is_on.h \
+ /Users/apoorvkulshrestha/Projects/SavariWala/Server/ext/pkgs/gflags/latest/include/gflags/gflags.h \
+ /Users/apoorvkulshrestha/Projects/SavariWala/Server/ext/pkgs/gflags/latest/include/gflags/gflags_declare.h

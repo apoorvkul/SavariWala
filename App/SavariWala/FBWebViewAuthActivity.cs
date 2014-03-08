@@ -17,6 +17,8 @@ using Facebook;
 
 namespace SavariWala.AndroidApp
 {
+
+
 	[Activity (Label = "FBWebViewAuthActivity")]			
 	public class FBWebViewAuthActivity : Activity
 	{
@@ -58,7 +60,7 @@ namespace SavariWala.AndroidApp
 		{
 			var parameters = new Dictionary<string, object>();
 			parameters["client_id"] = appId;
-			parameters["redirect_uri"] = "https://www.facebook.com/connect/login_success.html";
+			parameters["redirect_uri"] = "https://m.facebook.com/connect/login_success.html";
 			parameters["response_type"] = "token";
 			parameters["display"] = "touch";
 			

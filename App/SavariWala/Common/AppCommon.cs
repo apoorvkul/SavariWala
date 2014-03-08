@@ -11,6 +11,10 @@ using Android.Widget;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Xml.Serialization;
+using Thrift.Transport;
+using Thrift.Protocol;
+using Thrift;
+
 
 namespace SavariWala.Common
 {
@@ -25,6 +29,7 @@ namespace SavariWala.Common
 	public class AppCommon 
 	{
 		public const string FbAppId = "256081284574018";
+
 		/// <summary>
 		/// Extended permissions is a comma separated list of permissions to ask the user.
 		/// </summary>
@@ -36,6 +41,10 @@ namespace SavariWala.Common
 
 		public static AppCommon Inst { get; private set; }
 			
+		// TODO Server connection details should come from some configs 
+		public string ServerAddr { get { return "192.168.0.12"; } }
+		public int ServerPort { get { return 9090; } }
+
 		public bool IsLoggedIn { get; private set; }
 		public string FbAccessToken { get; set;}
 		public UserData UserData { get; private set;}
@@ -47,6 +56,8 @@ namespace SavariWala.Common
 		public Request CurrentReq { get; set; }
 		public GeoLoc CurLoc { get; set; }
 		public GeoLoc Destination { get; set; }
+
+		public bool DisableServer { get { return true; } }
 
 		public AppCommon(string googleApiKeyNative, string googleApiKeyWeb)
 		{
@@ -78,12 +89,27 @@ namespace SavariWala.Common
 			}
 		}
 
-		public void InitUser(string userName, bool loggedIn)
+		public void InitUser(string fbUserId)
 		{
-			UserData = AppData.KnownUserDatas.Find ((userData) => userData.UserName == userName);
+			if (DisableServer) {
+				UserData = new UserData { FbUserId = fbUserId, UserName = "Disconnected User", IsPassenger = true };
+			}
+			else{
+			UserData = AppData.KnownUserDatas.Find ((userData) => userData.FbUserId == fbUserId);
 			if (UserData == null) {
-				// TODO Fetch from server
-				UserData = new UserData { UserName = userName, UserType = UserData.UserTypeEnum.Passenger };
+					var transport = new TSocket(AppCommon.Inst.ServerAddr, AppCommon.Inst.ServerPort);
+					var client = new UsersManager.Client(new TBinaryProtocol(transport));
+					transport.Open();
+					try
+					{
+						var user = client.getUser(fbUserId);
+						UserData = new UserData { UserName = user.UserName, IsPassenger = user.IsPassenger };
+					}
+					finally
+					{
+						transport.Close();
+					}
+				}
 			}
 		}
 

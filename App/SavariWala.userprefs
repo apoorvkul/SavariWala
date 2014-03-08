@@ -1,12 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/Common/AppCommon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/FBWebViewAuthActivity.cs">
     <Files>
-      <File FileName="SavariWala/Common/AppCommon.cs" Line="28" Column="16" />
+      <File FileName="SavariWala/Common/AppCommon.cs" Line="105" Column="6" />
+      <File FileName="SavariWala/LoginActivity.cs" Line="33" Column="10" />
+      <File FileName="../idl/gen-csharp/SavariWala/ServerError.cs" Line="27" Column="16" />
+      <File FileName="SavariWala/FBWebViewAuthActivity.cs" Line="88" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/Common/AppCommon.cs" line="100" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />

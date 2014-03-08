@@ -146,6 +146,9 @@ namespace SavariWala
         if (result.__isset.success) {
           return result.Success;
         }
+        if (result.__isset.err) {
+          throw result.Err;
+        }
         throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "getUser failed: unknown result");
       }
 
@@ -205,6 +208,9 @@ namespace SavariWala
         addUser_result result = new addUser_result();
         result.Read(iprot_);
         iprot_.ReadMessageEnd();
+        if (result.__isset.err) {
+          throw result.Err;
+        }
         return;
       }
 
@@ -253,7 +259,11 @@ namespace SavariWala
         args.Read(iprot);
         iprot.ReadMessageEnd();
         getUser_result result = new getUser_result();
-        result.Success = iface_.getUser(args.FbUserId);
+        try {
+          result.Success = iface_.getUser(args.FbUserId);
+        } catch (SavariWala.ServerError err) {
+          result.Err = err;
+        }
         oprot.WriteMessageBegin(new TMessage("getUser", TMessageType.Reply, seqid)); 
         result.Write(oprot);
         oprot.WriteMessageEnd();
@@ -266,7 +276,11 @@ namespace SavariWala
         args.Read(iprot);
         iprot.ReadMessageEnd();
         addUser_result result = new addUser_result();
-        iface_.addUser(args.User);
+        try {
+          iface_.addUser(args.User);
+        } catch (SavariWala.ServerError err) {
+          result.Err = err;
+        }
         oprot.WriteMessageBegin(new TMessage("addUser", TMessageType.Reply, seqid)); 
         result.Write(oprot);
         oprot.WriteMessageEnd();
@@ -369,6 +383,7 @@ namespace SavariWala
     public partial class getUser_result : TBase
     {
       private User _success;
+      private SavariWala.ServerError _err;
 
       public User Success
       {
@@ -383,6 +398,19 @@ namespace SavariWala
         }
       }
 
+      public SavariWala.ServerError Err
+      {
+        get
+        {
+          return _err;
+        }
+        set
+        {
+          __isset.err = true;
+          this._err = value;
+        }
+      }
+
 
       public Isset __isset;
       #if !SILVERLIGHT
@@ -390,6 +418,7 @@ namespace SavariWala
       #endif
       public struct Isset {
         public bool success;
+        public bool err;
       }
 
       public getUser_result() {
@@ -411,6 +440,14 @@ namespace SavariWala
               if (field.Type == TType.Struct) {
                 Success = new User();
                 Success.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 1:
+              if (field.Type == TType.Struct) {
+                Err = new SavariWala.ServerError();
+                Err.Read(iprot);
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -438,6 +475,15 @@ namespace SavariWala
             Success.Write(oprot);
             oprot.WriteFieldEnd();
           }
+        } else if (this.__isset.err) {
+          if (Err != null) {
+            field.Name = "Err";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            oprot.WriteFieldBegin(field);
+            Err.Write(oprot);
+            oprot.WriteFieldEnd();
+          }
         }
         oprot.WriteFieldStop();
         oprot.WriteStructEnd();
@@ -447,6 +493,8 @@ namespace SavariWala
         StringBuilder sb = new StringBuilder("getUser_result(");
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(",Err: ");
+        sb.Append(Err== null ? "<null>" : Err.ToString());
         sb.Append(")");
         return sb.ToString();
       }
@@ -547,6 +595,29 @@ namespace SavariWala
     #endif
     public partial class addUser_result : TBase
     {
+      private SavariWala.ServerError _err;
+
+      public SavariWala.ServerError Err
+      {
+        get
+        {
+          return _err;
+        }
+        set
+        {
+          __isset.err = true;
+          this._err = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool err;
+      }
 
       public addUser_result() {
       }
@@ -563,6 +634,14 @@ namespace SavariWala
           }
           switch (field.ID)
           {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Err = new SavariWala.ServerError();
+                Err.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
             default: 
               TProtocolUtil.Skip(iprot, field.Type);
               break;
@@ -575,13 +654,26 @@ namespace SavariWala
       public void Write(TProtocol oprot) {
         TStruct struc = new TStruct("addUser_result");
         oprot.WriteStructBegin(struc);
+        TField field = new TField();
 
+        if (this.__isset.err) {
+          if (Err != null) {
+            field.Name = "Err";
+            field.Type = TType.Struct;
+            field.ID = 1;
+            oprot.WriteFieldBegin(field);
+            Err.Write(oprot);
+            oprot.WriteFieldEnd();
+          }
+        }
         oprot.WriteFieldStop();
         oprot.WriteStructEnd();
       }
 
       public override string ToString() {
         StringBuilder sb = new StringBuilder("addUser_result(");
+        sb.Append("Err: ");
+        sb.Append(Err== null ? "<null>" : Err.ToString());
         sb.Append(")");
         return sb.ToString();
       }

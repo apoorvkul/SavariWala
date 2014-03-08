@@ -1,3 +1,4 @@
-/Users/apoorvkulshrestha/Projects/SavariWala/SavariWala/bin/Debug/SavariWala.dll
-/Users/apoorvkulshrestha/Projects/SavariWala/Components/facebook-sdk-6.2.1/lib/android/Facebook.dll
-/Users/apoorvkulshrestha/Projects/SavariWala/Components/googleplayservicesjellybean-15.0/lib/android/GooglePlayServicesLib.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/SavariWala.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/lib/android/Facebook.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googleplayservicesjellybean-15.0/lib/android/GooglePlayServicesLib.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/ext/Thrift.dll

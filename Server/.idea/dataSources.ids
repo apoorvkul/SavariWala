@@ -10,10 +10,7 @@
     <default-dialect>PostgreSQL</default-dialect>
     <libraries>
       <library>
-        <url>jar://$PROJECT_DIR$/ext/postgresql-9.3-1100.jdbc4.jar!/</url>
-      </library>
-      <library>
-        <url>file://$PROJECT_DIR$/ext/postgresql-driver-license.txt</url>
+        <url>jar://$PROJECT_DIR$/ext/jars/postgresql-9.3-1100.jdbc4.jar!/</url>
       </library>
     </libraries>
     <schema name="information_schema" catalog="rideshare"/>
@@ -2334,6 +2331,16 @@
       <column name="viewname" sqlType="name" length="2147483647" precision="0" nullable="true" jdbcType="12"/>
       <column name="viewowner" sqlType="name" length="2147483647" precision="0" nullable="true" jdbcType="12"/>
       <column name="definition" sqlType="text" length="2147483647" precision="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="map_points" schema="public" catalog="rideshare" type="TABLE">
+      <column name="latitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
+      <column name="longitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
+      <column name="description" sqlType="varchar" length="200" precision="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="src_map_points" schema="public" catalog="rideshare" type="TABLE">
+      <column name="latitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
+      <column name="longitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
+      <column name="description" sqlType="varchar" length="200" precision="0" nullable="true" jdbcType="12"/>
     </table>
     <table name="users" schema="public" catalog="rideshare" type="TABLE">
       <column name="fb_user_id" sqlType="varchar" length="200" precision="0" nullable="true" jdbcType="12"/>

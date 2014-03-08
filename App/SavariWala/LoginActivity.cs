@@ -23,7 +23,7 @@ namespace SavariWala.AndroidApp
 			var btnLogin = FindViewById<Button> (Resource.Id.fbButton);
 
 			btnLogin.Click += (sender, e) => {
-				var webAuth = new Intent (this, typeof (FBWebViewAuthActivity));
+				var webAuth = new Intent (this, typeof(FBWebViewAuthActivity));
 				webAuth.PutExtra ("AppId", AppCommon.FbAppId);
 				webAuth.PutExtra ("ExtendedPermissions", AppCommon.ExtendedPermissions);
 				StartActivityForResult (webAuth, 0);
@@ -32,6 +32,7 @@ namespace SavariWala.AndroidApp
 
 		protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
 		{
+
 			base.OnActivityResult (requestCode, resultCode, data);
 
 			switch (resultCode) {
@@ -43,8 +44,17 @@ namespace SavariWala.AndroidApp
 				if (!String.IsNullOrEmpty(error))
 					Utils.Alert (this, "Failed to Log In", "Reason: " + error, false);
 				else {
-					AppCommon.Inst.InitUser (data.GetStringExtra ("UserId"), true);
-					this.StartNextActivity<ReqBookingSrcActivity> ();
+					try
+					{
+						AppCommon.Inst.InitUser (data.GetStringExtra ("UserId"));
+						this.StartNextActivity<ReqBookingSrcActivity> ();
+					}
+					catch(ServerError ex) {
+						if (ex.Err == ErrorCode.NotFound)
+							Utils.Alert (this, "Please Register", "User not registered. Please sign up.", false);
+						else
+							AppCommon.Inst.Log.Error (ex.ToString ());
+					}
 				}
 				break;
 			case Result.Canceled:

@@ -1,0 +1,17 @@
+Exception_constants.o: Exception_constants.cpp Exception_constants.h \
+ Exception_types.h
+Exception_types.o: Exception_types.cpp Exception_types.h
+MapPointProvider.o: MapPointProvider.cpp MapPointProvider.h \
+ NearestPoint_types.h
+MapPointProvider_server.skeleton.o: MapPointProvider_server.skeleton.cpp \
+ MapPointProvider.h NearestPoint_types.h
+NearestPoint_constants.o: NearestPoint_constants.cpp \
+ NearestPoint_constants.h NearestPoint_types.h
+NearestPoint_types.o: NearestPoint_types.cpp NearestPoint_types.h
+User_constants.o: User_constants.cpp User_constants.h User_types.h \
+ Exception_types.h
+User_types.o: User_types.cpp User_types.h Exception_types.h
+UsersManager.o: UsersManager.cpp UsersManager.h User_types.h \
+ Exception_types.h
+UsersManager_server.skeleton.o: UsersManager_server.skeleton.cpp \
+ UsersManager.h User_types.h Exception_types.h
