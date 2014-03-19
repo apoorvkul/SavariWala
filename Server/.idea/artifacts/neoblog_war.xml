@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="neoblog:war">
+    <output-path>$USER_HOME$/Code/jo4neo-read-only/jo4neoblog/target</output-path>
+    <root id="archive" name="neoblog.war">
+      <element id="artifact" artifact-name="neoblog:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="genson-0.97">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ext/jars/genson-0.97.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

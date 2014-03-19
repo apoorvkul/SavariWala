@@ -17,19 +17,33 @@ namespace SavariWala.AndroidApp
 	[Activity (Label = "@string/reqDetails")]			
 	public class ReqDetailsActivity : Activity
 	{
+		// Test Cases:
+		//	_dst is retained on screen reorientation/back button?
+
+		// Bugs: Validation response delayed and no keyboard displayed after validation failure
+
+		// TODO: isShared
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.ReqDetails);
 
-			AppCommon.Inst.CurrentReq.StartTime = DateTime.Now.Add (TimeSpan.FromMinutes (0));
-
+			AppCommon.Inst.CurrentReq.StartTime = DateTime.Now.AddMinutes (0);
 			var textStartTime = FindViewById<EditText> (Resource.Id.textStartTime);
 			textStartTime.Text = DateTime.Now.TimeOfDay.ToString ("c").Substring (0, 5) +
-				"(Omins from now)";
-			//TODO: Only current booking for now
-			textStartTime.Enabled = false;
+				"(0 mins from now)";
+
+			textStartTime.Click += (sender, e) => Utils.AlertOnEx(this, 
+				"Invalid Input", "Please enter valid entries", 
+				() => AppCommon.Inst.CurrentReq.StartTime = DateTime.Parse (textStartTime.Text));
+
+			AppCommon.Inst.CurrentReq.Details.NumPax = 1;
+			var textNumPax = FindViewById<EditText> (Resource.Id.textNumPax);
+			textStartTime.Click += (sender, e) => Utils.AlertOnEx (this, 
+				"Invalid Input", "Please enter valid entries", 
+				() => AppCommon.Inst.CurrentReq.Details.NumPax = int.Parse (textNumPax.Text));
 
 			var textDest = FindViewById<AutoCompleteTextView> (Resource.Id.textDest);
 			textDest.TextChanged += AutoCompletePlaces;
@@ -44,6 +58,7 @@ namespace SavariWala.AndroidApp
 					e.Handled = true; 
 				}
 			};
+			textDest.RequestFocus ();
 		}
 
 		void AutoCompletePlaces (object sender, Android.Text.TextChangedEventArgs e)

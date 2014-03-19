@@ -26,4 +26,5 @@
 	<string name="pendingWait">Request Pending. Please Wait...</string>
 	<string name="cancel">Cancel</string>
 	<string name="reqCancel">Cancel Request</string>
+	<string name="numPax">Number of Person(s)</string>
 </resources>

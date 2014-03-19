@@ -1,18 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/FBWebViewAuthActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/Common/AppCommon.cs">
     <Files>
-      <File FileName="SavariWala/Common/AppCommon.cs" Line="105" Column="6" />
-      <File FileName="SavariWala/LoginActivity.cs" Line="33" Column="10" />
-      <File FileName="../idl/gen-csharp/SavariWala/ServerError.cs" Line="27" Column="16" />
-      <File FileName="SavariWala/FBWebViewAuthActivity.cs" Line="88" Column="37" />
+      <File FileName="SavariWala/ReqConfirmActivity.cs" Line="17" Column="33" />
+      <File FileName="SavariWala/Common/AppCommon.cs" Line="139" Column="25" />
+      <File FileName="../idl/gen-csharp/SavariWala/UsersManager.cs" Line="77" Column="43" />
+      <File FileName="SavariWala/ReqDetailsActivity.cs" Line="30" Column="4" />
+      <File FileName="SavariWala/Common/DirectionsProvider.cs" Line="17" Column="83" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/Common/AppCommon.cs" line="100" column="1" />
+      <Breakpoint file="/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/Common/AppCommon.cs" line="130" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />
+  <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7&quot; WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />
 </Properties>

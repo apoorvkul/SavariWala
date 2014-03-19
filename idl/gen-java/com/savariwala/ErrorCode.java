@@ -13,7 +13,9 @@ import org.apache.thrift.TEnum;
 
 public enum ErrorCode implements org.apache.thrift.TEnum {
   Unspecified(0),
-  NotFound(1);
+  UserNotFound(1),
+  InvalidArg(2),
+  Interrupted(3);
 
   private final int value;
 
@@ -37,7 +39,11 @@ public enum ErrorCode implements org.apache.thrift.TEnum {
       case 0:
         return Unspecified;
       case 1:
-        return NotFound;
+        return UserNotFound;
+      case 2:
+        return InvalidArg;
+      case 3:
+        return Interrupted;
       default:
         return null;
     }

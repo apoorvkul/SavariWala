@@ -20,10 +20,26 @@ namespace SavariWala.Common
 {
 	public class Request 
 	{
+		private static DateTime Epoch = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
 		public Place Src { get; set; }
 		public Place Dst { get; set; }
-		public DateTime StartTime { get; set; }
-		public bool Shared { get; set; }
+		DateTime _startTime;
+		public DateTime StartTime {
+			get {
+				return _startTime;
+			}
+			set {
+				_startTime = value;
+				Details.StartTime = (long)_startTime.ToUniversalTime ().Subtract (Epoch).TotalMilliseconds;
+			}
+		}
+		public BookingDetails Details { get; private set; }
+
+		public Request() 
+		{
+			Details = new BookingDetails ();
+		}
 	}
 
 	public class AppCommon 
@@ -56,6 +72,9 @@ namespace SavariWala.Common
 		public Request CurrentReq { get; set; }
 		public GeoLoc CurLoc { get; set; }
 		public GeoLoc Destination { get; set; }
+		public DirectionsProvider DirectionsProvider { get; private set; }
+		public Int64 BookingId { get; private set; }
+		public ErrorTranslator ErrorTranslator { get; set; }
 
 		public bool DisableServer { get { return true; } }
 
@@ -68,6 +87,7 @@ namespace SavariWala.Common
 			Log = new Logger ();
 			LoadAppData ();
 			PlacesProvider = new PlacesProvider ();
+			DirectionsProvider = new DirectionsProvider ();
 		}
 
 		private void LoadAppData()
@@ -89,31 +109,69 @@ namespace SavariWala.Common
 			}
 		}
 
+		public static void ExceptionSafe(Action action, Action<TException> onTException)
+		{
+			try
+			{
+				action();
+			}
+			catch(TException e) {
+				onTException (e);
+			}
+			catch (Exception e){ AppCommon.Inst.Log.Warn (e.ToString ());}
+		}
+			
+		public void ConfirmBookingReq (Action onComplete, Action<TException> onTException)
+		{
+			DirectionsProvider.GetRoutesAsync ((json) => {
+				ExceptionSafe(() => {
+					using (var client = new RequestHandler.Client(GetThriftProtocol(PortOffsets.RequestHandler)))
+					{
+						BookingId = client.submitBooking(CurrentReq.Details, json);
+					}
+					onComplete();
+				}, onTException);
+			}, CurrentReq.Src.Loc, CurrentReq.Dst.Loc);
+		}
+
+		public void CancelBookingReq (Action onComplete, Action<TException> onTException)
+		{
+			ExceptionSafe(() => {
+				using (var client = new RequestHandler.Client(GetThriftProtocol(PortOffsets.RequestHandler)))
+				{
+					client.cancel(BookingId);
+				}
+				onComplete();
+			}, onTException);
+		}
+
+		enum PortOffsets
+		{
+			UsersManager = 0,
+			RequestHandler = 1,
+		}
+		private TProtocol GetThriftProtocol(PortOffsets offset) {
+			var transport = new TSocket(ServerAddr, ServerPort + (int)offset);
+				transport.Open();
+			return new TBinaryProtocol (transport);  // TODO TCompactProtocol once server is ready for it
+		}
+
 		public void InitUser(string fbUserId)
 		{
 			if (DisableServer) {
 				UserData = new UserData { FbUserId = fbUserId, UserName = "Disconnected User", IsPassenger = true };
+				return;
 			}
-			else{
+
 			UserData = AppData.KnownUserDatas.Find ((userData) => userData.FbUserId == fbUserId);
 			if (UserData == null) {
-					var transport = new TSocket(AppCommon.Inst.ServerAddr, AppCommon.Inst.ServerPort);
-					var client = new UsersManager.Client(new TBinaryProtocol(transport));
-					transport.Open();
-					try
-					{
-						var user = client.getUser(fbUserId);
-						UserData = new UserData { UserName = user.UserName, IsPassenger = user.IsPassenger };
-					}
-					finally
-					{
-						transport.Close();
-					}
+
+				using (var client = new UsersManager.Client(GetThriftProtocol(PortOffsets.UsersManager)))
+				{
+					var user = client.getUser(fbUserId);
+					UserData = new UserData { UserName = user.UserName, IsPassenger = user.IsPassenger };
 				}
 			}
 		}
-
-
 	}
 }
-

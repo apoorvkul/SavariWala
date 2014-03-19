@@ -14,6 +14,18 @@
     <orderEntry type="library" name="postgresql-9.3-1100.jdbc4" level="project" />
     <orderEntry type="library" name="libthrift-0.9.1" level="project" />
     <orderEntry type="library" name="slf4j-api-1.7.6" level="project" />
+    <orderEntry type="library" name="httpclient-4.3.3" level="project" />
+    <orderEntry type="library" name="fluent-hc-4.3.3" level="project" />
+    <orderEntry type="library" name="quick-json-1.0.2.3" level="project" />
+    <orderEntry type="library" name="neo4j-kernel-2.0.1" level="project" />
+    <orderEntry type="library" name="neo4j-graph-algo-2.0.1" level="project" />
+    <orderEntry type="library" name="neo4j-graph-matching-2.0.1" level="project" />
+    <orderEntry type="library" name="neo4j-spatial-0.12-neo4j-2.0.1" level="project" />
+    <orderEntry type="library" name="jts-1.13" level="project" />
+    <orderEntry type="library" name="neo4j-graph-collections-0.7.1-neo4j-2.0.1" level="project" />
+    <orderEntry type="library" name="javatuples-1.2" level="project" />
+    <orderEntry type="library" name="scala-library-2.10.3" level="application" />
+    <orderEntry type="library" name="genson-0.97" level="project" />
   </component>
 </module>
 

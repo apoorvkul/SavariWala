@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using SavariWala.Common;
 using System.Threading;
+using SavariWala.Common.Locale;
 
 namespace SavariWala.AndroidApp
 {
@@ -35,7 +36,9 @@ namespace SavariWala.AndroidApp
 			base.OnCreate ();
 
 			// TODO Hardcoding API key for now. Get from manifest
-			new AppCommon("AIzaSyBjclPxE1Y_XkiaFIFDQCMr1hdSaFHw124", "AIzaSyBK3goB0EEh36HN_CiG-OW2GjnBdl2j1SQ");
+			new AppCommon ("AIzaSyBjclPxE1Y_XkiaFIFDQCMr1hdSaFHw124", "AIzaSyBK3goB0EEh36HN_CiG-OW2GjnBdl2j1SQ") {
+				ErrorTranslator = new ErrorTranslatorEnglish ()
+			};
 			LocationProvider = new LocationProvider ();
 			ThreadPool.QueueUserWorkItem ((x) => LocationProvider.Connect ());
 

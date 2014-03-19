@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SavariWala
+namespace SavariWala.Common
 {
 	// Holder for extentsion methods improving programming fluency
 	static public class FluencyHelper

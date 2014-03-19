@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jts-1.13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ext/jars/jts-1.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/jts-1.13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

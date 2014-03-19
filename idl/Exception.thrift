@@ -4,7 +4,9 @@ namespace cpp savariwala
 
 enum ErrorCode {
   Unspecified = 0
-  NotFound = 1
+  UserNotFound = 1
+  InvalidArg = 2
+  Interrupted = 3
 }
 
 exception ServerError {

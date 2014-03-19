@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using Facebook;
 using SavariWala.Common;
+using Thrift;
 
 namespace SavariWala.AndroidApp
 {
@@ -41,6 +42,7 @@ namespace SavariWala.AndroidApp
 				AppCommon.Inst.FbAccessToken = data.GetStringExtra ("AccessToken");
 				string error = data.GetStringExtra ("Exception");
 
+				// TODO Localization for facebook errors
 				if (!String.IsNullOrEmpty(error))
 					Utils.Alert (this, "Failed to Log In", "Reason: " + error, false);
 				else {
@@ -49,11 +51,9 @@ namespace SavariWala.AndroidApp
 						AppCommon.Inst.InitUser (data.GetStringExtra ("UserId"));
 						this.StartNextActivity<ReqBookingSrcActivity> ();
 					}
-					catch(ServerError ex) {
-						if (ex.Err == ErrorCode.NotFound)
-							Utils.Alert (this, "Please Register", "User not registered. Please sign up.", false);
-						else
-							AppCommon.Inst.Log.Error (ex.ToString ());
+					catch(TException ex) 
+					{
+						Utils.HandleTException (this, ex);
 					}
 				}
 				break;

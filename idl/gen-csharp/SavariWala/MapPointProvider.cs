@@ -19,10 +19,10 @@ namespace SavariWala
 {
   public partial class MapPointProvider {
     public interface Iface {
-      List<MapPoint> getMapPoint(bool isSrc, double latitude, double longitude);
+      List<SavariWala.MapPoint> getMapPoint(bool isSrc, double latitude, double longitude);
       #if SILVERLIGHT
       IAsyncResult Begin_getMapPoint(AsyncCallback callback, object state, bool isSrc, double latitude, double longitude);
-      List<MapPoint> End_getMapPoint(IAsyncResult asyncResult);
+      List<SavariWala.MapPoint> End_getMapPoint(IAsyncResult asyncResult);
       #endif
     }
 
@@ -89,7 +89,7 @@ namespace SavariWala
         return send_getMapPoint(callback, state, isSrc, latitude, longitude);
       }
 
-      public List<MapPoint> End_getMapPoint(IAsyncResult asyncResult)
+      public List<SavariWala.MapPoint> End_getMapPoint(IAsyncResult asyncResult)
       {
         oprot_.Transport.EndFlush(asyncResult);
         return recv_getMapPoint();
@@ -97,7 +97,7 @@ namespace SavariWala
 
       #endif
 
-      public List<MapPoint> getMapPoint(bool isSrc, double latitude, double longitude)
+      public List<SavariWala.MapPoint> getMapPoint(bool isSrc, double latitude, double longitude)
       {
         #if !SILVERLIGHT
         send_getMapPoint(isSrc, latitude, longitude);
@@ -129,7 +129,7 @@ namespace SavariWala
         #endif
       }
 
-      public List<MapPoint> recv_getMapPoint()
+      public List<SavariWala.MapPoint> recv_getMapPoint()
       {
         TMessage msg = iprot_.ReadMessageBegin();
         if (msg.Type == TMessageType.Exception) {
@@ -356,9 +356,9 @@ namespace SavariWala
     #endif
     public partial class getMapPoint_result : TBase
     {
-      private List<MapPoint> _success;
+      private List<SavariWala.MapPoint> _success;
 
-      public List<MapPoint> Success
+      public List<SavariWala.MapPoint> Success
       {
         get
         {
@@ -398,12 +398,12 @@ namespace SavariWala
             case 0:
               if (field.Type == TType.List) {
                 {
-                  Success = new List<MapPoint>();
+                  Success = new List<SavariWala.MapPoint>();
                   TList _list0 = iprot.ReadListBegin();
                   for( int _i1 = 0; _i1 < _list0.Count; ++_i1)
                   {
-                    MapPoint _elem2 = new MapPoint();
-                    _elem2 = new MapPoint();
+                    SavariWala.MapPoint _elem2 = new SavariWala.MapPoint();
+                    _elem2 = new SavariWala.MapPoint();
                     _elem2.Read(iprot);
                     Success.Add(_elem2);
                   }
@@ -435,7 +435,7 @@ namespace SavariWala
             oprot.WriteFieldBegin(field);
             {
               oprot.WriteListBegin(new TList(TType.Struct, Success.Count));
-              foreach (MapPoint _iter3 in Success)
+              foreach (SavariWala.MapPoint _iter3 in Success)
               {
                 _iter3.Write(oprot);
               }

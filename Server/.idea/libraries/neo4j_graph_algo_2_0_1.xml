@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="neo4j-graph-algo-2.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ext/jars/neo4j-graph-algo-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

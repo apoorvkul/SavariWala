@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="neo4j-graph-collections-0.7.1-neo4j-2.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ext/jars/neo4j-graph-collections-0.7.1-neo4j-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Code/neo4j/graph-collections/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

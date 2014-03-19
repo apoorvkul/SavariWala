@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="neo4j-spatial-0.12-neo4j-2.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ext/jars/neo4j-spatial-0.12-neo4j-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/Code/spatial/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using SavariWala.Common;
+using Thrift;
 
 namespace SavariWala.AndroidApp
 {
@@ -41,7 +42,9 @@ namespace SavariWala.AndroidApp
 			var btnAction = FindViewById<TextView> (Resource.Id.btnAction);
 			btnAction.Click += (sender, e) => {
 				btnAction.Enabled = false;
-				SendConfirm ();
+				AppCommon.Inst.ConfirmBookingReq (
+					() => RunOnUiThread(() => SetupCancel ()),
+					(ex) => Utils.HandleTException (this, ex));
 			};
 
 			if(reset)
@@ -54,19 +57,7 @@ namespace SavariWala.AndroidApp
 				btnAction.Enabled = true;
 			}
 		}
-
-		void SendConfirm ()
-		{
-			// Send async request. Post send call in UI thread afterwards:
-			SetupCancel ();
-		}
-
-		void SendCancel ()
-		{
-			// Send async request. Post send call in UI thread afterwards:
-			SetupConfirm (true);
-		}
-
+			
 		void SetupCancel ()
 		{
 			var textPending = FindViewById<TextView> (Resource.Id.textPending);
@@ -79,7 +70,9 @@ namespace SavariWala.AndroidApp
 
 			btnAction.Click += (sender, e) => {
 				btnAction.Enabled = false;
-				SendCancel();
+				AppCommon.Inst.CancelBookingReq(
+					() => RunOnUiThread(() => SetupConfirm (true)),
+					(ex) => Utils.HandleTException (this, ex));
 			};
 		}
 	}

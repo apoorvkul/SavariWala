@@ -1,0 +1,18 @@
+include "Exception.thrift"
+include "MapPoint.thrift"
+
+namespace cpp savariwala
+namespace csharp SavariWala
+namespace java com.savariwala
+
+struct BookingDetails{
+    1:i32 numPax, 
+    2:i64 startTime,
+    3:bool isShared
+}
+
+service RequestHandler {
+    i64 submitBooking(1:BookingDetails booking, 2:string routeJson) throws (1:Exception.ServerError err), 
+    BookingDetails getDetails(1:i64 bookingId),
+    bool cancel(1:i64 bookingId) 
+}

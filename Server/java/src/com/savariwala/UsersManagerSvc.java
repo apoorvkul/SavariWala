@@ -48,7 +48,7 @@ public class UsersManagerSvc implements com.savariwala.UsersManager.Iface {
             ResultSet rs = _prepareGetUser.executeQuery();
             if (!rs.next() ) {
                 throw new ServerError(String.format("User Not Found: %s", fbUserId),
-                        ErrorCode.NotFound);
+                        ErrorCode.UserNotFound);
             }
             User user = new User();
             user.setFbUserId(fbUserId);

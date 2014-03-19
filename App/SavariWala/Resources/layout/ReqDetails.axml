@@ -6,6 +6,25 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
+        android:text="@string/numPax"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewReaching" />
+    <EditText
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textNumPax"
+        android:editable="true"
+        android:enabled="true"
+        android:textIsSelectable="true"
+        android:selectAllOnFocus="true"
+        android:imeOptions="actionDone"
+        android:cursorVisible="true"
+        android:inputType="time"
+        android:text="1" />
+    <TextView
         android:text="@string/reachingSrc"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"

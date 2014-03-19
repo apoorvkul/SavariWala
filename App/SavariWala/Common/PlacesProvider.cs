@@ -6,7 +6,7 @@ using SavariWala.Common;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SavariWala
+namespace SavariWala.Common
 {
 
 	public class GeoLoc 
@@ -27,7 +27,7 @@ namespace SavariWala
 		}
 	}
 
-	public class PlacesProvider
+	public class PlacesProvider: RestApiProviderBase
 	{
 		// TODO: use component to restrict by country
 		private const string AutoCompleteUrlFormat = 
@@ -69,24 +69,7 @@ namespace SavariWala
 			}, string.Format(SearchUrlFormat, input, "true", AppCommon.Inst.GoogleApiKeyWeb, latitude, longitude));
 		}
 
-		public void DownloadStringAsync (Action<string> handler, string url)
-		{
-			var wc = new WebClient();
-			wc.DownloadStringCompleted += (s, e) =>
-			{
-				try
-				{
-					AppCommon.Inst.Log.Debug("{0}: {1}", url, e.Result);
-					handler(e.Result);
-				}
-				catch (Exception ex)
-				{
-					AppCommon.Inst.Log.Error("Error Fetching Results from {0}: {1}", url, ex); 
-				}
-			};
 
-			wc.DownloadStringAsync (new Uri (url));
-		}
 	}
 }
 

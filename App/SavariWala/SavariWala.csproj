@@ -85,8 +85,22 @@
     <Compile Include="ReqConfirmActivity.cs" />
     <Compile Include="Common\FluencyHelper.cs" />
     <Compile Include="FleuncyHelperAndroid.cs" />
+    <Compile Include="Common\DirectionsProvider.cs" />
+    <Compile Include="Common\RestApiProviderBase.cs" />
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingDetails.cs">
+      <Link>gen-csharp\SavariWala\BookingDetails.cs</Link>
+    </Compile>
     <Compile Include="..\..\idl\gen-csharp\SavariWala\ErrorCode.cs">
       <Link>gen-csharp\SavariWala\ErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPoint.cs">
+      <Link>gen-csharp\SavariWala\MapPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPointProvider.cs">
+      <Link>gen-csharp\SavariWala\MapPointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\RequestHandler.cs">
+      <Link>gen-csharp\SavariWala\RequestHandler.cs</Link>
     </Compile>
     <Compile Include="..\..\idl\gen-csharp\SavariWala\ServerError.cs">
       <Link>gen-csharp\SavariWala\ServerError.cs</Link>
@@ -97,6 +111,8 @@
     <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
       <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
     </Compile>
+    <Compile Include="Common\ErrorTranslator.cs" />
+    <Compile Include="Common\Locale\ErrorTranslatorEnglish.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -120,6 +136,7 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="gen-csharp\" />
+    <Folder Include="Common\Locale\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="facebook-sdk">
