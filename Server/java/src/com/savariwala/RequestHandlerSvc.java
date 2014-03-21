@@ -62,7 +62,7 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
         int instanceId = 1; // TODO should come from properties
         pooledRoutes = new HashMap<>();
         bookingIdCounter = new AtomicLong(new Date().getTime()/1000 + instanceId << 60);
-        graph = new GraphDatabaseFactory().newEmbeddedDatabase("neo4j_db");
+        graph = new GraphDatabaseFactory().newEmbeddedDatabase("route_pool_db");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> graph.shutdown()));
         try (Transaction tx = graph.beginTx())
         {
@@ -338,10 +338,11 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
             BinaryOperator<Integer> adder = (a, b) -> a + b;
             // Sum up distances of all steps of all legs of first route
             return Utils.getValue(jsDirection.getRoutes().get(0).getLegs().stream()
-                    .map(leg -> Utils.getValue(leg.getSteps().stream()
-                            .map(x -> x.getDistance().getValue())
-                            .reduce(adder), 0)
-                    ).reduce(adder), 0);
+                    .map(leg -> leg.getDistance().getValue()).reduce(adder), 0);
+            /* .map(leg -> Utils.getValue(leg.getSteps().stream()
+            .map(x -> x.getDistance().getValue())
+                .reduce(adder), 0)
+            ).reduce(adder), 0);*/
         }
         catch (Exception e)
         {
@@ -373,7 +374,7 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
             Properties prop = Utils.loadProperties(RequestHandlerSvc.class);
             Utils.runThriftServer(logger,
                     new RequestHandler.Processor(new RequestHandlerSvc()),
-                    Integer.parseInt(prop.getProperty("port", "9091")));
+                    Integer.parseInt(prop.getProperty("port", "9092")));
 
         } catch (Exception ex) {
             logger.error("Failed: ", ex);

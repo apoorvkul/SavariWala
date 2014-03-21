@@ -19,4 +19,13 @@ public class JsLeg {
     }
 
     List<JsStep> steps;
+    JsDisplayValue distance;
+
+    public JsDisplayValue getDistance() {
+        return distance;
+    }
+
+    public void setDistance(JsDisplayValue distance) {
+        this.distance = distance;
+    }
 }

@@ -2,3 +2,11 @@
 /Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/lib/android/Facebook.dll
 /Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googleplayservicesjellybean-15.0/lib/android/GooglePlayServicesLib.dll
 /Users/apoorvkulshrestha/Projects/SavariWala/App/ext/Thrift.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Core.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Debugger.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Experimental.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Interfaces.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Linq.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.PlatformServices.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/rxforxamarin-2.1/lib/android/System.Reactive.Providers.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/json.net-4.5.11/lib/android/Newtonsoft.Json.dll

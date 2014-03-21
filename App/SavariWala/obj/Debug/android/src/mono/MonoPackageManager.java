@@ -70,6 +70,14 @@ class MonoPackageManager_Resources {
 		"Facebook.dll",
 		"GooglePlayServicesLib.dll",
 		"Thrift.dll",
+		"System.Reactive.Core.dll",
+		"System.Reactive.Debugger.dll",
+		"System.Reactive.Experimental.dll",
+		"System.Reactive.Interfaces.dll",
+		"System.Reactive.Linq.dll",
+		"System.Reactive.PlatformServices.dll",
+		"System.Reactive.Providers.dll",
+		"Newtonsoft.Json.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};

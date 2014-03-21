@@ -20,16 +20,27 @@ namespace SavariWala.AndroidApp
 {
 	public class LocationProvider : Java.Lang.Object, ILocationListener,
 	IGooglePlayServicesClientConnectionCallbacks, 
-	IGooglePlayServicesClientOnConnectionFailedListener, INotifyPropertyChanged
+	IGooglePlayServicesClientOnConnectionFailedListener, ILocationProvider
 	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		void onPropertyChanged([CallerMemberName] string propertyName = "")
-		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		GeoLoc _curLoc;
+		public GeoLoc CurLoc {
+			get {
+				return _curLoc;
 			}
+			set {
+				_curLoc = value;
+				OnCurLocChanged (CurLoc);
+			}
+		}
+
+		public Nullable<int> CurAccuracy { get; set;}
+
+		public event EventHandler<GeoLocEvtArgs> CurLocChanged;
+
+		protected virtual void OnCurLocChanged (GeoLoc e)
+		{
+			var handler = CurLocChanged;
+			if (handler != null) handler (this, new GeoLocEvtArgs {GeoLoc = e, Accuracy = CurAccuracy});
 		}
 
 		protected override void Dispose (bool disposing)
@@ -48,13 +59,21 @@ namespace SavariWala.AndroidApp
 
 		public void OnLocationChanged (global::Android.Locations.Location p0)
 		{
-			AppCommon.Inst.CurLoc = new GeoLoc { Lat =  p0.Latitude, Lng = p0.Longitude };
+			if (p0.HasAccuracy)
+				CurAccuracy = (int) p0.Accuracy;
+			else
+				CurAccuracy = null;
+			CurLoc = new GeoLoc { Lat =  p0.Latitude, Lng = p0.Longitude };
 		}
 
 		public void OnConnected (Bundle p0)
 		{
 			var loc = locClient_.LastLocation;
-			AppCommon.Inst.CurLoc = new GeoLoc { Lat =  loc.Latitude, Lng = loc.Longitude };
+			if (loc.HasAccuracy)
+				CurAccuracy = (int) loc.Accuracy;
+			else
+				CurAccuracy = null;
+			CurLoc = new GeoLoc { Lat =  loc.Latitude, Lng = loc.Longitude };
 		}
 
 		public void OnDisconnected ()
@@ -71,4 +90,18 @@ namespace SavariWala.AndroidApp
 		}
 	}
 }
+
+
+/*
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		void onPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		*/
+
 

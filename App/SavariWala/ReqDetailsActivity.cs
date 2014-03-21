@@ -49,7 +49,7 @@ namespace SavariWala.AndroidApp
 			textDest.TextChanged += AutoCompletePlaces;
 			textDest.EditorAction += (sender, e) => {
 				if (e.ActionId == ImeAction.Go) {
-					var curLoc = AppCommon.Inst.CurLoc;
+					var curLoc = AppCommon.Inst.LocationProvider.CurLoc;
 					AppCommon.Inst.PlacesProvider.SearchAsync (x => RunOnUiThread(() => ShowSearchResults(x)),
 						textDest.Text, curLoc.Lat, curLoc.Lng);
 					// Hide keyboard
@@ -63,7 +63,7 @@ namespace SavariWala.AndroidApp
 
 		void AutoCompletePlaces (object sender, Android.Text.TextChangedEventArgs e)
 		{
-			var curLoc = AppCommon.Inst.CurLoc;
+			var curLoc = AppCommon.Inst.LocationProvider.CurLoc;
 			var textDst = (AutoCompleteTextView)sender;
 			AppCommon.Inst.PlacesProvider.AutoCompleteAsync (
 				lst => RunOnUiThread(() => textDst.Adapter = new ArrayAdapter (this, Android.Resource.Layout.SimpleListItem1, lst)),

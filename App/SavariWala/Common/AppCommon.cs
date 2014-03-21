@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using Thrift.Transport;
 using Thrift.Protocol;
 using Thrift;
+using System.Threading;
 
 
 namespace SavariWala.Common
@@ -70,15 +71,27 @@ namespace SavariWala.Common
 		public string GoogleApiKeyWeb { get; private set; }
 		public PlacesProvider PlacesProvider { get; private set; }
 		public Request CurrentReq { get; set; }
-		public GeoLoc CurLoc { get; set; }
 		public GeoLoc Destination { get; set; }
 		public DirectionsProvider DirectionsProvider { get; private set; }
 		public Int64 BookingId { get; private set; }
 		public ErrorTranslator ErrorTranslator { get; set; }
+		public ILocationProvider LocationProvider { get; private set; }
+		public NearestPointProvider NearestPointProvider { get; private set; }
 
 		public bool DisableServer { get { return true; } }
 
-		public AppCommon(string googleApiKeyNative, string googleApiKeyWeb)
+		public static void Create (string googleApiKeyNative, string googleApiKeyWeb, 
+			ErrorTranslator errorTranslator, ILocationProvider locationProvider)
+		{
+			new AppCommon (googleApiKeyNative, googleApiKeyWeb, locationProvider) { 
+				ErrorTranslator = errorTranslator, 
+			};
+
+			// Post construction inits
+			ThreadPool.QueueUserWorkItem ((x) => Inst.LocationProvider.Connect ());
+		}
+
+		private AppCommon(string googleApiKeyNative, string googleApiKeyWeb, ILocationProvider locationProvider)
 		{
 			Inst = this;
 			IsLoggedIn = false;
@@ -88,6 +101,8 @@ namespace SavariWala.Common
 			LoadAppData ();
 			PlacesProvider = new PlacesProvider ();
 			DirectionsProvider = new DirectionsProvider ();
+			LocationProvider = locationProvider;
+			NearestPointProvider = new NearestPointProvider ();
 		}
 
 		private void LoadAppData()
@@ -145,12 +160,13 @@ namespace SavariWala.Common
 			}, onTException);
 		}
 
-		enum PortOffsets
+		public enum PortOffsets
 		{
 			UsersManager = 0,
-			RequestHandler = 1,
+			MapPointProvider = 1,
+			RequestHandler = 2
 		}
-		private TProtocol GetThriftProtocol(PortOffsets offset) {
+		public TProtocol GetThriftProtocol(PortOffsets offset) {
 			var transport = new TSocket(ServerAddr, ServerPort + (int)offset);
 				transport.Open();
 			return new TBinaryProtocol (transport);  // TODO TCompactProtocol once server is ready for it

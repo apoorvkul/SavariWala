@@ -22,3 +22,11 @@
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/Facebook.dll
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/GooglePlayServicesLib.dll
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/Thrift.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Core.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Debugger.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Experimental.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Interfaces.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Linq.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.PlatformServices.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/System.Reactive.Providers.dll
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/Newtonsoft.Json.dll

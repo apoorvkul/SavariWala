@@ -36,7 +36,7 @@ public class MapPointProvider {
 
   public interface Iface {
 
-    public List<MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException;
+    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException;
 
   }
 
@@ -66,7 +66,7 @@ public class MapPointProvider {
       super(iprot, oprot);
     }
 
-    public List<MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException
+    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException
     {
       send_getMapPoint(isSrc, latitude, longitude);
       return recv_getMapPoint();
@@ -81,7 +81,7 @@ public class MapPointProvider {
       sendBase("getMapPoint", args);
     }
 
-    public List<MapPoint> recv_getMapPoint() throws org.apache.thrift.TException
+    public List<com.savariwala.MapPoint> recv_getMapPoint() throws org.apache.thrift.TException
     {
       getMapPoint_result result = new getMapPoint_result();
       receiveBase(result, "getMapPoint");
@@ -137,7 +137,7 @@ public class MapPointProvider {
         prot.writeMessageEnd();
       }
 
-      public List<MapPoint> getResult() throws org.apache.thrift.TException {
+      public List<com.savariwala.MapPoint> getResult() throws org.apache.thrift.TException {
         if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new IllegalStateException("Method call not finished!");
         }
@@ -201,7 +201,7 @@ public class MapPointProvider {
       return processMap;
     }
 
-    public static class getMapPoint<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getMapPoint_args, List<MapPoint>> {
+    public static class getMapPoint<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, getMapPoint_args, List<com.savariwala.MapPoint>> {
       public getMapPoint() {
         super("getMapPoint");
       }
@@ -210,10 +210,10 @@ public class MapPointProvider {
         return new getMapPoint_args();
       }
 
-      public AsyncMethodCallback<List<MapPoint>> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+      public AsyncMethodCallback<List<com.savariwala.MapPoint>> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
         final org.apache.thrift.AsyncProcessFunction fcall = this;
-        return new AsyncMethodCallback<List<MapPoint>>() { 
-          public void onComplete(List<MapPoint> o) {
+        return new AsyncMethodCallback<List<com.savariwala.MapPoint>>() { 
+          public void onComplete(List<com.savariwala.MapPoint> o) {
             getMapPoint_result result = new getMapPoint_result();
             result.success = o;
             try {
@@ -247,7 +247,7 @@ public class MapPointProvider {
         return false;
       }
 
-      public void start(I iface, getMapPoint_args args, org.apache.thrift.async.AsyncMethodCallback<List<MapPoint>> resultHandler) throws TException {
+      public void start(I iface, getMapPoint_args args, org.apache.thrift.async.AsyncMethodCallback<List<com.savariwala.MapPoint>> resultHandler) throws TException {
         iface.getMapPoint(args.isSrc, args.latitude, args.longitude,resultHandler);
       }
     }
@@ -805,7 +805,7 @@ public class MapPointProvider {
       schemes.put(TupleScheme.class, new getMapPoint_resultTupleSchemeFactory());
     }
 
-    public List<MapPoint> success; // required
+    public List<com.savariwala.MapPoint> success; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -871,7 +871,7 @@ public class MapPointProvider {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
-              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, MapPoint.class))));
+              new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, com.savariwala.MapPoint.class))));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMapPoint_result.class, metaDataMap);
     }
@@ -880,7 +880,7 @@ public class MapPointProvider {
     }
 
     public getMapPoint_result(
-      List<MapPoint> success)
+      List<com.savariwala.MapPoint> success)
     {
       this();
       this.success = success;
@@ -891,9 +891,9 @@ public class MapPointProvider {
      */
     public getMapPoint_result(getMapPoint_result other) {
       if (other.isSetSuccess()) {
-        List<MapPoint> __this__success = new ArrayList<MapPoint>(other.success.size());
-        for (MapPoint other_element : other.success) {
-          __this__success.add(new MapPoint(other_element));
+        List<com.savariwala.MapPoint> __this__success = new ArrayList<com.savariwala.MapPoint>(other.success.size());
+        for (com.savariwala.MapPoint other_element : other.success) {
+          __this__success.add(new com.savariwala.MapPoint(other_element));
         }
         this.success = __this__success;
       }
@@ -912,22 +912,22 @@ public class MapPointProvider {
       return (this.success == null) ? 0 : this.success.size();
     }
 
-    public java.util.Iterator<MapPoint> getSuccessIterator() {
+    public java.util.Iterator<com.savariwala.MapPoint> getSuccessIterator() {
       return (this.success == null) ? null : this.success.iterator();
     }
 
-    public void addToSuccess(MapPoint elem) {
+    public void addToSuccess(com.savariwala.MapPoint elem) {
       if (this.success == null) {
-        this.success = new ArrayList<MapPoint>();
+        this.success = new ArrayList<com.savariwala.MapPoint>();
       }
       this.success.add(elem);
     }
 
-    public List<MapPoint> getSuccess() {
+    public List<com.savariwala.MapPoint> getSuccess() {
       return this.success;
     }
 
-    public getMapPoint_result setSuccess(List<MapPoint> success) {
+    public getMapPoint_result setSuccess(List<com.savariwala.MapPoint> success) {
       this.success = success;
       return this;
     }
@@ -953,7 +953,7 @@ public class MapPointProvider {
         if (value == null) {
           unsetSuccess();
         } else {
-          setSuccess((List<MapPoint>)value);
+          setSuccess((List<com.savariwala.MapPoint>)value);
         }
         break;
 
@@ -1104,11 +1104,11 @@ public class MapPointProvider {
               if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
                 {
                   org.apache.thrift.protocol.TList _list0 = iprot.readListBegin();
-                  struct.success = new ArrayList<MapPoint>(_list0.size);
+                  struct.success = new ArrayList<com.savariwala.MapPoint>(_list0.size);
                   for (int _i1 = 0; _i1 < _list0.size; ++_i1)
                   {
-                    MapPoint _elem2;
-                    _elem2 = new MapPoint();
+                    com.savariwala.MapPoint _elem2;
+                    _elem2 = new com.savariwala.MapPoint();
                     _elem2.read(iprot);
                     struct.success.add(_elem2);
                   }
@@ -1138,7 +1138,7 @@ public class MapPointProvider {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
           {
             oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.success.size()));
-            for (MapPoint _iter3 : struct.success)
+            for (com.savariwala.MapPoint _iter3 : struct.success)
             {
               _iter3.write(oprot);
             }
@@ -1171,7 +1171,7 @@ public class MapPointProvider {
         if (struct.isSetSuccess()) {
           {
             oprot.writeI32(struct.success.size());
-            for (MapPoint _iter4 : struct.success)
+            for (com.savariwala.MapPoint _iter4 : struct.success)
             {
               _iter4.write(oprot);
             }
@@ -1186,11 +1186,11 @@ public class MapPointProvider {
         if (incoming.get(0)) {
           {
             org.apache.thrift.protocol.TList _list5 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-            struct.success = new ArrayList<MapPoint>(_list5.size);
+            struct.success = new ArrayList<com.savariwala.MapPoint>(_list5.size);
             for (int _i6 = 0; _i6 < _list5.size; ++_i6)
             {
-              MapPoint _elem7;
-              _elem7 = new MapPoint();
+              com.savariwala.MapPoint _elem7;
+              _elem7 = new com.savariwala.MapPoint();
               _elem7.read(iprot);
               struct.success.add(_elem7);
             }

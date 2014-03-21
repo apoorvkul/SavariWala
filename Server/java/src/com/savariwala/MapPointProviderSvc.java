@@ -1,16 +1,15 @@
 package com.savariwala;
 
 import com.google.common.collect.Ordering;
-import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.TreeMultimap;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,22 +21,32 @@ import java.util.Properties;
 public class MapPointProviderSvc implements MapPointProvider.Iface {
 
     static final double kmPerDegreeLatitute =  111.2;
-    List<MapPoint> _mapPoints = new ArrayList<>();
-    List<MapPoint> _mapPointsSrc = new ArrayList<>();
-    private  final Logger _logger = LoggerFactory.getLogger(this.getClass().getName());
+    class PointInfo {
+        MapPoint mapPoint;
+        boolean isSrc;
+        boolean isDst;
 
-    private void loadRows(ResultSet res, List<MapPoint> pts)
+        PointInfo(MapPoint mapPoint, boolean src, boolean dst) {
+            this.mapPoint = mapPoint;
+            isSrc = src;
+            isDst = dst;
+        }
+    }
+    List<PointInfo> pointInfos = new ArrayList<>();
+    private  final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    private void loadRows(ResultSet res, List<PointInfo> pts)
     {
         try {
             while (res.next()) {
                 MapPoint pt = new MapPoint();
                 pt.latitude = res.getDouble("latitude");
-                pt.longitude = res.getDouble("Longitute");
+                pt.longitude = res.getDouble("longitude");
                 pt.description = res.getString("description");
-                pts.add(pt);
+                pts.add(new PointInfo(pt, res.getBoolean("is_src"), res.getBoolean("is_dst")));
             }
         } catch (SQLException e) {
-            _logger.error(e.toString());
+            logger.error(e.toString());
         }
     }
 
@@ -46,29 +55,30 @@ public class MapPointProviderSvc implements MapPointProvider.Iface {
             String url = "jdbc:postgresql:rideshare?user=rider&password=rider";
             final Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            loadRows(stmt.executeQuery("SELECT latitude, longitude, description FROM map_points"), _mapPoints);
-            loadRows(stmt.executeQuery("SELECT latitude, longitude, description FROM src_map_points"), _mapPointsSrc);
+            loadRows(stmt.executeQuery("SELECT latitude, longitude, description,is_src, is_dst FROM map_points"), pointInfos);
     }
 
     @Override
+    // TODO grossly inefficient using unfriendly java containers :(
+    // PointInfos should be in stored in Rtree rather
     public List<MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws TException {
-        TreeMultimap<Double,MapPoint> top10 = TreeMultimap.create(Ordering.natural().reverse(), Ordering.natural());
-
-        double kmPerDegreeLongitude = kmPerDegreeLatitute * Math.cos(latitude);
-        List<MapPoint> pts = isSrc ? _mapPointsSrc : _mapPoints;
-        for(MapPoint pt: pts)
+        logger.info(String.format("Received (%f, %f)", latitude, longitude));
+        TreeMultimap<Double,MapPoint> top5 = TreeMultimap.create(Ordering.natural().reverse(), Ordering.natural());
+        double kmPerDegreeLongitude = kmPerDegreeLatitute * Math.abs(Math.cos(latitude));
+        for(PointInfo ptInfo : pointInfos)
         {
+            if (!(isSrc ? ptInfo.isSrc : ptInfo.isDst)) continue;
+            MapPoint pt = ptInfo.mapPoint;
             double dist = kmPerDegreeLatitute *  Math.abs(latitude - pt.latitude)  + kmPerDegreeLongitude * Math.abs(longitude - pt.longitude);
-            double max = top10.keySet().first();
-            if(dist < max)
-            {
-                top10.put(dist, pt);
-                top10.remove(max, top10.get(max));
-            }
+            //double max = top5.isEmpty() ? Double.MAX_VALUE : top5.keySet().first();
+           // if(dist < max)
+           // {
+                top5.put(dist, pt);
+           // }
         }
-        ArrayList<MapPoint> retVal = new ArrayList<>();
-        retVal.addAll(top10.values());
-        return retVal;
+        LinkedList<MapPoint> retVal = new LinkedList<>();
+        top5.values().forEach(x -> retVal.addFirst(x)); // reverse
+        return retVal.stream().limit(5).collect(Collectors.toList());
     }
 
     public static void main(String [] args) {

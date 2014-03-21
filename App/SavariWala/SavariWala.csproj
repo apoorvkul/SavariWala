@@ -61,6 +61,30 @@
     <Reference Include="Thrift">
       <HintPath>..\ext\Thrift.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Debugger">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Debugger.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Experimental">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Experimental.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Providers">
+      <HintPath>..\Components\rxforxamarin-2.1\lib\android\System.Reactive.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -113,6 +137,17 @@
     </Compile>
     <Compile Include="Common\ErrorTranslator.cs" />
     <Compile Include="Common\Locale\ErrorTranslatorEnglish.cs" />
+    <Compile Include="Common\ILocationProvider.cs" />
+    <Compile Include="External\GeoHash.cs" />
+    <Compile Include="Common\CommonUtils.cs" />
+    <Compile Include="Common\NearestPointProvider.cs" />
+    <Compile Include="js\JsDirection.cs" />
+    <Compile Include="js\JsRoute.cs" />
+    <Compile Include="js\JsLeg.cs" />
+    <Compile Include="js\JsStep.cs" />
+    <Compile Include="js\JsCoordinate.cs" />
+    <Compile Include="js\JsDisplayValue.cs" />
+    <Compile Include="js\JsPolyline.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -137,6 +172,8 @@
     <Folder Include="Common\" />
     <Folder Include="gen-csharp\" />
     <Folder Include="Common\Locale\" />
+    <Folder Include="External\" />
+    <Folder Include="js\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="facebook-sdk">
@@ -145,6 +182,14 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="googleplayservicesjellybean">
       <Version>15.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="rxforxamarin">
+      <Version>2.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="json.net">
+      <Version>4.5.11</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

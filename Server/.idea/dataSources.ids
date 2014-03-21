@@ -2336,6 +2336,8 @@
       <column name="latitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
       <column name="longitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>
       <column name="description" sqlType="varchar" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <column name="is_src" sqlType="bool" length="1" precision="0" nullable="true" jdbcType="-7" def="dHJ1ZQ=="/>
+      <column name="is_dst" sqlType="bool" length="1" precision="0" nullable="true" jdbcType="-7" def="dHJ1ZQ=="/>
     </table>
     <table name="src_map_points" schema="public" catalog="rideshare" type="TABLE">
       <column name="latitude" sqlType="float8" length="17" precision="17" nullable="true" jdbcType="8"/>

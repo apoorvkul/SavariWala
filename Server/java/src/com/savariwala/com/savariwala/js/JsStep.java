@@ -11,6 +11,7 @@ public class JsStep {
     JsCoordinate start_location;
     JsCoordinate end_location;
     JsDisplayValue duration;
+    JsDisplayValue distance;
 
     public JsDisplayValue getDistance() {
         return distance;
@@ -43,6 +44,4 @@ public class JsStep {
     public void setDuration(JsDisplayValue duration) {
         this.duration = duration;
     }
-
-    JsDisplayValue distance;
 }
