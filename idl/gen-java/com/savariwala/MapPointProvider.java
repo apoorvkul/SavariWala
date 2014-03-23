@@ -36,13 +36,13 @@ public class MapPointProvider {
 
   public interface Iface {
 
-    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException;
+    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, com.savariwala.GeoLoc loc) throws org.apache.thrift.TException;
 
   }
 
   public interface AsyncIface {
 
-    public void getMapPoint(boolean isSrc, double latitude, double longitude, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void getMapPoint(boolean isSrc, com.savariwala.GeoLoc loc, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -66,18 +66,17 @@ public class MapPointProvider {
       super(iprot, oprot);
     }
 
-    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException
+    public List<com.savariwala.MapPoint> getMapPoint(boolean isSrc, com.savariwala.GeoLoc loc) throws org.apache.thrift.TException
     {
-      send_getMapPoint(isSrc, latitude, longitude);
+      send_getMapPoint(isSrc, loc);
       return recv_getMapPoint();
     }
 
-    public void send_getMapPoint(boolean isSrc, double latitude, double longitude) throws org.apache.thrift.TException
+    public void send_getMapPoint(boolean isSrc, com.savariwala.GeoLoc loc) throws org.apache.thrift.TException
     {
       getMapPoint_args args = new getMapPoint_args();
       args.setIsSrc(isSrc);
-      args.setLatitude(latitude);
-      args.setLongitude(longitude);
+      args.setLoc(loc);
       sendBase("getMapPoint", args);
     }
 
@@ -109,30 +108,27 @@ public class MapPointProvider {
       super(protocolFactory, clientManager, transport);
     }
 
-    public void getMapPoint(boolean isSrc, double latitude, double longitude, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void getMapPoint(boolean isSrc, com.savariwala.GeoLoc loc, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      getMapPoint_call method_call = new getMapPoint_call(isSrc, latitude, longitude, resultHandler, this, ___protocolFactory, ___transport);
+      getMapPoint_call method_call = new getMapPoint_call(isSrc, loc, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class getMapPoint_call extends org.apache.thrift.async.TAsyncMethodCall {
       private boolean isSrc;
-      private double latitude;
-      private double longitude;
-      public getMapPoint_call(boolean isSrc, double latitude, double longitude, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private com.savariwala.GeoLoc loc;
+      public getMapPoint_call(boolean isSrc, com.savariwala.GeoLoc loc, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.isSrc = isSrc;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.loc = loc;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getMapPoint", org.apache.thrift.protocol.TMessageType.CALL, 0));
         getMapPoint_args args = new getMapPoint_args();
         args.setIsSrc(isSrc);
-        args.setLatitude(latitude);
-        args.setLongitude(longitude);
+        args.setLoc(loc);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -179,7 +175,7 @@ public class MapPointProvider {
 
       public getMapPoint_result getResult(I iface, getMapPoint_args args) throws org.apache.thrift.TException {
         getMapPoint_result result = new getMapPoint_result();
-        result.success = iface.getMapPoint(args.isSrc, args.latitude, args.longitude);
+        result.success = iface.getMapPoint(args.isSrc, args.loc);
         return result;
       }
     }
@@ -248,7 +244,7 @@ public class MapPointProvider {
       }
 
       public void start(I iface, getMapPoint_args args, org.apache.thrift.async.AsyncMethodCallback<List<com.savariwala.MapPoint>> resultHandler) throws TException {
-        iface.getMapPoint(args.isSrc, args.latitude, args.longitude,resultHandler);
+        iface.getMapPoint(args.isSrc, args.loc,resultHandler);
       }
     }
 
@@ -258,8 +254,7 @@ public class MapPointProvider {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("getMapPoint_args");
 
     private static final org.apache.thrift.protocol.TField IS_SRC_FIELD_DESC = new org.apache.thrift.protocol.TField("isSrc", org.apache.thrift.protocol.TType.BOOL, (short)1);
-    private static final org.apache.thrift.protocol.TField LATITUDE_FIELD_DESC = new org.apache.thrift.protocol.TField("latitude", org.apache.thrift.protocol.TType.DOUBLE, (short)2);
-    private static final org.apache.thrift.protocol.TField LONGITUDE_FIELD_DESC = new org.apache.thrift.protocol.TField("longitude", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
+    private static final org.apache.thrift.protocol.TField LOC_FIELD_DESC = new org.apache.thrift.protocol.TField("loc", org.apache.thrift.protocol.TType.STRUCT, (short)2);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -268,14 +263,12 @@ public class MapPointProvider {
     }
 
     public boolean isSrc; // required
-    public double latitude; // required
-    public double longitude; // required
+    public com.savariwala.GeoLoc loc; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
       IS_SRC((short)1, "isSrc"),
-      LATITUDE((short)2, "latitude"),
-      LONGITUDE((short)3, "longitude");
+      LOC((short)2, "loc");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -292,10 +285,8 @@ public class MapPointProvider {
         switch(fieldId) {
           case 1: // IS_SRC
             return IS_SRC;
-          case 2: // LATITUDE
-            return LATITUDE;
-          case 3: // LONGITUDE
-            return LONGITUDE;
+          case 2: // LOC
+            return LOC;
           default:
             return null;
         }
@@ -337,18 +328,14 @@ public class MapPointProvider {
 
     // isset id assignments
     private static final int __ISSRC_ISSET_ID = 0;
-    private static final int __LATITUDE_ISSET_ID = 1;
-    private static final int __LONGITUDE_ISSET_ID = 2;
     private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.IS_SRC, new org.apache.thrift.meta_data.FieldMetaData("isSrc", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
-      tmpMap.put(_Fields.LATITUDE, new org.apache.thrift.meta_data.FieldMetaData("latitude", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
-      tmpMap.put(_Fields.LONGITUDE, new org.apache.thrift.meta_data.FieldMetaData("longitude", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+      tmpMap.put(_Fields.LOC, new org.apache.thrift.meta_data.FieldMetaData("loc", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, com.savariwala.GeoLoc.class)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getMapPoint_args.class, metaDataMap);
     }
@@ -358,16 +345,12 @@ public class MapPointProvider {
 
     public getMapPoint_args(
       boolean isSrc,
-      double latitude,
-      double longitude)
+      com.savariwala.GeoLoc loc)
     {
       this();
       this.isSrc = isSrc;
       setIsSrcIsSet(true);
-      this.latitude = latitude;
-      setLatitudeIsSet(true);
-      this.longitude = longitude;
-      setLongitudeIsSet(true);
+      this.loc = loc;
     }
 
     /**
@@ -376,8 +359,9 @@ public class MapPointProvider {
     public getMapPoint_args(getMapPoint_args other) {
       __isset_bitfield = other.__isset_bitfield;
       this.isSrc = other.isSrc;
-      this.latitude = other.latitude;
-      this.longitude = other.longitude;
+      if (other.isSetLoc()) {
+        this.loc = new com.savariwala.GeoLoc(other.loc);
+      }
     }
 
     public getMapPoint_args deepCopy() {
@@ -388,10 +372,7 @@ public class MapPointProvider {
     public void clear() {
       setIsSrcIsSet(false);
       this.isSrc = false;
-      setLatitudeIsSet(false);
-      this.latitude = 0.0;
-      setLongitudeIsSet(false);
-      this.longitude = 0.0;
+      this.loc = null;
     }
 
     public boolean isIsSrc() {
@@ -417,50 +398,28 @@ public class MapPointProvider {
       __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __ISSRC_ISSET_ID, value);
     }
 
-    public double getLatitude() {
-      return this.latitude;
+    public com.savariwala.GeoLoc getLoc() {
+      return this.loc;
     }
 
-    public getMapPoint_args setLatitude(double latitude) {
-      this.latitude = latitude;
-      setLatitudeIsSet(true);
+    public getMapPoint_args setLoc(com.savariwala.GeoLoc loc) {
+      this.loc = loc;
       return this;
     }
 
-    public void unsetLatitude() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LATITUDE_ISSET_ID);
+    public void unsetLoc() {
+      this.loc = null;
     }
 
-    /** Returns true if field latitude is set (has been assigned a value) and false otherwise */
-    public boolean isSetLatitude() {
-      return EncodingUtils.testBit(__isset_bitfield, __LATITUDE_ISSET_ID);
+    /** Returns true if field loc is set (has been assigned a value) and false otherwise */
+    public boolean isSetLoc() {
+      return this.loc != null;
     }
 
-    public void setLatitudeIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LATITUDE_ISSET_ID, value);
-    }
-
-    public double getLongitude() {
-      return this.longitude;
-    }
-
-    public getMapPoint_args setLongitude(double longitude) {
-      this.longitude = longitude;
-      setLongitudeIsSet(true);
-      return this;
-    }
-
-    public void unsetLongitude() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LONGITUDE_ISSET_ID);
-    }
-
-    /** Returns true if field longitude is set (has been assigned a value) and false otherwise */
-    public boolean isSetLongitude() {
-      return EncodingUtils.testBit(__isset_bitfield, __LONGITUDE_ISSET_ID);
-    }
-
-    public void setLongitudeIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LONGITUDE_ISSET_ID, value);
+    public void setLocIsSet(boolean value) {
+      if (!value) {
+        this.loc = null;
+      }
     }
 
     public void setFieldValue(_Fields field, Object value) {
@@ -473,19 +432,11 @@ public class MapPointProvider {
         }
         break;
 
-      case LATITUDE:
+      case LOC:
         if (value == null) {
-          unsetLatitude();
+          unsetLoc();
         } else {
-          setLatitude((Double)value);
-        }
-        break;
-
-      case LONGITUDE:
-        if (value == null) {
-          unsetLongitude();
-        } else {
-          setLongitude((Double)value);
+          setLoc((com.savariwala.GeoLoc)value);
         }
         break;
 
@@ -497,11 +448,8 @@ public class MapPointProvider {
       case IS_SRC:
         return Boolean.valueOf(isIsSrc());
 
-      case LATITUDE:
-        return Double.valueOf(getLatitude());
-
-      case LONGITUDE:
-        return Double.valueOf(getLongitude());
+      case LOC:
+        return getLoc();
 
       }
       throw new IllegalStateException();
@@ -516,10 +464,8 @@ public class MapPointProvider {
       switch (field) {
       case IS_SRC:
         return isSetIsSrc();
-      case LATITUDE:
-        return isSetLatitude();
-      case LONGITUDE:
-        return isSetLongitude();
+      case LOC:
+        return isSetLoc();
       }
       throw new IllegalStateException();
     }
@@ -546,21 +492,12 @@ public class MapPointProvider {
           return false;
       }
 
-      boolean this_present_latitude = true;
-      boolean that_present_latitude = true;
-      if (this_present_latitude || that_present_latitude) {
-        if (!(this_present_latitude && that_present_latitude))
+      boolean this_present_loc = true && this.isSetLoc();
+      boolean that_present_loc = true && that.isSetLoc();
+      if (this_present_loc || that_present_loc) {
+        if (!(this_present_loc && that_present_loc))
           return false;
-        if (this.latitude != that.latitude)
-          return false;
-      }
-
-      boolean this_present_longitude = true;
-      boolean that_present_longitude = true;
-      if (this_present_longitude || that_present_longitude) {
-        if (!(this_present_longitude && that_present_longitude))
-          return false;
-        if (this.longitude != that.longitude)
+        if (!this.loc.equals(that.loc))
           return false;
       }
 
@@ -590,22 +527,12 @@ public class MapPointProvider {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetLatitude()).compareTo(other.isSetLatitude());
+      lastComparison = Boolean.valueOf(isSetLoc()).compareTo(other.isSetLoc());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetLatitude()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.latitude, other.latitude);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
-      lastComparison = Boolean.valueOf(isSetLongitude()).compareTo(other.isSetLongitude());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetLongitude()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.longitude, other.longitude);
+      if (isSetLoc()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.loc, other.loc);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -634,12 +561,12 @@ public class MapPointProvider {
       sb.append(this.isSrc);
       first = false;
       if (!first) sb.append(", ");
-      sb.append("latitude:");
-      sb.append(this.latitude);
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("longitude:");
-      sb.append(this.longitude);
+      sb.append("loc:");
+      if (this.loc == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.loc);
+      }
       first = false;
       sb.append(")");
       return sb.toString();
@@ -648,6 +575,9 @@ public class MapPointProvider {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (loc != null) {
+        loc.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -694,18 +624,11 @@ public class MapPointProvider {
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 2: // LATITUDE
-              if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-                struct.latitude = iprot.readDouble();
-                struct.setLatitudeIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 3: // LONGITUDE
-              if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-                struct.longitude = iprot.readDouble();
-                struct.setLongitudeIsSet(true);
+            case 2: // LOC
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.loc = new com.savariwala.GeoLoc();
+                struct.loc.read(iprot);
+                struct.setLocIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -728,12 +651,11 @@ public class MapPointProvider {
         oprot.writeFieldBegin(IS_SRC_FIELD_DESC);
         oprot.writeBool(struct.isSrc);
         oprot.writeFieldEnd();
-        oprot.writeFieldBegin(LATITUDE_FIELD_DESC);
-        oprot.writeDouble(struct.latitude);
-        oprot.writeFieldEnd();
-        oprot.writeFieldBegin(LONGITUDE_FIELD_DESC);
-        oprot.writeDouble(struct.longitude);
-        oprot.writeFieldEnd();
+        if (struct.loc != null) {
+          oprot.writeFieldBegin(LOC_FIELD_DESC);
+          struct.loc.write(oprot);
+          oprot.writeFieldEnd();
+        }
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -755,39 +677,30 @@ public class MapPointProvider {
         if (struct.isSetIsSrc()) {
           optionals.set(0);
         }
-        if (struct.isSetLatitude()) {
+        if (struct.isSetLoc()) {
           optionals.set(1);
         }
-        if (struct.isSetLongitude()) {
-          optionals.set(2);
-        }
-        oprot.writeBitSet(optionals, 3);
+        oprot.writeBitSet(optionals, 2);
         if (struct.isSetIsSrc()) {
           oprot.writeBool(struct.isSrc);
         }
-        if (struct.isSetLatitude()) {
-          oprot.writeDouble(struct.latitude);
-        }
-        if (struct.isSetLongitude()) {
-          oprot.writeDouble(struct.longitude);
+        if (struct.isSetLoc()) {
+          struct.loc.write(oprot);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, getMapPoint_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(3);
+        BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
           struct.isSrc = iprot.readBool();
           struct.setIsSrcIsSet(true);
         }
         if (incoming.get(1)) {
-          struct.latitude = iprot.readDouble();
-          struct.setLatitudeIsSet(true);
-        }
-        if (incoming.get(2)) {
-          struct.longitude = iprot.readDouble();
-          struct.setLongitudeIsSet(true);
+          struct.loc = new com.savariwala.GeoLoc();
+          struct.loc.read(iprot);
+          struct.setLocIsSet(true);
         }
       }
     }
