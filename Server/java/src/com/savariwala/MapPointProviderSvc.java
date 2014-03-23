@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class MapPointProviderSvc implements MapPointProvider.Iface {
 
     static final double kmPerDegreeLatitute =  111.2;
+
     class PointInfo {
         MapPoint mapPoint;
         boolean isSrc;
@@ -39,10 +40,12 @@ public class MapPointProviderSvc implements MapPointProvider.Iface {
     {
         try {
             while (res.next()) {
-                MapPoint pt = new MapPoint();
-                pt.latitude = res.getDouble("latitude");
-                pt.longitude = res.getDouble("longitude");
-                pt.description = res.getString("description");
+                MapPoint pt = new MapPoint(new GeoLoc(
+                        res.getDouble("latitude"),
+                        res.getDouble("longitude")),
+                    res.getString("name"),
+                    res.getString("address"),
+                    res.getString("locality"));
                 pts.add(new PointInfo(pt, res.getBoolean("is_src"), res.getBoolean("is_dst")));
             }
         } catch (SQLException e) {
@@ -55,21 +58,23 @@ public class MapPointProviderSvc implements MapPointProvider.Iface {
             String url = "jdbc:postgresql:rideshare?user=rider&password=rider";
             final Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            loadRows(stmt.executeQuery("SELECT latitude, longitude, description,is_src, is_dst FROM map_points"), pointInfos);
+            loadRows(stmt.executeQuery(
+                    "SELECT latitude, longitude, name, address, locality, is_src, is_dst FROM map_points"),
+                    pointInfos);
     }
 
     @Override
     // TODO grossly inefficient using unfriendly java containers :(
     // PointInfos should be in stored in Rtree rather
-    public List<MapPoint> getMapPoint(boolean isSrc, double latitude, double longitude) throws TException {
-        logger.info(String.format("Received (%f, %f)", latitude, longitude));
+    public List<MapPoint> getMapPoint(boolean isSrc, GeoLoc loc) throws TException {
+        logger.info(String.format("Received (%f, %f)", loc.lat, loc.lng));
         TreeMultimap<Double,MapPoint> top5 = TreeMultimap.create(Ordering.natural().reverse(), Ordering.natural());
-        double kmPerDegreeLongitude = kmPerDegreeLatitute * Math.abs(Math.cos(latitude));
+        double kmPerDegreeLongitude = kmPerDegreeLatitute * Math.abs(Math.cos(loc.lat));
         for(PointInfo ptInfo : pointInfos)
         {
             if (!(isSrc ? ptInfo.isSrc : ptInfo.isDst)) continue;
             MapPoint pt = ptInfo.mapPoint;
-            double dist = kmPerDegreeLatitute *  Math.abs(latitude - pt.latitude)  + kmPerDegreeLongitude * Math.abs(longitude - pt.longitude);
+            double dist = kmPerDegreeLatitute *  Math.abs(loc.lat - pt.loc.lat)  + kmPerDegreeLongitude * Math.abs(loc.lng - pt.loc.lng);
             //double max = top5.isEmpty() ? Double.MAX_VALUE : top5.keySet().first();
            // if(dist < max)
            // {

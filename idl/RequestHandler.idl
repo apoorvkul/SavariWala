@@ -5,14 +5,30 @@ namespace cpp savariwala
 namespace csharp SavariWala
 namespace java com.savariwala
 
-struct BookingDetails{
+struct BookingParams {
     1:i32 numPax, 
     2:i64 startTime,
-    3:bool isShared
+    3:bool isShared,
+    4:string routeJson
+}
+
+struct PooledBooking {
+    1:i32 numPax, 
+    2:i64 startTime,
+    3:MapPoint.MapPoint src
+    4:MapPoint.MapPoint dst,
+}
+
+struct BookingMatchResults {
+    1:i32 id, 
+    2:i32 total, 
+    3:list<PooledBooking> topBookings
 }
 
 service RequestHandler {
-    i64 submitBooking(1:BookingDetails booking, 2:string routeJson) throws (1:Exception.ServerError err), 
-    BookingDetails getDetails(1:i64 bookingId),
+    i64 submitBooking(1:BookingParams bookingParams) throws (1:Exception.ServerError err), 
+    BookingMatchResults matchBooking(1:MapPoint.GeoLoc src),
+    BookingMatchResults matchAndFilterBooking(1:MapPoint.GeoLoc src, 2: MapPoint.GeoLoc dst),
+    list<PooledBooking> fetchResults(1:i32 id, 2:i32 count),
     bool cancel(1:i64 bookingId) 
 }

@@ -25,28 +25,10 @@ namespace SavariWala.AndroidApp
 			: base(Resource.Layout.ReqBookingDst, Resource.Id.viewDstPoint, 
 				new LatLng(AppCommon.Inst.Destination.Lat, AppCommon.Inst.Destination.Lng))
 		{
-			FetchNearestPoints (AppCommon.Inst.Destination);
+			FetchNearestPoints (false);
 		}
 
-		void FetchNearestPoints (GeoLoc dst)
-		{
-			List<MapPoint> pts;
-			using (var client = new MapPointProvider.Client (AppCommon.Inst.GetThriftProtocol (AppCommon.PortOffsets.MapPointProvider))) {
-				pts = client.getMapPoint (false, dst.Lat, dst.Lng);
-			}
-			var ptDirs = pts.Take(3).Select (x => new PointDirection { Point = 
-					new Place{ Name = x.Description, Loc = new GeoLoc { Lat = x.Latitude, Lng = x.Longitude } } }).ToList();
-			ResetPoints (ptDirs);
-
-			foreach (var pd in ptDirs) {
-				AppCommon.Inst.DirectionsProvider.GetRoutesAsync (
-					str => AddDirection (new PointDirection { Point = pd.Point, 
-						Direction = JsonConvert.DeserializeObject<JsDirection> (str)}),
-					pd.Point.Loc, AppCommon.Inst.Destination, DirectionsProvider.Walking);
-			}
-		}
-
-		protected override void OnPointSelected(Place place)
+		protected override void OnPointSelected(MapPoint place)
 		{
 			AppCommon.Inst.CurrentReq.Dst = place; 
 			this.StartNextActivity<ReqConfirmActivity>();

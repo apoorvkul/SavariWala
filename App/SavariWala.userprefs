@@ -1,17 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/MapPointsActivityBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SavariWala/LocationProvider.cs">
     <Files>
-      <File FileName="SavariWala/LoginActivity.cs" Line="26" Column="1" />
-      <File FileName="SavariWala/MapPointsActivityBase.cs" Line="112" Column="4" />
-      <File FileName="SavariWala/Common/NearestPointProvider.cs" Line="80" Column="1" />
-      <File FileName="SavariWala/js/JsRoute.cs" Line="9" Column="17" />
-      <File FileName="SavariWala/Common/AppCommon.cs" Line="171" Column="1" />
+      <File FileName="SavariWala/Common/AppCommon.cs" Line="18" Column="28" />
+      <File FileName="SavariWala/Common/NearestPointProvider.cs" Line="72" Column="43" />
+      <File FileName="SavariWala/Common/ILocationProvider.cs" Line="14" Column="3" />
+      <File FileName="SavariWala/LocationProvider.cs" Line="35" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7&quot; WVGA (Nexus One)" AndroidDeviceId-Debug="192.168.0.10:5555" />
+  <MonoDevelop.Ide.ItemProperties.SavariWala MonoForAntroid.PreferredDevice="3.7&quot; WVGA (Nexus One)" />
 </Properties>

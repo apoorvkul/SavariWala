@@ -4,13 +4,13 @@ import com.owlike.genson.Genson;
 import com.savariwala.com.savariwala.js.*;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Point;
-import jdk.nashorn.internal.objects.Global;
 import org.apache.http.client.fluent.Request;
 import org.apache.thrift.TException;
 import org.neo4j.gis.spatial.SimplePointLayer;
 import org.neo4j.gis.spatial.SpatialDatabaseRecord;
 import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.gis.spatial.pipes.GeoPipeFlow;
+import org.neo4j.gis.spatial.pipes.GeoPipeline;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.tooling.GlobalGraphOperations;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -37,6 +38,7 @@ import java.util.stream.Collectors;
 public class RequestHandlerSvc implements RequestHandler.Iface {
     private static final long WAITING_TIME_MIN_MSEC = 120*1000;    // Min 2 mins as buffer
     private static final long WAITING_TIME_MAX_MSEC = 600*1000;    // Max 10 mins wait
+    private static final int RESULT_PER_PAGE = 10;
     private final String directionApiUrlFmt =
             "http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=false&alternatives=true&departure_time=%d";
 
@@ -58,7 +60,7 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
 
     HashMap<Long, BookingInfo> _pendingReq;
 
-    public RequestHandlerSvc() {
+    public RequestHandlerSvc(boolean syncDBs) {
         int instanceId = 1; // TODO should come from properties
         pooledRoutes = new HashMap<>();
         bookingIdCounter = new AtomicLong(new Date().getTime()/1000 + instanceId << 60);
@@ -79,6 +81,9 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
             else layer = db.createSimplePointLayer("LatLng");
             tx.success();
         }
+
+        if(syncDBs)
+            new DBSyncer().sync(graph);
     }
 
     private void reloadFromDB() {
@@ -122,7 +127,7 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
         }
     }
 
-    private Long createBooking(PooledRoute pooledRoute, BookingDetails booking)
+    private Long createBooking(PooledRoute pooledRoute, BookingParams booking)
     {
         Long bId =  bookingIdCounter.getAndIncrement();
         try (Transaction tx = graph.beginTx())
@@ -142,9 +147,9 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
         return ((Point) layer.getGeometryEncoder().decodeGeometry(node)).getCoordinate();
     }
 
-    private void updateRouteMatch(HashMap<Long, RouteMatchInfo> matchedRoutes, Node routeNode, BookingDetails booking)
+    private void updateRouteMatch(HashMap<Long, RouteMatchInfo> matchedRoutes, Node routeNode, BookingParams bookingParams)
     {
-        long diff = ((long)routeNode.getProperty("StartUtc")) - booking.getStartTime();
+        long diff = ((long)routeNode.getProperty("StartUtc")) - bookingParams.getStartTime();
        // if (WAITING_TIME_MIN_MSEC <= diff && diff <= WAITING_TIME_MAX_MSEC)
         {
             RouteMatchInfo rmi = matchedRoutes.get(routeNode.getId());
@@ -154,83 +159,6 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
                 ++rmi.Count;
                 rmi.end = routeNode;
             }
-        }
-    }
-
-    @Override
-    public long submitBooking(BookingDetails booking, String routeJson) throws ServerError, TException
-    {
-        try
-        {
-            if (routeJson == null || routeJson.isEmpty()) throw new ServerError("Empty/Null Route Provided", ErrorCode.InvalidArg);
-            JsDirection jsDirection = genson.deserialize(routeJson, JsDirection.class);
-            if (!jsDirection.getStatus().equals("OK"))
-                throw new APIException("Directions API returned status: " + jsDirection.getStatus());
-            Route topRoute = null;
-            for (JsRoute route : jsDirection.getRoutes()) {
-                JsCoordinate last = null;
-                SpatialDatabaseRecord recStart = null;
-                SpatialDatabaseRecord recEnd = null;
-                MapPoint mapPointDst = null;
-                HashMap<Long, RouteMatchInfo> matchedRoutes = new HashMap<>();
-                final Route curRoute = new Route();
-                if(topRoute == null) topRoute = curRoute; // Save best route to use in case we cant pool it
-                curRoute.getStepInfos().add(new Route.StepInfo(0, 0));  // duration and distance to 0th node
-                for (JsLeg leg : route.getLegs()) {
-                    for (JsStep step : leg.getSteps()) {
-                        JsCoordinate ptSrc = step.getStart_location();
-                        JsCoordinate ptDst = step.getEnd_location();
-                        curRoute.getStepInfos().add(new Route.StepInfo(step.getDuration().getValue(), step.getDistance().getValue()));
-                        // TODO handle expiry of relationships and booking and
-                        // deletion of nodes when it is no longer in way of any booking
-                        try (Transaction tx = graph.beginTx()) {
-                            if (last == null || (last.getLat() != ptSrc.getLat() && last.getLng() != ptSrc.getLng())) {
-                                recStart = upsert(ptSrc.getLat(), ptSrc.getLng());
-                            } else recStart = recEnd;
-                            recEnd = upsert(ptDst.getLat(), ptDst.getLng());
-                            recStart.getGeomNode().getRelationships(Utils.RelTypes.IN_WAY_OF).forEach(
-                                    x -> updateRouteMatch(matchedRoutes, x.getEndNode(), booking));
-                            curRoute.getPathNodes().add(recStart.getGeomNode());
-                            last = ptSrc;
-                            tx.success();
-                        }
-                    }
-                }
-                if(recEnd != null)
-                {
-                    try (Transaction tx = graph.beginTx()) {
-                    recStart.getGeomNode().getRelationships(Utils.RelTypes.IN_WAY_OF).forEach(
-                            x -> updateRouteMatch(matchedRoutes, x.getEndNode(), booking));
-                        tx.success();
-                    }
-                    curRoute.getPathNodes().add(recEnd.getGeomNode());
-                }
-
-                List<Map.Entry<Long,RouteMatchInfo>> sortedEntries = getSortedMatches(matchedRoutes, curRoute.getPathNodes().size());
-                for(int i = 0; i < sortedEntries.size(); ++i)
-                {
-                    Optional<Long> bId = poolRoutes(sortedEntries.get(i).getKey(), curRoute, booking);
-                    if(bId.isPresent()) return bId.get();
-                }
-            }
-            PooledRoute pr = new PooledRoute(topRoute, graph, routeLbl, booking);
-            pooledRoutes.put(pr.getRouteNode().getId(), pr);
-            return createBooking(pr, booking);
-        }
-        catch (InterruptedException e)
-        {
-            logger.error("Failed: ", e);
-            throw new ServerError(e.getMessage(), ErrorCode.Interrupted);
-        }
-        catch (ServerError e)
-        {
-            logger.error("Failed: ", e);
-            throw e;
-        }
-        catch(Exception e)
-        {
-            logger.error("Failed: ", e);
-            throw new ServerError(e.toString(), ErrorCode.Unspecified);
         }
     }
 
@@ -244,7 +172,7 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    private Optional<Long> poolRoutes(Long pooledRouteId, Route curRoute, BookingDetails booking) throws InterruptedException
+    private Optional<Long> poolRoutes(Long pooledRouteId, Route curRoute, BookingParams booking) throws InterruptedException
     {
         PooledRoute pooledRoute = pooledRoutes.get(pooledRouteId);
         if(pooledRoute == null) return Optional.empty();
@@ -352,8 +280,140 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
     }
 
     @Override
-    public BookingDetails getDetails(long bookingId) throws TException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public long submitBooking(BookingParams bookingParams) throws ServerError, TException {
+        try
+        {
+            if (bookingParams.routeJson == null || bookingParams.routeJson.isEmpty())
+                throw new ServerError("Empty/Null Route Provided", ErrorCode.InvalidArg);
+            JsDirection jsDirection = genson.deserialize(bookingParams.routeJson, JsDirection.class);
+            if (!jsDirection.getStatus().equals("OK"))
+                throw new APIException("Directions API returned status: " + jsDirection.getStatus());
+            Route topRoute = null;
+            for (JsRoute route : jsDirection.getRoutes()) {
+                JsCoordinate last = null;
+                SpatialDatabaseRecord recStart = null;
+                SpatialDatabaseRecord recEnd = null;
+                MapPoint mapPointDst = null;
+                HashMap<Long, RouteMatchInfo> matchedRoutes = new HashMap<>();
+                final Route curRoute = new Route();
+                if(topRoute == null) topRoute = curRoute; // Save best route to use in case we cant pool it
+                curRoute.getStepInfos().add(new Route.StepInfo(0, 0));  // duration and distance to 0th node
+                for (JsLeg leg : route.getLegs()) {
+                    for (JsStep step : leg.getSteps()) {
+                        JsCoordinate ptSrc = step.getStart_location();
+                        JsCoordinate ptDst = step.getEnd_location();
+                        curRoute.getStepInfos().add(new Route.StepInfo(step.getDuration().getValue(), step.getDistance().getValue()));
+                        // TODO handle expiry of relationships and booking and
+                        // deletion of nodes when it is no longer in way of any booking
+                        try (Transaction tx = graph.beginTx()) {
+                            if (last == null || (last.getLat() != ptSrc.getLat() && last.getLng() != ptSrc.getLng())) {
+                                recStart = upsert(ptSrc.getLat(), ptSrc.getLng());
+                            } else recStart = recEnd;
+                            recEnd = upsert(ptDst.getLat(), ptDst.getLng());
+                            recStart.getGeomNode().getRelationships(Utils.RelTypes.IN_WAY_OF).forEach(
+                                    x -> updateRouteMatch(matchedRoutes, x.getEndNode(), bookingParams));
+                            curRoute.getPathNodes().add(recStart.getGeomNode());
+                            last = ptSrc;
+                            tx.success();
+                        }
+                    }
+                }
+                if(recEnd != null)
+                {
+                    try (Transaction tx = graph.beginTx()) {
+                        recStart.getGeomNode().getRelationships(Utils.RelTypes.IN_WAY_OF).forEach(
+                                x -> updateRouteMatch(matchedRoutes, x.getEndNode(), bookingParams));
+                        tx.success();
+                    }
+                    curRoute.getPathNodes().add(recEnd.getGeomNode());
+                }
+
+                List<Map.Entry<Long,RouteMatchInfo>> sortedEntries = getSortedMatches(matchedRoutes, curRoute.getPathNodes().size());
+                for(int i = 0; i < sortedEntries.size(); ++i)
+                {
+                    Optional<Long> bId = poolRoutes(sortedEntries.get(i).getKey(), curRoute, bookingParams);
+                    if(bId.isPresent()) return bId.get();
+                }
+            }
+            PooledRoute pr = new PooledRoute(topRoute, graph, routeLbl, bookingParams);
+            pooledRoutes.put(pr.getRouteNode().getId(), pr);
+            return createBooking(pr, bookingParams);
+        }
+        catch (InterruptedException e)
+        {
+            logger.error("Failed: ", e);
+            throw new ServerError(e.getMessage(), ErrorCode.Interrupted);
+        }
+        catch (ServerError e)
+        {
+            logger.error("Failed: ", e);
+            throw e;
+        }
+        catch(Exception e)
+        {
+            logger.error("Failed: ", e);
+            throw new ServerError(e.toString(), ErrorCode.Unspecified);
+        }
+    }
+
+    AtomicInteger matchResCounter = new AtomicInteger(0);
+    HashMap<Integer, Iterator<PooledBooking>> resultsCache;
+    @Override
+    public BookingMatchResults matchBooking(GeoLoc src) throws TException {
+        List<Node> nodeList = GeoPipeline.startNearestNeighborLatLonSearch(
+                layer, new Coordinate(src.lat, src.lng), 2.0 /*KM*/)  // TODO: Should window be by number of results?
+                .sort("OrthodromicDistance")
+                .toNodeList();
+
+        ArrayList<PooledBooking> pooledBookings = new ArrayList<>();
+
+        try (Transaction tx = graph.beginTx()) {
+            for(Node node : nodeList)
+            {
+                for(Relationship rel : node.getRelationships(Utils.RelTypes.IN_WAY_OF))
+                {
+                    if (0 < (int) rel.getProperty("StepOrder")) continue;
+                    PooledRoute pr = pooledRoutes.get(rel.getEndNode().getId());
+                    pooledBookings.add(
+                            new PooledBooking(pr.getNumPax(), pr.getStartTimeUtc(),
+                            getMapPoint(node),
+                            getMapPoint(pr.getPathNodes().get(pr.getPathNodes().size() - 1))));
+                }
+            }
+        }
+        Iterator<PooledBooking> it = pooledBookings.iterator();
+        Integer id = matchResCounter.incrementAndGet();
+        resultsCache.put(id, it);      // TODO Cache entry expiry and removal
+
+        return new BookingMatchResults(id, pooledBookings.size(), pageResults(2, it));
+    }
+
+    private<T> List<T> pageResults(int numPages, Iterator<T> itResults) {
+        ArrayList<T> retVal = new ArrayList<>();
+        for(int i = 0; i < numPages * RESULT_PER_PAGE && itResults.hasNext(); ++i)
+            retVal.add(itResults.next());
+        return retVal;
+    }
+
+    private MapPoint getMapPoint(Node node)
+    {
+        Point pt = ((Point) layer.getGeometryEncoder().decodeGeometry(node));
+        return new MapPoint(
+                new GeoLoc(pt.getX(), pt.getY()),
+                (String)node.getProperty("Name"),
+                (String)node.getProperty("Address"),
+                (String)node.getProperty("Locality"));
+    }
+
+    @Override
+    public BookingMatchResults matchAndFilterBooking(GeoLoc src, GeoLoc dst) throws TException {
+        return matchBooking(src);       //TODO support filtering by destination
+    }
+
+    @Override
+    public List<PooledBooking> fetchResults(int id, int count) throws TException {
+        Iterator<PooledBooking> resultsIt = resultsCache.get(id);
+        return pageResults(2*RESULT_PER_PAGE, resultsIt);
     }
 
     @Override
@@ -373,7 +433,8 @@ public class RequestHandlerSvc implements RequestHandler.Iface {
         try {
             Properties prop = Utils.loadProperties(RequestHandlerSvc.class);
             Utils.runThriftServer(logger,
-                    new RequestHandler.Processor(new RequestHandlerSvc()),
+                    new RequestHandler.Processor(new RequestHandlerSvc(
+                            Boolean.parseBoolean(prop.getProperty("syncDBs", "true")))),
                     Integer.parseInt(prop.getProperty("port", "9092")));
 
         } catch (Exception ex) {

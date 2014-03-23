@@ -27,4 +27,12 @@
 	<string name="cancel">Cancel</string>
 	<string name="reqCancel">Cancel Request</string>
 	<string name="numPax">Number of Person(s)</string>
+	<string name="orSearch">Or Search</string>
+	<string name="leavingFrom">Leaving From</string>
+	<string name="src">Starting Point</string>
+	<string name="seachStartActivity">Search Starting Point</string>
+	<string name="switchToDriverView">Switch To Driver View</string>
+	<string name="bookingsNearU">Bookings Near You</string>
+	<string name="comma">,</string>
+	<string name="pax">Pax</string>
 </resources>

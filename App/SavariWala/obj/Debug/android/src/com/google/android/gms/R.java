@@ -209,51 +209,67 @@ containing a value of this type.
         public static int ic_plusone_standard_off_client=0x7f02001a;
         public static int ic_plusone_tall_off_client=0x7f02001b;
         public static int icon=0x7f02001c;
-        public static int monoandroidsplash=0x7f02001d;
-        public static int redbackground=0x7f02001e;
+        public static int redbackground=0x7f02001d;
     }
     public static final class id {
-        public static int btnAction=0x7f050014;
-        public static int buttonLt=0x7f05000a;
-        public static int buttonRt=0x7f05000c;
-        public static int fbButton=0x7f050005;
-        public static int gridLayout1=0x7f050009;
+        public static int btnAction=0x7f05001c;
+        public static int buttonLt=0x7f050010;
+        public static int buttonRt=0x7f050012;
+        public static int driverView=0x7f050027;
+        public static int fbButton=0x7f05000c;
+        public static int gridLayout1=0x7f05000f;
+        public static int gridLayout2=0x7f050014;
+        public static int horizontalScrollView1=0x7f050005;
         public static int hybrid=0x7f050004;
-        public static int linearLayout1=0x7f050013;
-        public static int listViewDst=0x7f05001c;
-        public static int map=0x7f05000d;
+        public static int linearLayout1=0x7f05001b;
+        public static int listViewDst=0x7f050024;
+        public static int listViewSrcs=0x7f050026;
+        public static int lvBookings=0x7f05000b;
+        public static int map=0x7f050013;
         public static int none=0x7f050000;
         public static int normal=0x7f050001;
         public static int satellite=0x7f050002;
+        public static int seachBtn=0x7f050015;
         public static int terrain=0x7f050003;
-        public static int textAddress=0x7f050007;
-        public static int textDest=0x7f050019;
-        public static int textDidYouMean=0x7f05001a;
-        public static int textEndPt=0x7f050011;
-        public static int textName=0x7f050006;
-        public static int textNumPax=0x7f050017;
-        public static int textPending=0x7f050015;
-        public static int textStartPt=0x7f05000f;
-        public static int textStartTime=0x7f050018;
-        public static int textStartTm=0x7f050012;
-        public static int textView1=0x7f050008;
-        public static int textView2=0x7f050010;
-        public static int textView3=0x7f05001b;
-        public static int textViewReaching=0x7f050016;
-        public static int viewDstPoint=0x7f05000b;
-        public static int viewSrcPoint=0x7f05000e;
+        public static int textAddress=0x7f05000e;
+        public static int textDest=0x7f050021;
+        public static int textDidYouMean=0x7f050022;
+        public static int textEndPt=0x7f050019;
+        public static int textName=0x7f05000d;
+        public static int textNumPax=0x7f05001f;
+        public static int textPending=0x7f05001d;
+        public static int textSeachStart=0x7f050025;
+        public static int textStartPt=0x7f050017;
+        public static int textStartTime=0x7f050020;
+        public static int textStartTm=0x7f05001a;
+        public static int textView1=0x7f05000a;
+        public static int textView2=0x7f050018;
+        public static int textView3=0x7f050023;
+        public static int textViewReaching=0x7f05001e;
+        public static int tvFrom=0x7f050006;
+        public static int tvNumPax=0x7f050008;
+        public static int tvTime=0x7f050009;
+        public static int tvTo=0x7f050007;
+        public static int viewDstPoint=0x7f050011;
+        public static int viewSrcPoint=0x7f050016;
     }
     public static final class integer {
         public static int google_play_services_version=0x7f070000;
     }
     public static final class layout {
-        public static int listitem=0x7f030000;
-        public static int login=0x7f030001;
-        public static int placeslist=0x7f030002;
-        public static int reqbookingdst=0x7f030003;
-        public static int reqbookingsrc=0x7f030004;
-        public static int reqconfirm=0x7f030005;
-        public static int reqdetails=0x7f030006;
+        public static int bookinglist=0x7f030000;
+        public static int driverlanding=0x7f030001;
+        public static int listitem=0x7f030002;
+        public static int login=0x7f030003;
+        public static int placeslist=0x7f030004;
+        public static int reqbookingdst=0x7f030005;
+        public static int reqbookingsrc=0x7f030006;
+        public static int reqconfirm=0x7f030007;
+        public static int reqdetails=0x7f030008;
+        public static int searchstart=0x7f030009;
+    }
+    public static final class menu {
+        public static int reqbookingsrcmenu=0x7f090000;
     }
     public static final class string {
         public static int appLogin=0x7f06001c;
@@ -282,7 +298,9 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static int auth_client_using_bad_version_title=0x7f060014;
+        public static int bookingsNearU=0x7f060039;
         public static int cancel=0x7f060031;
+        public static int comma=0x7f06003a;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -362,9 +380,12 @@ containing a value of this type.
          */
         public static int facebookLogin=0x7f06001b;
         public static int from=0x7f06001e;
+        public static int leavingFrom=0x7f060035;
         public static int leavingTo=0x7f060022;
         public static int library_name=0x7f06001a;
         public static int numPax=0x7f060033;
+        public static int orSearch=0x7f060034;
+        public static int pax=0x7f06003b;
         public static int pendingWait=0x7f060030;
         public static int reachingSrc=0x7f060021;
         public static int reqBookingDst=0x7f060023;
@@ -372,16 +393,18 @@ containing a value of this type.
         public static int reqCancel=0x7f060032;
         public static int reqConfirm=0x7f060029;
         public static int reqDetails=0x7f060028;
+        public static int seachStartActivity=0x7f060037;
         public static int selectDst=0x7f060027;
         public static int selectSrc=0x7f060020;
+        public static int src=0x7f060036;
         public static int startPt=0x7f06002a;
         public static int startTime=0x7f06002e;
         public static int submit=0x7f06002f;
+        public static int switchToDriverView=0x7f060038;
         public static int to=0x7f06002b;
     }
     public static final class style {
         public static int DarkenOnClick=0x7f080001;
-        public static int Mono_Android_Theme_Splash=0x7f080002;
         public static int SpacedLayout=0x7f080000;
     }
     public static final class styleable {

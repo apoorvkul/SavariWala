@@ -23,46 +23,60 @@ namespace SavariWala
   #endif
   public partial class MapPoint : TBase
   {
-    private double _latitude;
-    private double _longitude;
-    private string _description;
+    private GeoLoc _loc;
+    private string _name;
+    private string _address;
+    private string _locality;
 
-    public double Latitude
+    public GeoLoc Loc
     {
       get
       {
-        return _latitude;
+        return _loc;
       }
       set
       {
-        __isset.latitude = true;
-        this._latitude = value;
+        __isset.loc = true;
+        this._loc = value;
       }
     }
 
-    public double Longitude
+    public string Name
     {
       get
       {
-        return _longitude;
+        return _name;
       }
       set
       {
-        __isset.longitude = true;
-        this._longitude = value;
+        __isset.name = true;
+        this._name = value;
       }
     }
 
-    public string Description
+    public string Address
     {
       get
       {
-        return _description;
+        return _address;
       }
       set
       {
-        __isset.description = true;
-        this._description = value;
+        __isset.address = true;
+        this._address = value;
+      }
+    }
+
+    public string Locality
+    {
+      get
+      {
+        return _locality;
+      }
+      set
+      {
+        __isset.locality = true;
+        this._locality = value;
       }
     }
 
@@ -72,9 +86,10 @@ namespace SavariWala
     [Serializable]
     #endif
     public struct Isset {
-      public bool latitude;
-      public bool longitude;
-      public bool description;
+      public bool loc;
+      public bool name;
+      public bool address;
+      public bool locality;
     }
 
     public MapPoint() {
@@ -93,22 +108,30 @@ namespace SavariWala
         switch (field.ID)
         {
           case 1:
-            if (field.Type == TType.Double) {
-              Latitude = iprot.ReadDouble();
+            if (field.Type == TType.Struct) {
+              Loc = new GeoLoc();
+              Loc.Read(iprot);
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
           case 2:
-            if (field.Type == TType.Double) {
-              Longitude = iprot.ReadDouble();
+            if (field.Type == TType.String) {
+              Name = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
           case 3:
             if (field.Type == TType.String) {
-              Description = iprot.ReadString();
+              Address = iprot.ReadString();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 4:
+            if (field.Type == TType.String) {
+              Locality = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -126,28 +149,36 @@ namespace SavariWala
       TStruct struc = new TStruct("MapPoint");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
-      if (__isset.latitude) {
-        field.Name = "latitude";
-        field.Type = TType.Double;
+      if (Loc != null && __isset.loc) {
+        field.Name = "loc";
+        field.Type = TType.Struct;
         field.ID = 1;
         oprot.WriteFieldBegin(field);
-        oprot.WriteDouble(Latitude);
+        Loc.Write(oprot);
         oprot.WriteFieldEnd();
       }
-      if (__isset.longitude) {
-        field.Name = "longitude";
-        field.Type = TType.Double;
+      if (Name != null && __isset.name) {
+        field.Name = "name";
+        field.Type = TType.String;
         field.ID = 2;
         oprot.WriteFieldBegin(field);
-        oprot.WriteDouble(Longitude);
+        oprot.WriteString(Name);
         oprot.WriteFieldEnd();
       }
-      if (Description != null && __isset.description) {
-        field.Name = "description";
+      if (Address != null && __isset.address) {
+        field.Name = "address";
         field.Type = TType.String;
         field.ID = 3;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(Description);
+        oprot.WriteString(Address);
+        oprot.WriteFieldEnd();
+      }
+      if (Locality != null && __isset.locality) {
+        field.Name = "locality";
+        field.Type = TType.String;
+        field.ID = 4;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteString(Locality);
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -156,12 +187,14 @@ namespace SavariWala
 
     public override string ToString() {
       StringBuilder sb = new StringBuilder("MapPoint(");
-      sb.Append("Latitude: ");
-      sb.Append(Latitude);
-      sb.Append(",Longitude: ");
-      sb.Append(Longitude);
-      sb.Append(",Description: ");
-      sb.Append(Description);
+      sb.Append("Loc: ");
+      sb.Append(Loc== null ? "<null>" : Loc.ToString());
+      sb.Append(",Name: ");
+      sb.Append(Name);
+      sb.Append(",Address: ");
+      sb.Append(Address);
+      sb.Append(",Locality: ");
+      sb.Append(Locality);
       sb.Append(")");
       return sb.ToString();
     }

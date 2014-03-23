@@ -35,9 +35,10 @@ import org.slf4j.LoggerFactory;
 public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fields>, java.io.Serializable, Cloneable, Comparable<MapPoint> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("MapPoint");
 
-  private static final org.apache.thrift.protocol.TField LATITUDE_FIELD_DESC = new org.apache.thrift.protocol.TField("latitude", org.apache.thrift.protocol.TType.DOUBLE, (short)1);
-  private static final org.apache.thrift.protocol.TField LONGITUDE_FIELD_DESC = new org.apache.thrift.protocol.TField("longitude", org.apache.thrift.protocol.TType.DOUBLE, (short)2);
-  private static final org.apache.thrift.protocol.TField DESCRIPTION_FIELD_DESC = new org.apache.thrift.protocol.TField("description", org.apache.thrift.protocol.TType.STRING, (short)3);
+  private static final org.apache.thrift.protocol.TField LOC_FIELD_DESC = new org.apache.thrift.protocol.TField("loc", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+  private static final org.apache.thrift.protocol.TField NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("name", org.apache.thrift.protocol.TType.STRING, (short)2);
+  private static final org.apache.thrift.protocol.TField ADDRESS_FIELD_DESC = new org.apache.thrift.protocol.TField("address", org.apache.thrift.protocol.TType.STRING, (short)3);
+  private static final org.apache.thrift.protocol.TField LOCALITY_FIELD_DESC = new org.apache.thrift.protocol.TField("locality", org.apache.thrift.protocol.TType.STRING, (short)4);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -45,15 +46,17 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
     schemes.put(TupleScheme.class, new MapPointTupleSchemeFactory());
   }
 
-  public double latitude; // required
-  public double longitude; // required
-  public String description; // required
+  public GeoLoc loc; // required
+  public String name; // required
+  public String address; // required
+  public String locality; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-    LATITUDE((short)1, "latitude"),
-    LONGITUDE((short)2, "longitude"),
-    DESCRIPTION((short)3, "description");
+    LOC((short)1, "loc"),
+    NAME((short)2, "name"),
+    ADDRESS((short)3, "address"),
+    LOCALITY((short)4, "locality");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -68,12 +71,14 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
-        case 1: // LATITUDE
-          return LATITUDE;
-        case 2: // LONGITUDE
-          return LONGITUDE;
-        case 3: // DESCRIPTION
-          return DESCRIPTION;
+        case 1: // LOC
+          return LOC;
+        case 2: // NAME
+          return NAME;
+        case 3: // ADDRESS
+          return ADDRESS;
+        case 4: // LOCALITY
+          return LOCALITY;
         default:
           return null;
       }
@@ -114,17 +119,16 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
   }
 
   // isset id assignments
-  private static final int __LATITUDE_ISSET_ID = 0;
-  private static final int __LONGITUDE_ISSET_ID = 1;
-  private byte __isset_bitfield = 0;
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.LATITUDE, new org.apache.thrift.meta_data.FieldMetaData("latitude", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
-    tmpMap.put(_Fields.LONGITUDE, new org.apache.thrift.meta_data.FieldMetaData("longitude", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
-    tmpMap.put(_Fields.DESCRIPTION, new org.apache.thrift.meta_data.FieldMetaData("description", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.LOC, new org.apache.thrift.meta_data.FieldMetaData("loc", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, GeoLoc.class)));
+    tmpMap.put(_Fields.NAME, new org.apache.thrift.meta_data.FieldMetaData("name", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.ADDRESS, new org.apache.thrift.meta_data.FieldMetaData("address", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.LOCALITY, new org.apache.thrift.meta_data.FieldMetaData("locality", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(MapPoint.class, metaDataMap);
@@ -134,27 +138,33 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
   }
 
   public MapPoint(
-    double latitude,
-    double longitude,
-    String description)
+    GeoLoc loc,
+    String name,
+    String address,
+    String locality)
   {
     this();
-    this.latitude = latitude;
-    setLatitudeIsSet(true);
-    this.longitude = longitude;
-    setLongitudeIsSet(true);
-    this.description = description;
+    this.loc = loc;
+    this.name = name;
+    this.address = address;
+    this.locality = locality;
   }
 
   /**
    * Performs a deep copy on <i>other</i>.
    */
   public MapPoint(MapPoint other) {
-    __isset_bitfield = other.__isset_bitfield;
-    this.latitude = other.latitude;
-    this.longitude = other.longitude;
-    if (other.isSetDescription()) {
-      this.description = other.description;
+    if (other.isSetLoc()) {
+      this.loc = new GeoLoc(other.loc);
+    }
+    if (other.isSetName()) {
+      this.name = other.name;
+    }
+    if (other.isSetAddress()) {
+      this.address = other.address;
+    }
+    if (other.isSetLocality()) {
+      this.locality = other.locality;
     }
   }
 
@@ -164,106 +174,139 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
 
   @Override
   public void clear() {
-    setLatitudeIsSet(false);
-    this.latitude = 0.0;
-    setLongitudeIsSet(false);
-    this.longitude = 0.0;
-    this.description = null;
+    this.loc = null;
+    this.name = null;
+    this.address = null;
+    this.locality = null;
   }
 
-  public double getLatitude() {
-    return this.latitude;
+  public GeoLoc getLoc() {
+    return this.loc;
   }
 
-  public MapPoint setLatitude(double latitude) {
-    this.latitude = latitude;
-    setLatitudeIsSet(true);
+  public MapPoint setLoc(GeoLoc loc) {
+    this.loc = loc;
     return this;
   }
 
-  public void unsetLatitude() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LATITUDE_ISSET_ID);
+  public void unsetLoc() {
+    this.loc = null;
   }
 
-  /** Returns true if field latitude is set (has been assigned a value) and false otherwise */
-  public boolean isSetLatitude() {
-    return EncodingUtils.testBit(__isset_bitfield, __LATITUDE_ISSET_ID);
+  /** Returns true if field loc is set (has been assigned a value) and false otherwise */
+  public boolean isSetLoc() {
+    return this.loc != null;
   }
 
-  public void setLatitudeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LATITUDE_ISSET_ID, value);
-  }
-
-  public double getLongitude() {
-    return this.longitude;
-  }
-
-  public MapPoint setLongitude(double longitude) {
-    this.longitude = longitude;
-    setLongitudeIsSet(true);
-    return this;
-  }
-
-  public void unsetLongitude() {
-    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __LONGITUDE_ISSET_ID);
-  }
-
-  /** Returns true if field longitude is set (has been assigned a value) and false otherwise */
-  public boolean isSetLongitude() {
-    return EncodingUtils.testBit(__isset_bitfield, __LONGITUDE_ISSET_ID);
-  }
-
-  public void setLongitudeIsSet(boolean value) {
-    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __LONGITUDE_ISSET_ID, value);
-  }
-
-  public String getDescription() {
-    return this.description;
-  }
-
-  public MapPoint setDescription(String description) {
-    this.description = description;
-    return this;
-  }
-
-  public void unsetDescription() {
-    this.description = null;
-  }
-
-  /** Returns true if field description is set (has been assigned a value) and false otherwise */
-  public boolean isSetDescription() {
-    return this.description != null;
-  }
-
-  public void setDescriptionIsSet(boolean value) {
+  public void setLocIsSet(boolean value) {
     if (!value) {
-      this.description = null;
+      this.loc = null;
+    }
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public MapPoint setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public void unsetName() {
+    this.name = null;
+  }
+
+  /** Returns true if field name is set (has been assigned a value) and false otherwise */
+  public boolean isSetName() {
+    return this.name != null;
+  }
+
+  public void setNameIsSet(boolean value) {
+    if (!value) {
+      this.name = null;
+    }
+  }
+
+  public String getAddress() {
+    return this.address;
+  }
+
+  public MapPoint setAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public void unsetAddress() {
+    this.address = null;
+  }
+
+  /** Returns true if field address is set (has been assigned a value) and false otherwise */
+  public boolean isSetAddress() {
+    return this.address != null;
+  }
+
+  public void setAddressIsSet(boolean value) {
+    if (!value) {
+      this.address = null;
+    }
+  }
+
+  public String getLocality() {
+    return this.locality;
+  }
+
+  public MapPoint setLocality(String locality) {
+    this.locality = locality;
+    return this;
+  }
+
+  public void unsetLocality() {
+    this.locality = null;
+  }
+
+  /** Returns true if field locality is set (has been assigned a value) and false otherwise */
+  public boolean isSetLocality() {
+    return this.locality != null;
+  }
+
+  public void setLocalityIsSet(boolean value) {
+    if (!value) {
+      this.locality = null;
     }
   }
 
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
-    case LATITUDE:
+    case LOC:
       if (value == null) {
-        unsetLatitude();
+        unsetLoc();
       } else {
-        setLatitude((Double)value);
+        setLoc((GeoLoc)value);
       }
       break;
 
-    case LONGITUDE:
+    case NAME:
       if (value == null) {
-        unsetLongitude();
+        unsetName();
       } else {
-        setLongitude((Double)value);
+        setName((String)value);
       }
       break;
 
-    case DESCRIPTION:
+    case ADDRESS:
       if (value == null) {
-        unsetDescription();
+        unsetAddress();
       } else {
-        setDescription((String)value);
+        setAddress((String)value);
+      }
+      break;
+
+    case LOCALITY:
+      if (value == null) {
+        unsetLocality();
+      } else {
+        setLocality((String)value);
       }
       break;
 
@@ -272,14 +315,17 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
 
   public Object getFieldValue(_Fields field) {
     switch (field) {
-    case LATITUDE:
-      return Double.valueOf(getLatitude());
+    case LOC:
+      return getLoc();
 
-    case LONGITUDE:
-      return Double.valueOf(getLongitude());
+    case NAME:
+      return getName();
 
-    case DESCRIPTION:
-      return getDescription();
+    case ADDRESS:
+      return getAddress();
+
+    case LOCALITY:
+      return getLocality();
 
     }
     throw new IllegalStateException();
@@ -292,12 +338,14 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
     }
 
     switch (field) {
-    case LATITUDE:
-      return isSetLatitude();
-    case LONGITUDE:
-      return isSetLongitude();
-    case DESCRIPTION:
-      return isSetDescription();
+    case LOC:
+      return isSetLoc();
+    case NAME:
+      return isSetName();
+    case ADDRESS:
+      return isSetAddress();
+    case LOCALITY:
+      return isSetLocality();
     }
     throw new IllegalStateException();
   }
@@ -315,30 +363,39 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
     if (that == null)
       return false;
 
-    boolean this_present_latitude = true;
-    boolean that_present_latitude = true;
-    if (this_present_latitude || that_present_latitude) {
-      if (!(this_present_latitude && that_present_latitude))
+    boolean this_present_loc = true && this.isSetLoc();
+    boolean that_present_loc = true && that.isSetLoc();
+    if (this_present_loc || that_present_loc) {
+      if (!(this_present_loc && that_present_loc))
         return false;
-      if (this.latitude != that.latitude)
-        return false;
-    }
-
-    boolean this_present_longitude = true;
-    boolean that_present_longitude = true;
-    if (this_present_longitude || that_present_longitude) {
-      if (!(this_present_longitude && that_present_longitude))
-        return false;
-      if (this.longitude != that.longitude)
+      if (!this.loc.equals(that.loc))
         return false;
     }
 
-    boolean this_present_description = true && this.isSetDescription();
-    boolean that_present_description = true && that.isSetDescription();
-    if (this_present_description || that_present_description) {
-      if (!(this_present_description && that_present_description))
+    boolean this_present_name = true && this.isSetName();
+    boolean that_present_name = true && that.isSetName();
+    if (this_present_name || that_present_name) {
+      if (!(this_present_name && that_present_name))
         return false;
-      if (!this.description.equals(that.description))
+      if (!this.name.equals(that.name))
+        return false;
+    }
+
+    boolean this_present_address = true && this.isSetAddress();
+    boolean that_present_address = true && that.isSetAddress();
+    if (this_present_address || that_present_address) {
+      if (!(this_present_address && that_present_address))
+        return false;
+      if (!this.address.equals(that.address))
+        return false;
+    }
+
+    boolean this_present_locality = true && this.isSetLocality();
+    boolean that_present_locality = true && that.isSetLocality();
+    if (this_present_locality || that_present_locality) {
+      if (!(this_present_locality && that_present_locality))
+        return false;
+      if (!this.locality.equals(that.locality))
         return false;
     }
 
@@ -358,32 +415,42 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
 
     int lastComparison = 0;
 
-    lastComparison = Boolean.valueOf(isSetLatitude()).compareTo(other.isSetLatitude());
+    lastComparison = Boolean.valueOf(isSetLoc()).compareTo(other.isSetLoc());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetLatitude()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.latitude, other.latitude);
+    if (isSetLoc()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.loc, other.loc);
       if (lastComparison != 0) {
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetLongitude()).compareTo(other.isSetLongitude());
+    lastComparison = Boolean.valueOf(isSetName()).compareTo(other.isSetName());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetLongitude()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.longitude, other.longitude);
+    if (isSetName()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.name, other.name);
       if (lastComparison != 0) {
         return lastComparison;
       }
     }
-    lastComparison = Boolean.valueOf(isSetDescription()).compareTo(other.isSetDescription());
+    lastComparison = Boolean.valueOf(isSetAddress()).compareTo(other.isSetAddress());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetDescription()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.description, other.description);
+    if (isSetAddress()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.address, other.address);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetLocality()).compareTo(other.isSetLocality());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetLocality()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.locality, other.locality);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -408,19 +475,35 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
     StringBuilder sb = new StringBuilder("MapPoint(");
     boolean first = true;
 
-    sb.append("latitude:");
-    sb.append(this.latitude);
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("longitude:");
-    sb.append(this.longitude);
-    first = false;
-    if (!first) sb.append(", ");
-    sb.append("description:");
-    if (this.description == null) {
+    sb.append("loc:");
+    if (this.loc == null) {
       sb.append("null");
     } else {
-      sb.append(this.description);
+      sb.append(this.loc);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("name:");
+    if (this.name == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.name);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("address:");
+    if (this.address == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.address);
+    }
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("locality:");
+    if (this.locality == null) {
+      sb.append("null");
+    } else {
+      sb.append(this.locality);
     }
     first = false;
     sb.append(")");
@@ -430,6 +513,9 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
     // check for sub-struct validity
+    if (loc != null) {
+      loc.validate();
+    }
   }
 
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -442,8 +528,6 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
 
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
-      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-      __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
     } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
@@ -468,26 +552,35 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
           break;
         }
         switch (schemeField.id) {
-          case 1: // LATITUDE
-            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-              struct.latitude = iprot.readDouble();
-              struct.setLatitudeIsSet(true);
+          case 1: // LOC
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+              struct.loc = new GeoLoc();
+              struct.loc.read(iprot);
+              struct.setLocIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 2: // LONGITUDE
-            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-              struct.longitude = iprot.readDouble();
-              struct.setLongitudeIsSet(true);
-            } else { 
-              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-            }
-            break;
-          case 3: // DESCRIPTION
+          case 2: // NAME
             if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.description = iprot.readString();
-              struct.setDescriptionIsSet(true);
+              struct.name = iprot.readString();
+              struct.setNameIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 3: // ADDRESS
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.address = iprot.readString();
+              struct.setAddressIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 4: // LOCALITY
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.locality = iprot.readString();
+              struct.setLocalityIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -507,15 +600,24 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      oprot.writeFieldBegin(LATITUDE_FIELD_DESC);
-      oprot.writeDouble(struct.latitude);
-      oprot.writeFieldEnd();
-      oprot.writeFieldBegin(LONGITUDE_FIELD_DESC);
-      oprot.writeDouble(struct.longitude);
-      oprot.writeFieldEnd();
-      if (struct.description != null) {
-        oprot.writeFieldBegin(DESCRIPTION_FIELD_DESC);
-        oprot.writeString(struct.description);
+      if (struct.loc != null) {
+        oprot.writeFieldBegin(LOC_FIELD_DESC);
+        struct.loc.write(oprot);
+        oprot.writeFieldEnd();
+      }
+      if (struct.name != null) {
+        oprot.writeFieldBegin(NAME_FIELD_DESC);
+        oprot.writeString(struct.name);
+        oprot.writeFieldEnd();
+      }
+      if (struct.address != null) {
+        oprot.writeFieldBegin(ADDRESS_FIELD_DESC);
+        oprot.writeString(struct.address);
+        oprot.writeFieldEnd();
+      }
+      if (struct.locality != null) {
+        oprot.writeFieldBegin(LOCALITY_FIELD_DESC);
+        oprot.writeString(struct.locality);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -536,42 +638,53 @@ public class MapPoint implements org.apache.thrift.TBase<MapPoint, MapPoint._Fie
     public void write(org.apache.thrift.protocol.TProtocol prot, MapPoint struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
       BitSet optionals = new BitSet();
-      if (struct.isSetLatitude()) {
+      if (struct.isSetLoc()) {
         optionals.set(0);
       }
-      if (struct.isSetLongitude()) {
+      if (struct.isSetName()) {
         optionals.set(1);
       }
-      if (struct.isSetDescription()) {
+      if (struct.isSetAddress()) {
         optionals.set(2);
       }
-      oprot.writeBitSet(optionals, 3);
-      if (struct.isSetLatitude()) {
-        oprot.writeDouble(struct.latitude);
+      if (struct.isSetLocality()) {
+        optionals.set(3);
       }
-      if (struct.isSetLongitude()) {
-        oprot.writeDouble(struct.longitude);
+      oprot.writeBitSet(optionals, 4);
+      if (struct.isSetLoc()) {
+        struct.loc.write(oprot);
       }
-      if (struct.isSetDescription()) {
-        oprot.writeString(struct.description);
+      if (struct.isSetName()) {
+        oprot.writeString(struct.name);
+      }
+      if (struct.isSetAddress()) {
+        oprot.writeString(struct.address);
+      }
+      if (struct.isSetLocality()) {
+        oprot.writeString(struct.locality);
       }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, MapPoint struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(3);
+      BitSet incoming = iprot.readBitSet(4);
       if (incoming.get(0)) {
-        struct.latitude = iprot.readDouble();
-        struct.setLatitudeIsSet(true);
+        struct.loc = new GeoLoc();
+        struct.loc.read(iprot);
+        struct.setLocIsSet(true);
       }
       if (incoming.get(1)) {
-        struct.longitude = iprot.readDouble();
-        struct.setLongitudeIsSet(true);
+        struct.name = iprot.readString();
+        struct.setNameIsSet(true);
       }
       if (incoming.get(2)) {
-        struct.description = iprot.readString();
-        struct.setDescriptionIsSet(true);
+        struct.address = iprot.readString();
+        struct.setAddressIsSet(true);
+      }
+      if (incoming.get(3)) {
+        struct.locality = iprot.readString();
+        struct.setLocalityIsSet(true);
       }
     }
   }

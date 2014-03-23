@@ -8,25 +8,6 @@ using System.Collections.Generic;
 
 namespace SavariWala.Common
 {
-
-	public class GeoLoc 
-	{
-		public double Lat { get; set; }
-		public double Lng { get; set; }
-	}
-
-	public class Place 
-	{
-		public string Name { get; set; }
-		public string Address { get; set; }
-		public GeoLoc Loc { get; set; }
-
-		public override string ToString ()
-		{
-			return String.Format ("{0}, {1}", Name, Address);
-		}
-	}
-
 	public class PlacesProvider: RestApiProviderBase
 	{
 		// TODO: use component to restrict by country
@@ -54,7 +35,7 @@ namespace SavariWala.Common
 				}, string.Format(AutoCompleteUrlFormat, input, "true", AppCommon.Inst.GoogleApiKeyWeb, offset, latitude, longitude));
 		}
 
-		public void SearchAsync (Action<List<Place>> updater, string input, double latitude, double longitude)
+		public void SearchAsync (Action<List<MapPoint>> updater, string input, double latitude, double longitude)
 		{
 			input = String.Join ("+", input.Split (new Char[]{' '}, StringSplitOptions.RemoveEmptyEntries));
 			DownloadStringAsync(r => {
@@ -62,7 +43,7 @@ namespace SavariWala.Common
 				var resList = ((JsonArray) jsonObj["results"]).Select (x => { 
 					var sr = (JsonObject)x;
 					var loc = ((JsonObject)sr["geometry"])["location"];
-					return new Place { Name = (string)sr ["name"], Address = (string)sr ["formatted_address"], 
+					return new MapPoint { Name = (string)sr ["name"], Address = (string)sr ["formatted_address"], 
 						Loc = new GeoLoc { Lat = (double)loc["lat"], Lng = (double)loc["lng"] } };
 				}).ToList ();
 				updater(resList);

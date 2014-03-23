@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$USER_HOME$/Code/Routing-Project/neo4j" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Code/neo4j-spatial-scala" charset="UTF-8" />
     <file url="file://$USER_HOME$/Code/spatial" charset="UTF-8" />
   </component>
 </project>

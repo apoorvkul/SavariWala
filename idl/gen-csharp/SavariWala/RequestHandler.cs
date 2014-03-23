@@ -19,15 +19,25 @@ namespace SavariWala
 {
   public partial class RequestHandler {
     public interface Iface {
-      long submitBooking(BookingDetails booking, string routeJson);
+      long submitBooking(BookingParams bookingParams);
       #if SILVERLIGHT
-      IAsyncResult Begin_submitBooking(AsyncCallback callback, object state, BookingDetails booking, string routeJson);
+      IAsyncResult Begin_submitBooking(AsyncCallback callback, object state, BookingParams bookingParams);
       long End_submitBooking(IAsyncResult asyncResult);
       #endif
-      BookingDetails getDetails(long bookingId);
+      BookingMatchResults matchBooking(SavariWala.GeoLoc src);
       #if SILVERLIGHT
-      IAsyncResult Begin_getDetails(AsyncCallback callback, object state, long bookingId);
-      BookingDetails End_getDetails(IAsyncResult asyncResult);
+      IAsyncResult Begin_matchBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src);
+      BookingMatchResults End_matchBooking(IAsyncResult asyncResult);
+      #endif
+      BookingMatchResults matchAndFilterBooking(SavariWala.GeoLoc src, SavariWala.GeoLoc dst);
+      #if SILVERLIGHT
+      IAsyncResult Begin_matchAndFilterBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src, SavariWala.GeoLoc dst);
+      BookingMatchResults End_matchAndFilterBooking(IAsyncResult asyncResult);
+      #endif
+      List<PooledBooking> fetchResults(int id, int count);
+      #if SILVERLIGHT
+      IAsyncResult Begin_fetchResults(AsyncCallback callback, object state, int id, int count);
+      List<PooledBooking> End_fetchResults(IAsyncResult asyncResult);
       #endif
       bool cancel(long bookingId);
       #if SILVERLIGHT
@@ -94,9 +104,9 @@ namespace SavariWala
 
       
       #if SILVERLIGHT
-      public IAsyncResult Begin_submitBooking(AsyncCallback callback, object state, BookingDetails booking, string routeJson)
+      public IAsyncResult Begin_submitBooking(AsyncCallback callback, object state, BookingParams bookingParams)
       {
-        return send_submitBooking(callback, state, booking, routeJson);
+        return send_submitBooking(callback, state, bookingParams);
       }
 
       public long End_submitBooking(IAsyncResult asyncResult)
@@ -107,28 +117,27 @@ namespace SavariWala
 
       #endif
 
-      public long submitBooking(BookingDetails booking, string routeJson)
+      public long submitBooking(BookingParams bookingParams)
       {
         #if !SILVERLIGHT
-        send_submitBooking(booking, routeJson);
+        send_submitBooking(bookingParams);
         return recv_submitBooking();
 
         #else
-        var asyncResult = Begin_submitBooking(null, null, booking, routeJson);
+        var asyncResult = Begin_submitBooking(null, null, bookingParams);
         return End_submitBooking(asyncResult);
 
         #endif
       }
       #if SILVERLIGHT
-      public IAsyncResult send_submitBooking(AsyncCallback callback, object state, BookingDetails booking, string routeJson)
+      public IAsyncResult send_submitBooking(AsyncCallback callback, object state, BookingParams bookingParams)
       #else
-      public void send_submitBooking(BookingDetails booking, string routeJson)
+      public void send_submitBooking(BookingParams bookingParams)
       #endif
       {
         oprot_.WriteMessageBegin(new TMessage("submitBooking", TMessageType.Call, seqid_));
         submitBooking_args args = new submitBooking_args();
-        args.Booking = booking;
-        args.RouteJson = routeJson;
+        args.BookingParams = bookingParams;
         args.Write(oprot_);
         oprot_.WriteMessageEnd();
         #if SILVERLIGHT
@@ -160,40 +169,40 @@ namespace SavariWala
 
       
       #if SILVERLIGHT
-      public IAsyncResult Begin_getDetails(AsyncCallback callback, object state, long bookingId)
+      public IAsyncResult Begin_matchBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src)
       {
-        return send_getDetails(callback, state, bookingId);
+        return send_matchBooking(callback, state, src);
       }
 
-      public BookingDetails End_getDetails(IAsyncResult asyncResult)
+      public BookingMatchResults End_matchBooking(IAsyncResult asyncResult)
       {
         oprot_.Transport.EndFlush(asyncResult);
-        return recv_getDetails();
+        return recv_matchBooking();
       }
 
       #endif
 
-      public BookingDetails getDetails(long bookingId)
+      public BookingMatchResults matchBooking(SavariWala.GeoLoc src)
       {
         #if !SILVERLIGHT
-        send_getDetails(bookingId);
-        return recv_getDetails();
+        send_matchBooking(src);
+        return recv_matchBooking();
 
         #else
-        var asyncResult = Begin_getDetails(null, null, bookingId);
-        return End_getDetails(asyncResult);
+        var asyncResult = Begin_matchBooking(null, null, src);
+        return End_matchBooking(asyncResult);
 
         #endif
       }
       #if SILVERLIGHT
-      public IAsyncResult send_getDetails(AsyncCallback callback, object state, long bookingId)
+      public IAsyncResult send_matchBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src)
       #else
-      public void send_getDetails(long bookingId)
+      public void send_matchBooking(SavariWala.GeoLoc src)
       #endif
       {
-        oprot_.WriteMessageBegin(new TMessage("getDetails", TMessageType.Call, seqid_));
-        getDetails_args args = new getDetails_args();
-        args.BookingId = bookingId;
+        oprot_.WriteMessageBegin(new TMessage("matchBooking", TMessageType.Call, seqid_));
+        matchBooking_args args = new matchBooking_args();
+        args.Src = src;
         args.Write(oprot_);
         oprot_.WriteMessageEnd();
         #if SILVERLIGHT
@@ -203,7 +212,7 @@ namespace SavariWala
         #endif
       }
 
-      public BookingDetails recv_getDetails()
+      public BookingMatchResults recv_matchBooking()
       {
         TMessage msg = iprot_.ReadMessageBegin();
         if (msg.Type == TMessageType.Exception) {
@@ -211,13 +220,139 @@ namespace SavariWala
           iprot_.ReadMessageEnd();
           throw x;
         }
-        getDetails_result result = new getDetails_result();
+        matchBooking_result result = new matchBooking_result();
         result.Read(iprot_);
         iprot_.ReadMessageEnd();
         if (result.__isset.success) {
           return result.Success;
         }
-        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "getDetails failed: unknown result");
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "matchBooking failed: unknown result");
+      }
+
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_matchAndFilterBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src, SavariWala.GeoLoc dst)
+      {
+        return send_matchAndFilterBooking(callback, state, src, dst);
+      }
+
+      public BookingMatchResults End_matchAndFilterBooking(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_matchAndFilterBooking();
+      }
+
+      #endif
+
+      public BookingMatchResults matchAndFilterBooking(SavariWala.GeoLoc src, SavariWala.GeoLoc dst)
+      {
+        #if !SILVERLIGHT
+        send_matchAndFilterBooking(src, dst);
+        return recv_matchAndFilterBooking();
+
+        #else
+        var asyncResult = Begin_matchAndFilterBooking(null, null, src, dst);
+        return End_matchAndFilterBooking(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_matchAndFilterBooking(AsyncCallback callback, object state, SavariWala.GeoLoc src, SavariWala.GeoLoc dst)
+      #else
+      public void send_matchAndFilterBooking(SavariWala.GeoLoc src, SavariWala.GeoLoc dst)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("matchAndFilterBooking", TMessageType.Call, seqid_));
+        matchAndFilterBooking_args args = new matchAndFilterBooking_args();
+        args.Src = src;
+        args.Dst = dst;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public BookingMatchResults recv_matchAndFilterBooking()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        matchAndFilterBooking_result result = new matchAndFilterBooking_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "matchAndFilterBooking failed: unknown result");
+      }
+
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_fetchResults(AsyncCallback callback, object state, int id, int count)
+      {
+        return send_fetchResults(callback, state, id, count);
+      }
+
+      public List<PooledBooking> End_fetchResults(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_fetchResults();
+      }
+
+      #endif
+
+      public List<PooledBooking> fetchResults(int id, int count)
+      {
+        #if !SILVERLIGHT
+        send_fetchResults(id, count);
+        return recv_fetchResults();
+
+        #else
+        var asyncResult = Begin_fetchResults(null, null, id, count);
+        return End_fetchResults(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_fetchResults(AsyncCallback callback, object state, int id, int count)
+      #else
+      public void send_fetchResults(int id, int count)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("fetchResults", TMessageType.Call, seqid_));
+        fetchResults_args args = new fetchResults_args();
+        args.Id = id;
+        args.Count = count;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public List<PooledBooking> recv_fetchResults()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        fetchResults_result result = new fetchResults_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "fetchResults failed: unknown result");
       }
 
       
@@ -288,7 +423,9 @@ namespace SavariWala
       {
         iface_ = iface;
         processMap_["submitBooking"] = submitBooking_Process;
-        processMap_["getDetails"] = getDetails_Process;
+        processMap_["matchBooking"] = matchBooking_Process;
+        processMap_["matchAndFilterBooking"] = matchAndFilterBooking_Process;
+        processMap_["fetchResults"] = fetchResults_Process;
         processMap_["cancel"] = cancel_Process;
       }
 
@@ -329,7 +466,7 @@ namespace SavariWala
         iprot.ReadMessageEnd();
         submitBooking_result result = new submitBooking_result();
         try {
-          result.Success = iface_.submitBooking(args.Booking, args.RouteJson);
+          result.Success = iface_.submitBooking(args.BookingParams);
         } catch (SavariWala.ServerError err) {
           result.Err = err;
         }
@@ -339,14 +476,40 @@ namespace SavariWala
         oprot.Transport.Flush();
       }
 
-      public void getDetails_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      public void matchBooking_Process(int seqid, TProtocol iprot, TProtocol oprot)
       {
-        getDetails_args args = new getDetails_args();
+        matchBooking_args args = new matchBooking_args();
         args.Read(iprot);
         iprot.ReadMessageEnd();
-        getDetails_result result = new getDetails_result();
-        result.Success = iface_.getDetails(args.BookingId);
-        oprot.WriteMessageBegin(new TMessage("getDetails", TMessageType.Reply, seqid)); 
+        matchBooking_result result = new matchBooking_result();
+        result.Success = iface_.matchBooking(args.Src);
+        oprot.WriteMessageBegin(new TMessage("matchBooking", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void matchAndFilterBooking_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        matchAndFilterBooking_args args = new matchAndFilterBooking_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        matchAndFilterBooking_result result = new matchAndFilterBooking_result();
+        result.Success = iface_.matchAndFilterBooking(args.Src, args.Dst);
+        oprot.WriteMessageBegin(new TMessage("matchAndFilterBooking", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void fetchResults_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        fetchResults_args args = new fetchResults_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        fetchResults_result result = new fetchResults_result();
+        result.Success = iface_.fetchResults(args.Id, args.Count);
+        oprot.WriteMessageBegin(new TMessage("fetchResults", TMessageType.Reply, seqid)); 
         result.Write(oprot);
         oprot.WriteMessageEnd();
         oprot.Transport.Flush();
@@ -373,32 +536,18 @@ namespace SavariWala
     #endif
     public partial class submitBooking_args : TBase
     {
-      private BookingDetails _booking;
-      private string _routeJson;
+      private BookingParams _bookingParams;
 
-      public BookingDetails Booking
+      public BookingParams BookingParams
       {
         get
         {
-          return _booking;
+          return _bookingParams;
         }
         set
         {
-          __isset.booking = true;
-          this._booking = value;
-        }
-      }
-
-      public string RouteJson
-      {
-        get
-        {
-          return _routeJson;
-        }
-        set
-        {
-          __isset.routeJson = true;
-          this._routeJson = value;
+          __isset.bookingParams = true;
+          this._bookingParams = value;
         }
       }
 
@@ -408,8 +557,7 @@ namespace SavariWala
       [Serializable]
       #endif
       public struct Isset {
-        public bool booking;
-        public bool routeJson;
+        public bool bookingParams;
       }
 
       public submitBooking_args() {
@@ -429,15 +577,8 @@ namespace SavariWala
           {
             case 1:
               if (field.Type == TType.Struct) {
-                Booking = new BookingDetails();
-                Booking.Read(iprot);
-              } else { 
-                TProtocolUtil.Skip(iprot, field.Type);
-              }
-              break;
-            case 2:
-              if (field.Type == TType.String) {
-                RouteJson = iprot.ReadString();
+                BookingParams = new BookingParams();
+                BookingParams.Read(iprot);
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -455,20 +596,12 @@ namespace SavariWala
         TStruct struc = new TStruct("submitBooking_args");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
-        if (Booking != null && __isset.booking) {
-          field.Name = "booking";
+        if (BookingParams != null && __isset.bookingParams) {
+          field.Name = "bookingParams";
           field.Type = TType.Struct;
           field.ID = 1;
           oprot.WriteFieldBegin(field);
-          Booking.Write(oprot);
-          oprot.WriteFieldEnd();
-        }
-        if (RouteJson != null && __isset.routeJson) {
-          field.Name = "routeJson";
-          field.Type = TType.String;
-          field.ID = 2;
-          oprot.WriteFieldBegin(field);
-          oprot.WriteString(RouteJson);
+          BookingParams.Write(oprot);
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -477,10 +610,8 @@ namespace SavariWala
 
       public override string ToString() {
         StringBuilder sb = new StringBuilder("submitBooking_args(");
-        sb.Append("Booking: ");
-        sb.Append(Booking== null ? "<null>" : Booking.ToString());
-        sb.Append(",RouteJson: ");
-        sb.Append(RouteJson);
+        sb.Append("BookingParams: ");
+        sb.Append(BookingParams== null ? "<null>" : BookingParams.ToString());
         sb.Append(")");
         return sb.ToString();
       }
@@ -613,20 +744,20 @@ namespace SavariWala
     #if !SILVERLIGHT
     [Serializable]
     #endif
-    public partial class getDetails_args : TBase
+    public partial class matchBooking_args : TBase
     {
-      private long _bookingId;
+      private SavariWala.GeoLoc _src;
 
-      public long BookingId
+      public SavariWala.GeoLoc Src
       {
         get
         {
-          return _bookingId;
+          return _src;
         }
         set
         {
-          __isset.bookingId = true;
-          this._bookingId = value;
+          __isset.src = true;
+          this._src = value;
         }
       }
 
@@ -636,10 +767,10 @@ namespace SavariWala
       [Serializable]
       #endif
       public struct Isset {
-        public bool bookingId;
+        public bool src;
       }
 
-      public getDetails_args() {
+      public matchBooking_args() {
       }
 
       public void Read (TProtocol iprot)
@@ -655,8 +786,9 @@ namespace SavariWala
           switch (field.ID)
           {
             case 1:
-              if (field.Type == TType.I64) {
-                BookingId = iprot.ReadI64();
+              if (field.Type == TType.Struct) {
+                Src = new SavariWala.GeoLoc();
+                Src.Read(iprot);
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -671,15 +803,15 @@ namespace SavariWala
       }
 
       public void Write(TProtocol oprot) {
-        TStruct struc = new TStruct("getDetails_args");
+        TStruct struc = new TStruct("matchBooking_args");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
-        if (__isset.bookingId) {
-          field.Name = "bookingId";
-          field.Type = TType.I64;
+        if (Src != null && __isset.src) {
+          field.Name = "src";
+          field.Type = TType.Struct;
           field.ID = 1;
           oprot.WriteFieldBegin(field);
-          oprot.WriteI64(BookingId);
+          Src.Write(oprot);
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -687,9 +819,9 @@ namespace SavariWala
       }
 
       public override string ToString() {
-        StringBuilder sb = new StringBuilder("getDetails_args(");
-        sb.Append("BookingId: ");
-        sb.Append(BookingId);
+        StringBuilder sb = new StringBuilder("matchBooking_args(");
+        sb.Append("Src: ");
+        sb.Append(Src== null ? "<null>" : Src.ToString());
         sb.Append(")");
         return sb.ToString();
       }
@@ -700,11 +832,11 @@ namespace SavariWala
     #if !SILVERLIGHT
     [Serializable]
     #endif
-    public partial class getDetails_result : TBase
+    public partial class matchBooking_result : TBase
     {
-      private BookingDetails _success;
+      private BookingMatchResults _success;
 
-      public BookingDetails Success
+      public BookingMatchResults Success
       {
         get
         {
@@ -726,7 +858,7 @@ namespace SavariWala
         public bool success;
       }
 
-      public getDetails_result() {
+      public matchBooking_result() {
       }
 
       public void Read (TProtocol iprot)
@@ -743,7 +875,7 @@ namespace SavariWala
           {
             case 0:
               if (field.Type == TType.Struct) {
-                Success = new BookingDetails();
+                Success = new BookingMatchResults();
                 Success.Read(iprot);
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
@@ -759,7 +891,7 @@ namespace SavariWala
       }
 
       public void Write(TProtocol oprot) {
-        TStruct struc = new TStruct("getDetails_result");
+        TStruct struc = new TStruct("matchBooking_result");
         oprot.WriteStructBegin(struc);
         TField field = new TField();
 
@@ -778,9 +910,448 @@ namespace SavariWala
       }
 
       public override string ToString() {
-        StringBuilder sb = new StringBuilder("getDetails_result(");
+        StringBuilder sb = new StringBuilder("matchBooking_result(");
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class matchAndFilterBooking_args : TBase
+    {
+      private SavariWala.GeoLoc _src;
+      private SavariWala.GeoLoc _dst;
+
+      public SavariWala.GeoLoc Src
+      {
+        get
+        {
+          return _src;
+        }
+        set
+        {
+          __isset.src = true;
+          this._src = value;
+        }
+      }
+
+      public SavariWala.GeoLoc Dst
+      {
+        get
+        {
+          return _dst;
+        }
+        set
+        {
+          __isset.dst = true;
+          this._dst = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool src;
+        public bool dst;
+      }
+
+      public matchAndFilterBooking_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Src = new SavariWala.GeoLoc();
+                Src.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct) {
+                Dst = new SavariWala.GeoLoc();
+                Dst.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("matchAndFilterBooking_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (Src != null && __isset.src) {
+          field.Name = "src";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          Src.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        if (Dst != null && __isset.dst) {
+          field.Name = "dst";
+          field.Type = TType.Struct;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          Dst.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("matchAndFilterBooking_args(");
+        sb.Append("Src: ");
+        sb.Append(Src== null ? "<null>" : Src.ToString());
+        sb.Append(",Dst: ");
+        sb.Append(Dst== null ? "<null>" : Dst.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class matchAndFilterBooking_result : TBase
+    {
+      private BookingMatchResults _success;
+
+      public BookingMatchResults Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public matchAndFilterBooking_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct) {
+                Success = new BookingMatchResults();
+                Success.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("matchAndFilterBooking_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            Success.Write(oprot);
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("matchAndFilterBooking_result(");
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class fetchResults_args : TBase
+    {
+      private int _id;
+      private int _count;
+
+      public int Id
+      {
+        get
+        {
+          return _id;
+        }
+        set
+        {
+          __isset.id = true;
+          this._id = value;
+        }
+      }
+
+      public int Count
+      {
+        get
+        {
+          return _count;
+        }
+        set
+        {
+          __isset.count = true;
+          this._count = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool id;
+        public bool count;
+      }
+
+      public fetchResults_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.I32) {
+                Id = iprot.ReadI32();
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.I32) {
+                Count = iprot.ReadI32();
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("fetchResults_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (__isset.id) {
+          field.Name = "id";
+          field.Type = TType.I32;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          oprot.WriteI32(Id);
+          oprot.WriteFieldEnd();
+        }
+        if (__isset.count) {
+          field.Name = "count";
+          field.Type = TType.I32;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          oprot.WriteI32(Count);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("fetchResults_args(");
+        sb.Append("Id: ");
+        sb.Append(Id);
+        sb.Append(",Count: ");
+        sb.Append(Count);
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class fetchResults_result : TBase
+    {
+      private List<PooledBooking> _success;
+
+      public List<PooledBooking> Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public fetchResults_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.List) {
+                {
+                  Success = new List<PooledBooking>();
+                  TList _list4 = iprot.ReadListBegin();
+                  for( int _i5 = 0; _i5 < _list4.Count; ++_i5)
+                  {
+                    PooledBooking _elem6 = new PooledBooking();
+                    _elem6 = new PooledBooking();
+                    _elem6.Read(iprot);
+                    Success.Add(_elem6);
+                  }
+                  iprot.ReadListEnd();
+                }
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("fetchResults_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.List;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            {
+              oprot.WriteListBegin(new TList(TType.Struct, Success.Count));
+              foreach (PooledBooking _iter7 in Success)
+              {
+                _iter7.Write(oprot);
+              }
+              oprot.WriteListEnd();
+            }
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("fetchResults_result(");
+        sb.Append("Success: ");
+        sb.Append(Success);
         sb.Append(")");
         return sb.ToString();
       }

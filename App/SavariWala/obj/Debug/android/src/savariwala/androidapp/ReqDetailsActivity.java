@@ -2,7 +2,7 @@ package savariwala.androidapp;
 
 
 public class ReqDetailsActivity
-	extends android.app.Activity
+	extends savariwala.androidapp.PlaceSearchActivityBase
 	implements
 		mono.android.IGCUserPeer
 {

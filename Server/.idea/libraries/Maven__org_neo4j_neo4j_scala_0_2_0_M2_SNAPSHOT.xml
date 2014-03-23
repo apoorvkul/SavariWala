@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.neo4j:neo4j-scala:0.2.0-M2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-scala/0.2.0-M2-SNAPSHOT/neo4j-scala-0.2.0-M2-20121015.151715-5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-scala/0.2.0-M2-SNAPSHOT/neo4j-scala-0.2.0-M2-20121015.151715-5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/neo4j/neo4j-scala/0.2.0-M2-SNAPSHOT/neo4j-scala-0.2.0-M2-20121015.151715-5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="552789868">
+  <component name="DataSourceManagerImpl" format="xml" hash="728149106">
     <data-source source="LOCAL" name="Rideshare" product="PostgreSQL" version="9.3.3" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.3 JDBC4 (build 1100)" uuid="89b46a4d-682d-4202-a67b-3aae14262445">
       <identifier-quote-string>&quot;</identifier-quote-string>
       <synchronize>true</synchronize>

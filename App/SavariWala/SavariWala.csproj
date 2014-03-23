@@ -111,30 +111,6 @@
     <Compile Include="FleuncyHelperAndroid.cs" />
     <Compile Include="Common\DirectionsProvider.cs" />
     <Compile Include="Common\RestApiProviderBase.cs" />
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingDetails.cs">
-      <Link>gen-csharp\SavariWala\BookingDetails.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\ErrorCode.cs">
-      <Link>gen-csharp\SavariWala\ErrorCode.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPoint.cs">
-      <Link>gen-csharp\SavariWala\MapPoint.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPointProvider.cs">
-      <Link>gen-csharp\SavariWala\MapPointProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\RequestHandler.cs">
-      <Link>gen-csharp\SavariWala\RequestHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\ServerError.cs">
-      <Link>gen-csharp\SavariWala\ServerError.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\User.cs">
-      <Link>gen-csharp\SavariWala\User.cs</Link>
-    </Compile>
-    <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
-      <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
-    </Compile>
     <Compile Include="Common\ErrorTranslator.cs" />
     <Compile Include="Common\Locale\ErrorTranslatorEnglish.cs" />
     <Compile Include="Common\ILocationProvider.cs" />
@@ -148,6 +124,45 @@
     <Compile Include="js\JsCoordinate.cs" />
     <Compile Include="js\JsDisplayValue.cs" />
     <Compile Include="js\JsPolyline.cs" />
+    <Compile Include="SearchStartActivity.cs" />
+    <Compile Include="PlaceSearchActivityBase.cs" />
+    <Compile Include="DriverLandingActivity.cs" />
+    <Compile Include="BookingAdapter.cs" />
+    <Compile Include="Common\DynProp.cs" />
+    <Compile Include="Common\BookingsProvider.cs" />
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingMatchResults.cs">
+      <Link>gen-csharp\SavariWala\BookingMatchResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingParams.cs">
+      <Link>gen-csharp\SavariWala\BookingParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ErrorCode.cs">
+      <Link>gen-csharp\SavariWala\ErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\GeoLoc.cs">
+      <Link>gen-csharp\SavariWala\GeoLoc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPoint.cs">
+      <Link>gen-csharp\SavariWala\MapPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPointProvider.cs">
+      <Link>gen-csharp\SavariWala\MapPointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\PooledBooking.cs">
+      <Link>gen-csharp\SavariWala\PooledBooking.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\RequestHandler.cs">
+      <Link>gen-csharp\SavariWala\RequestHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ServerError.cs">
+      <Link>gen-csharp\SavariWala\ServerError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\User.cs">
+      <Link>gen-csharp\SavariWala\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
+      <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -166,14 +181,19 @@
     <AndroidResource Include="Resources\layout\ListItem.axml" />
     <AndroidResource Include="Resources\layout\PlacesList.axml" />
     <AndroidResource Include="Resources\layout\ReqConfirm.axml" />
+    <AndroidResource Include="Resources\layout\SearchStart.axml" />
+    <AndroidResource Include="Resources\menu\ReqBookingSrcMenu.axml" />
+    <AndroidResource Include="Resources\layout\DriverLanding.axml" />
+    <AndroidResource Include="Resources\layout\BookingList.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="gen-csharp\" />
     <Folder Include="Common\Locale\" />
     <Folder Include="External\" />
     <Folder Include="js\" />
+    <Folder Include="Resources\menu\" />
+    <Folder Include="gen-csharp\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="facebook-sdk">

@@ -16,6 +16,11 @@ import java.util.stream.Stream;
  */
 public class PooledRoute extends Route
 {
+    public long getStartTimeUtc() {
+        return startTimeUtc;
+    }
+
+    private long startTimeUtc;
     private int numPax;
 
     public Node getRouteNode() {
@@ -38,9 +43,10 @@ public class PooledRoute extends Route
             stepInfos.add(x.getValue2());
         });
         numPax = (int) routeNode.getProperty("NumPax");
+        startTimeUtc = (int) routeNode.getProperty("StartUtc");
     }
 
-    public PooledRoute(Route route, GraphDatabaseService graph, Label routeLbl, BookingDetails bookingDetails)
+    public PooledRoute(Route route, GraphDatabaseService graph, Label routeLbl, BookingParams bookingDetails)
     {
         super(route);
         try (Transaction tx = graph.beginTx()) {
@@ -52,9 +58,11 @@ public class PooledRoute extends Route
                 rel.setProperty("EstArrivalTime", /*FIXME*/ stepInfos.get(i).estTimeArrival);
                 rel.setProperty("StepDistance", stepInfos.get(i).distance);
             }
+            numPax = bookingDetails.getNumPax();
+            startTimeUtc = bookingDetails.getStartTime();
             routeNode.setProperty("Distance", getDistance());
-            routeNode.setProperty("StartUtc", bookingDetails.getStartTime());
-            routeNode.setProperty("NumPax", bookingDetails.getNumPax());
+            routeNode.setProperty("StartUtc", startTimeUtc);
+            routeNode.setProperty("NumPax", numPax);
             routeNode.setProperty("StepCount", pathNodes.size());
             tx.success();
         }

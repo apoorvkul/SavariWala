@@ -21,11 +21,18 @@
     <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBjclPxE1Y_XkiaFIFDQCMr1hdSaFHw124" />
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     <activity android:label="FBWebViewAuthActivity" android:name="savariwala.androidapp.FBWebViewAuthActivity" />
-    <activity android:label="SavariWala" android:name="savariwala.androidapp.LoginActivity" />
+    <activity android:label="SavariWala" android:name="savariwala.androidapp.LoginActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
     <activity android:label="@string/reqBookingSrc" android:name="savariwala.androidapp.ReqBookingSrcActivity" />
     <activity android:label="@string/reqBookingDst" android:name="savariwala.androidapp.ReqBookingDstActivity" />
     <activity android:label="@string/reqDetails" android:name="savariwala.androidapp.ReqDetailsActivity" />
     <activity android:label="@string/reqConfirm" android:name="savariwala.androidapp.ReqConfirmActivity" />
+    <activity android:label="@string/seachStartActivity" android:name="savariwala.androidapp.SearchStartActivity" />
+    <activity android:label="DriverLandingActivity" android:name="savariwala.androidapp.DriverLandingActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="com.savariwala.androidapp.mono.MonoRuntimeProvider.__mono_init__" />
     <receiver android:name="mono.android.Seppuku">
       <intent-filter>
@@ -33,12 +40,6 @@
         <category android:name="mono.android.intent.category.SEPPUKU.com.savariwala.androidapp" />
       </intent-filter>
     </receiver>
-    <activity android:label="SavariWala" android:name="com.savariwala.androidapp.TrialSplashScreen" android:theme="@style/Mono.Android.Theme.Splash" android:noHistory="true">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
   </application>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 </manifest>

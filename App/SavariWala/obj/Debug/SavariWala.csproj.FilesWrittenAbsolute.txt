@@ -14,6 +14,10 @@
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/listitem.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/placeslist.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/reqconfirm.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/searchstart.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/menu/reqbookingsrcmenu.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/driverlanding.xml
+/Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/res/layout/bookinglist.xml
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/R.cs.flag
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/bin/Debug/com.savariwala.androidapp-Signed.apk
 /Users/apoorvkulshrestha/Projects/SavariWala/App/SavariWala/obj/Debug/uploadflags.txt

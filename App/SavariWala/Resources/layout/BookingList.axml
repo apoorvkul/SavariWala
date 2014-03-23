@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="vertical"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_height="wrap_content"
+    p1:layout_width="match_parent">
+    <HorizontalScrollView
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:id="@+id/horizontalScrollView1"
+        p1:layout_width="wrap_content"
+        p1:layout_height="match_parent"
+        p1:fillViewport="true"
+        p1:scrollbars="none">
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="wrap_content"
+            p1:layout_height="wrap_content">
+            <EditText
+                p1:text="Source"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_height="wrap_content"
+                p1:layout_width="match_parent"
+                p1:id="@+id/tvFrom"
+                p1:layout_marginRight="5dp"
+                p1:layout_gravity="left" />
+            <TextView
+                p1:text="@string/to"
+                p1:textAppearance="?android:attr/textAppearanceSmall"
+                p1:layout_height="wrap_content"
+                p1:layout_width="match_parent"
+                p1:layout_marginRight="5dp"
+                p1:layout_gravity="center" />
+            <EditText
+                p1:text="Destination"
+                p1:textAppearance="?android:attr/textAppearanceMedium"
+                p1:layout_height="wrap_content"
+                p1:layout_width="match_parent"
+                p1:layout_marginRight="5dp"
+                p1:id="@+id/tvTo"
+                p1:layout_gravity="right" />
+        </LinearLayout>
+    </HorizontalScrollView>
+    <LinearLayout
+        p1:orientation="horizontal"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content">
+        <TextView
+            p1:text="3"
+            p1:textAppearance="?android:attr/textAppearanceMedium"
+            p1:layout_height="wrap_content"
+            p1:layout_width="match_parent"
+            p1:layout_marginRight="5dp"
+            p1:id="@+id/tvNumPax"
+            p1:layout_marginLeft="10dp" />
+        <TextView
+            p1:text="@string/pax"
+            p1:textAppearance="?android:attr/textAppearanceSmall"
+            p1:layout_height="wrap_content"
+            p1:layout_width="match_parent"
+            p1:layout_marginRight="5dp" />
+        <TextView
+            p1:text="@string/at"
+            p1:layout_row="1"
+            p1:textAppearance="?android:attr/textAppearanceSmall"
+            p1:layout_height="wrap_content"
+            p1:layout_width="match_parent"
+            p1:layout_marginRight="5dp" />
+        <TextView
+            p1:text="00:00"
+            p1:textAppearance="?android:attr/textAppearanceMedium"
+            p1:layout_height="wrap_content"
+            p1:layout_width="match_parent"
+            p1:layout_marginRight="5dp"
+            p1:id="@+id/tvTime" />
+    </LinearLayout>
+</LinearLayout>

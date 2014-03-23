@@ -15,7 +15,7 @@ using Thrift.Transport;
 using Thrift.Protocol;
 using Thrift;
 using System.Threading;
-
+using System.Reactive.Linq;
 
 namespace SavariWala.Common
 {
@@ -23,8 +23,8 @@ namespace SavariWala.Common
 	{
 		private static DateTime Epoch = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-		public Place Src { get; set; }
-		public Place Dst { get; set; }
+		public MapPoint Src { get; set; }
+		public MapPoint Dst { get; set; }
 		DateTime _startTime;
 		public DateTime StartTime {
 			get {
@@ -35,11 +35,11 @@ namespace SavariWala.Common
 				Details.StartTime = (long)_startTime.ToUniversalTime ().Subtract (Epoch).TotalMilliseconds;
 			}
 		}
-		public BookingDetails Details { get; private set; }
+		public BookingParams Details { get; private set; }
 
 		public Request() 
 		{
-			Details = new BookingDetails ();
+			Details = new BookingParams ();
 		}
 	}
 
@@ -77,6 +77,8 @@ namespace SavariWala.Common
 		public ErrorTranslator ErrorTranslator { get; set; }
 		public ILocationProvider LocationProvider { get; private set; }
 		public NearestPointProvider NearestPointProvider { get; private set; }
+		public DynProp<bool>IsPassenger { get; private set; }
+		public GeoLoc StartPoint { get; set; }
 
 		public bool DisableServer { get { return true; } }
 
@@ -97,12 +99,16 @@ namespace SavariWala.Common
 			IsLoggedIn = false;
 			GoogleApiKeyNative = googleApiKeyNative;
 			GoogleApiKeyWeb = googleApiKeyWeb;
+
 			Log = new Logger ();
+			IsPassenger = new DynProp<bool> (true); 
 			LoadAppData ();
 			PlacesProvider = new PlacesProvider ();
 			DirectionsProvider = new DirectionsProvider ();
 			LocationProvider = locationProvider;
 			NearestPointProvider = new NearestPointProvider ();
+
+			IsPassenger.Value = AppData.IsLastUserPassenger;
 		}
 
 		private void LoadAppData()
@@ -140,9 +146,10 @@ namespace SavariWala.Common
 		{
 			DirectionsProvider.GetRoutesAsync ((json) => {
 				ExceptionSafe(() => {
+					CurrentReq.Details.RouteJson = json;
 					using (var client = new RequestHandler.Client(GetThriftProtocol(PortOffsets.RequestHandler)))
 					{
-						BookingId = client.submitBooking(CurrentReq.Details, json);
+						BookingId = client.submitBooking(CurrentReq.Details);
 					}
 					onComplete();
 				}, onTException);
@@ -168,7 +175,7 @@ namespace SavariWala.Common
 		}
 		public TProtocol GetThriftProtocol(PortOffsets offset) {
 			var transport = new TSocket(ServerAddr, ServerPort + (int)offset);
-				transport.Open();
+			transport.Open();
 			return new TBinaryProtocol (transport);  // TODO TCompactProtocol once server is ready for it
 		}
 
@@ -188,6 +195,7 @@ namespace SavariWala.Common
 					UserData = new UserData { UserName = user.UserName, IsPassenger = user.IsPassenger };
 				}
 			}
+			IsPassenger.Value = UserData.IsPassenger;
 		}
 	}
 }

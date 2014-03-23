@@ -19,9 +19,9 @@ namespace SavariWala
 {
   public partial class MapPointProvider {
     public interface Iface {
-      List<SavariWala.MapPoint> getMapPoint(bool isSrc, double latitude, double longitude);
+      List<SavariWala.MapPoint> getMapPoint(bool isSrc, SavariWala.GeoLoc loc);
       #if SILVERLIGHT
-      IAsyncResult Begin_getMapPoint(AsyncCallback callback, object state, bool isSrc, double latitude, double longitude);
+      IAsyncResult Begin_getMapPoint(AsyncCallback callback, object state, bool isSrc, SavariWala.GeoLoc loc);
       List<SavariWala.MapPoint> End_getMapPoint(IAsyncResult asyncResult);
       #endif
     }
@@ -84,9 +84,9 @@ namespace SavariWala
 
       
       #if SILVERLIGHT
-      public IAsyncResult Begin_getMapPoint(AsyncCallback callback, object state, bool isSrc, double latitude, double longitude)
+      public IAsyncResult Begin_getMapPoint(AsyncCallback callback, object state, bool isSrc, SavariWala.GeoLoc loc)
       {
-        return send_getMapPoint(callback, state, isSrc, latitude, longitude);
+        return send_getMapPoint(callback, state, isSrc, loc);
       }
 
       public List<SavariWala.MapPoint> End_getMapPoint(IAsyncResult asyncResult)
@@ -97,29 +97,28 @@ namespace SavariWala
 
       #endif
 
-      public List<SavariWala.MapPoint> getMapPoint(bool isSrc, double latitude, double longitude)
+      public List<SavariWala.MapPoint> getMapPoint(bool isSrc, SavariWala.GeoLoc loc)
       {
         #if !SILVERLIGHT
-        send_getMapPoint(isSrc, latitude, longitude);
+        send_getMapPoint(isSrc, loc);
         return recv_getMapPoint();
 
         #else
-        var asyncResult = Begin_getMapPoint(null, null, isSrc, latitude, longitude);
+        var asyncResult = Begin_getMapPoint(null, null, isSrc, loc);
         return End_getMapPoint(asyncResult);
 
         #endif
       }
       #if SILVERLIGHT
-      public IAsyncResult send_getMapPoint(AsyncCallback callback, object state, bool isSrc, double latitude, double longitude)
+      public IAsyncResult send_getMapPoint(AsyncCallback callback, object state, bool isSrc, SavariWala.GeoLoc loc)
       #else
-      public void send_getMapPoint(bool isSrc, double latitude, double longitude)
+      public void send_getMapPoint(bool isSrc, SavariWala.GeoLoc loc)
       #endif
       {
         oprot_.WriteMessageBegin(new TMessage("getMapPoint", TMessageType.Call, seqid_));
         getMapPoint_args args = new getMapPoint_args();
         args.IsSrc = isSrc;
-        args.Latitude = latitude;
-        args.Longitude = longitude;
+        args.Loc = loc;
         args.Write(oprot_);
         oprot_.WriteMessageEnd();
         #if SILVERLIGHT
@@ -190,7 +189,7 @@ namespace SavariWala
         args.Read(iprot);
         iprot.ReadMessageEnd();
         getMapPoint_result result = new getMapPoint_result();
-        result.Success = iface_.getMapPoint(args.IsSrc, args.Latitude, args.Longitude);
+        result.Success = iface_.getMapPoint(args.IsSrc, args.Loc);
         oprot.WriteMessageBegin(new TMessage("getMapPoint", TMessageType.Reply, seqid)); 
         result.Write(oprot);
         oprot.WriteMessageEnd();
@@ -206,8 +205,7 @@ namespace SavariWala
     public partial class getMapPoint_args : TBase
     {
       private bool _isSrc;
-      private double _latitude;
-      private double _longitude;
+      private SavariWala.GeoLoc _loc;
 
       public bool IsSrc
       {
@@ -222,29 +220,16 @@ namespace SavariWala
         }
       }
 
-      public double Latitude
+      public SavariWala.GeoLoc Loc
       {
         get
         {
-          return _latitude;
+          return _loc;
         }
         set
         {
-          __isset.latitude = true;
-          this._latitude = value;
-        }
-      }
-
-      public double Longitude
-      {
-        get
-        {
-          return _longitude;
-        }
-        set
-        {
-          __isset.longitude = true;
-          this._longitude = value;
+          __isset.loc = true;
+          this._loc = value;
         }
       }
 
@@ -255,8 +240,7 @@ namespace SavariWala
       #endif
       public struct Isset {
         public bool isSrc;
-        public bool latitude;
-        public bool longitude;
+        public bool loc;
       }
 
       public getMapPoint_args() {
@@ -282,15 +266,9 @@ namespace SavariWala
               }
               break;
             case 2:
-              if (field.Type == TType.Double) {
-                Latitude = iprot.ReadDouble();
-              } else { 
-                TProtocolUtil.Skip(iprot, field.Type);
-              }
-              break;
-            case 3:
-              if (field.Type == TType.Double) {
-                Longitude = iprot.ReadDouble();
+              if (field.Type == TType.Struct) {
+                Loc = new SavariWala.GeoLoc();
+                Loc.Read(iprot);
               } else { 
                 TProtocolUtil.Skip(iprot, field.Type);
               }
@@ -316,20 +294,12 @@ namespace SavariWala
           oprot.WriteBool(IsSrc);
           oprot.WriteFieldEnd();
         }
-        if (__isset.latitude) {
-          field.Name = "latitude";
-          field.Type = TType.Double;
+        if (Loc != null && __isset.loc) {
+          field.Name = "loc";
+          field.Type = TType.Struct;
           field.ID = 2;
           oprot.WriteFieldBegin(field);
-          oprot.WriteDouble(Latitude);
-          oprot.WriteFieldEnd();
-        }
-        if (__isset.longitude) {
-          field.Name = "longitude";
-          field.Type = TType.Double;
-          field.ID = 3;
-          oprot.WriteFieldBegin(field);
-          oprot.WriteDouble(Longitude);
+          Loc.Write(oprot);
           oprot.WriteFieldEnd();
         }
         oprot.WriteFieldStop();
@@ -340,10 +310,8 @@ namespace SavariWala
         StringBuilder sb = new StringBuilder("getMapPoint_args(");
         sb.Append("IsSrc: ");
         sb.Append(IsSrc);
-        sb.Append(",Latitude: ");
-        sb.Append(Latitude);
-        sb.Append(",Longitude: ");
-        sb.Append(Longitude);
+        sb.Append(",Loc: ");
+        sb.Append(Loc== null ? "<null>" : Loc.ToString());
         sb.Append(")");
         return sb.ToString();
       }

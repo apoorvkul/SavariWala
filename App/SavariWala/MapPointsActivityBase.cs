@@ -12,6 +12,7 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using SavariWala.Common;
 using SavariWala.Common.Js;
+using Newtonsoft.Json;
 
 namespace SavariWala.AndroidApp
 {
@@ -31,7 +32,7 @@ namespace SavariWala.AndroidApp
 
 		class PointDrawingInfo
 		{
-			public Place Point { get; set; }
+			public MapPoint Point { get; set; }
 			public JsDirection Dir { get; set; }
 			public List<LatLng> Polyline { get; set; }
 		}
@@ -59,7 +60,7 @@ namespace SavariWala.AndroidApp
 			RunOnUiThread(() => DrawPolyline (matchedPt.Polyline));
 		}
 
-		protected abstract void OnPointSelected(Place place);
+		protected abstract void OnPointSelected(MapPoint place);
 
 		public MapPointsActivityBase(int layoutId, int mapPointTextId, LatLng mapCentre)
 		{
@@ -137,7 +138,7 @@ namespace SavariWala.AndroidApp
 			foreach (var pdi in _pointDrawingInfos)
 			{
 				// draw markers
-				Place mPlace = pdi.Point;
+				MapPoint mPlace = pdi.Point;
 				var marker = new MarkerOptions ();
 				if(pdi != _highlighedPoint) marker.InvokeAlpha (0.5f);
 				marker.SetPosition (new LatLng(mPlace.Loc.Lat, mPlace.Loc.Lng));
@@ -181,6 +182,23 @@ namespace SavariWala.AndroidApp
 
 					_highlighedIndex = 0;
 					HighlightRoutes ();
+			}
+		}
+
+		protected void FetchNearestPoints (bool isSrc)
+		{
+			List<MapPoint> pts;
+			using (var client = new MapPointProvider.Client (AppCommon.Inst.GetThriftProtocol (AppCommon.PortOffsets.MapPointProvider))) {
+				pts = client.getMapPoint (isSrc, new GeoLoc { Lat = MapCentre.Latitude, Lng = MapCentre.Longitude });
+			}
+			var ptDirs = pts.Take(3).Select (x => new PointDirection { Point = x }).ToList();
+			ResetPoints (ptDirs);
+
+			foreach (var pd in ptDirs) {
+				AppCommon.Inst.DirectionsProvider.GetRoutesAsync (
+					str => AddDirection (new PointDirection { Point = pd.Point, 
+						Direction = JsonConvert.DeserializeObject<JsDirection> (str)}),
+					pd.Point.Loc, new GeoLoc { Lat = MapCentre.Latitude, Lng = MapCentre.Longitude }, DirectionsProvider.Walking);
 			}
 		}
 

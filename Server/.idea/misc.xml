@@ -73,12 +73,14 @@
         <option value="$USER_HOME$/Code/spatial/pom.xml" />
         <option value="$USER_HOME$/Code/Routing-Project/neo4j/pom.xml" />
         <option value="$USER_HOME$/Code/jo4neo-read-only/jo4neoblog/pom.xml" />
+        <option value="$USER_HOME$/Code/neo4j-spatial-scala/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$USER_HOME$/Code/Routing-Project/neo4j/pom.xml" />
         <option value="$USER_HOME$/Code/jo4neo-read-only/jo4neoblog/pom.xml" />
+        <option value="$USER_HOME$/Code/neo4j-spatial-scala/pom.xml" />
         <option value="$USER_HOME$/Code/spatial/pom.xml" />
       </set>
     </option>
