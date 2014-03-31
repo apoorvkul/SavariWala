@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E357FAE2-1D96-477E-A114-1D3E2478D196}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -90,13 +90,9 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FBWebViewAuthActivity.cs" />
-    <Compile Include="Common\AppData.cs" />
-    <Compile Include="Common\UserData.cs" />
-    <Compile Include="Common\Logger.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="App.cs" />
-    <Compile Include="Common\AppCommon.cs" />
     <Compile Include="LocationProvider.cs" />
     <Compile Include="ReqBookingSrcActivity.cs">
       <DependentUpon>Utils.cs</DependentUpon>
@@ -104,32 +100,14 @@
     <Compile Include="ReqBookingDstActivity.cs" />
     <Compile Include="MapPointsActivityBase.cs" />
     <Compile Include="ReqDetailsActivity.cs" />
-    <Compile Include="Common\PlacesProvider.cs" />
     <Compile Include="GenericListAdapter.cs" />
     <Compile Include="ReqConfirmActivity.cs" />
-    <Compile Include="Common\FluencyHelper.cs" />
     <Compile Include="FleuncyHelperAndroid.cs" />
-    <Compile Include="Common\DirectionsProvider.cs" />
-    <Compile Include="Common\RestApiProviderBase.cs" />
-    <Compile Include="Common\ErrorTranslator.cs" />
-    <Compile Include="Common\Locale\ErrorTranslatorEnglish.cs" />
-    <Compile Include="Common\ILocationProvider.cs" />
     <Compile Include="External\GeoHash.cs" />
-    <Compile Include="Common\CommonUtils.cs" />
-    <Compile Include="Common\NearestPointProvider.cs" />
-    <Compile Include="js\JsDirection.cs" />
-    <Compile Include="js\JsRoute.cs" />
-    <Compile Include="js\JsLeg.cs" />
-    <Compile Include="js\JsStep.cs" />
-    <Compile Include="js\JsCoordinate.cs" />
-    <Compile Include="js\JsDisplayValue.cs" />
-    <Compile Include="js\JsPolyline.cs" />
     <Compile Include="SearchStartActivity.cs" />
     <Compile Include="PlaceSearchActivityBase.cs" />
     <Compile Include="DriverLandingActivity.cs" />
     <Compile Include="BookingAdapter.cs" />
-    <Compile Include="Common\DynProp.cs" />
-    <Compile Include="Common\BookingsProvider.cs" />
     <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingMatchResults.cs">
       <Link>gen-csharp\SavariWala\BookingMatchResults.cs</Link>
     </Compile>
@@ -163,6 +141,30 @@
     <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
       <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
     </Compile>
+    <Compile Include="Common\AppCommon.cs" />
+    <Compile Include="Common\AppData.cs" />
+    <Compile Include="Common\BookingsProvider.cs" />
+    <Compile Include="Common\CommonUtils.cs" />
+    <Compile Include="Common\DirectionsProvider.cs" />
+    <Compile Include="Common\DynProp.cs" />
+    <Compile Include="Common\ErrorTranslator.cs" />
+    <Compile Include="Common\FluencyHelper.cs" />
+    <Compile Include="Common\GeoProviderBase.cs" />
+    <Compile Include="Common\ILocationProvider.cs" />
+    <Compile Include="Common\Logger.cs" />
+    <Compile Include="Common\NearestPointProvider.cs" />
+    <Compile Include="Common\PlacesProvider.cs" />
+    <Compile Include="Common\RestApiProviderBase.cs" />
+    <Compile Include="Common\UserData.cs" />
+    <Compile Include="Common\WalkingRoutesMapper.cs" />
+    <Compile Include="Common\Locale\ErrorTranslatorEnglish.cs" />
+    <Compile Include="Common\js\JsCoordinate.cs" />
+    <Compile Include="Common\js\JsDirection.cs" />
+    <Compile Include="Common\js\JsDisplayValue.cs" />
+    <Compile Include="Common\js\JsLeg.cs" />
+    <Compile Include="Common\js\JsPolyline.cs" />
+    <Compile Include="Common\js\JsRoute.cs" />
+    <Compile Include="Common\js\JsStep.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -188,12 +190,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Common\Locale\" />
     <Folder Include="External\" />
-    <Folder Include="js\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="gen-csharp\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="facebook-sdk">

@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Xml.Serialization;
@@ -15,7 +9,6 @@ using Thrift.Transport;
 using Thrift.Protocol;
 using Thrift;
 using System.Threading;
-using System.Reactive.Linq;
 
 namespace SavariWala.Common
 {
@@ -197,5 +190,12 @@ namespace SavariWala.Common
 			}
 			IsPassenger.Value = UserData.IsPassenger;
 		}
+
+
+		public GeoLoc GetSrc ()
+		{
+			return AppCommon.Inst.StartPoint == null ? LocationProvider.CurLocInfo.Value.Loc : AppCommon.Inst.StartPoint;
+		}
+
 	}
 }

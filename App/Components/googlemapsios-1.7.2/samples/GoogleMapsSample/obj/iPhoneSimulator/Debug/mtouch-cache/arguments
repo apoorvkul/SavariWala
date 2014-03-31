@@ -1,0 +1,29 @@
+# Version: 7.2.1.25 (46b2486)
+# [first argument, ignore] # /Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googlemapsios-1.7.2/samples/GoogleMapsSample/bin/iPhoneSimulator/Debug/mtouch.exe
+/Developer/MonoTouch/usr/bin/mtouch \
+	-sdkroot \
+	/Applications/Xcode.app/Contents/Developer \
+	--cache \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googlemapsios-1.7.2/samples/GoogleMapsSample/obj/iPhoneSimulator/Debug/mtouch-cache \
+	--nomanifest \
+	--nosign \
+	-sim \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googlemapsios-1.7.2/samples/GoogleMapsSample/bin/iPhoneSimulator/Debug/GoogleMapsSample.app \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Xml.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Core.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
+	-r \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googlemapsios-1.7.2/lib/ios/GoogleMaps.dll \
+	-debug \
+	-nolink \
+	-sdk \
+	7.1 \
+	-targetver \
+	5.1 \
+	--abi=i386 \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/googlemapsios-1.7.2/samples/GoogleMapsSample/bin/iPhoneSimulator/Debug/GoogleMapsSample.exe \

@@ -8,6 +8,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using Facebook;
 using MonoTouch.Dialog.Utilities;
+using SavariWala.Common;
 
 namespace FacebookSample.iOS
 {
@@ -24,18 +25,6 @@ namespace FacebookSample.iOS
 
 		private FacebookClient _fb;
 
-		// Replace here you own Facebook App Id, if you don't have one go to
-		// https://developers.facebook.com/apps
-		private const string AppId = "YOUR_FACEBOOK_APP_ID_HERE";
-
-		/// <summary>
-		/// Extended permissions is a comma separated list of permissions to ask the user.
-		/// </summary>
-		/// <remarks>
-		/// For extensive list of available extended permissions refer to 
-		/// https://developers.facebook.com/docs/reference/api/permissions/
-		/// </remarks>
-		private const string ExtendedPermissions = "user_about_me,read_stream,publish_stream";
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
@@ -49,7 +38,7 @@ namespace FacebookSample.iOS
 					}
 				},
 				new Section ("Actions") {
-					new FacebookLoginElement (AppId, ExtendedPermissions),
+					new FacebookLoginElement (AppCommon.FbAppId, AppCommon.ExtendedPermissions),
 					new StringElement ("Graph API Sample", GraphApiSample),
 					new StringElement ("FQL Samplel", FqlSample),
 					new StringElement ("Post \"Hi\" to your wall", PostHiToWall),

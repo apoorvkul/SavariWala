@@ -5,6 +5,7 @@ using Android.Content;
 using System.Collections.Generic;
 using Thrift;
 using SavariWala.Common;
+using Android.Gms.Maps.Model;
 
 namespace SavariWala.AndroidApp
 {
@@ -50,6 +51,12 @@ namespace SavariWala.AndroidApp
 				Utils.Alert (ctx, errMsg.Item1, errMsg.Item2, false);
 			else
 				AppCommon.Inst.Log.Error (ex.ToString ());
+		}
+
+
+		public static LatLng GetLatLng(GeoLoc loc)
+		{
+			return new LatLng (loc.Lat, loc.Lng);
 		}
 	}
 }

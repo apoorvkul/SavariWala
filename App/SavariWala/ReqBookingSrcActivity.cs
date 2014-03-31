@@ -22,12 +22,12 @@ namespace SavariWala.AndroidApp
 	{
 		private bool _sensor;
 		public ReqBookingSrcActivity()
-			: base(Resource.Layout.ReqBookingSrc, Resource.Id.viewSrcPoint, GetSrc())
+			: base(Resource.Layout.ReqBookingSrc, Resource.Id.viewSrcPoint, AppCommon.Inst.GetSrc())
 		{
 			_sensor = AppCommon.Inst.StartPoint == null;
 			AppCommon.Inst.StartPoint = null;			
 			if (!_sensor) {
-				FetchNearestPoints (_sensor);
+				_wRoutesMapperImpl.FetchNearestPoints (_sensor);
 			}
 
 		}
@@ -49,18 +49,11 @@ namespace SavariWala.AndroidApp
 			base.OnCreateOptionsMenu(menu);
 			return true;
 		}
-
-		private static LatLng GetSrc ()
-		{
-			var curLoc = AppCommon.Inst.LocationProvider.CurLocInfo.Value.Loc;
-			return AppCommon.Inst.StartPoint == null ? new LatLng (curLoc.Lat, curLoc.Lng) :
-				new LatLng (AppCommon.Inst.StartPoint.Lat, AppCommon.Inst.StartPoint.Lng);
-		}
-
+			
 		void OnPointDirectionsAdded (object sender, DirAddedEvtArg e)
 		{
 			if (e.Version == _pointsVer)
-				AddDirection (e.PointDir);
+				_wRoutesMapperImpl.AddDirection (e.PointDir);
 		}
 
 		protected int _pointsVer;
@@ -68,7 +61,7 @@ namespace SavariWala.AndroidApp
 		void OnPointsReset (object sender, PointsResetEvtArg e)
 		{
 			_pointsVer = e.Version;
-			ResetPoints(e.PointDirections);
+			_wRoutesMapperImpl.ResetPoints(e.PointDirections);
 		}
 
 		protected override void OnCreate (Bundle bundle)
@@ -77,7 +70,7 @@ namespace SavariWala.AndroidApp
 				AppCommon.Inst.NearestPointProvider.DirectionAdded += OnPointDirectionsAdded;
 				AppCommon.Inst.NearestPointProvider.PointsReset += OnPointsReset;
 				_pointsVer = AppCommon.Inst.NearestPointProvider.Version; 
-				ResetPoints (AppCommon.Inst.NearestPointProvider.PointDirections);
+				_wRoutesMapperImpl.ResetPoints (AppCommon.Inst.NearestPointProvider.PointDirections);
 
 				base.OnCreate (bundle);
 				var searchBtn = FindViewById<Button> (Resource.Id.seachBtn);

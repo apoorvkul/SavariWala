@@ -1,0 +1,31 @@
+# Version: 7.2.0.2 (58c3efa)
+# [first argument, ignore] # /Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/samples/FacebookSample.iOS/FacebookSample.iOS/bin/iPhoneSimulator/Debug/mtouch.exe
+/Developer/MonoTouch/usr/bin/mtouch \
+	-sdkroot \
+	/Applications/Xcode.app/Contents/Developer \
+	--cache \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/samples/FacebookSample.iOS/FacebookSample.iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
+	--nomanifest \
+	--nosign \
+	-sim \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/samples/FacebookSample.iOS/FacebookSample.iOS/bin/iPhoneSimulator/Debug/FacebookSampleiOS.app \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Xml.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Core.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/MonoTouch.Dialog-1.dll \
+	-r \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/lib/ios/Facebook.dll \
+	-debug \
+	-nolink \
+	-sdk \
+	7.1 \
+	-targetver \
+	5.1 \
+	--abi=i386 \
+	/Users/apoorvkulshrestha/Projects/SavariWala/App/Components/facebook-sdk-6.2.1/samples/FacebookSample.iOS/FacebookSample.iOS/bin/iPhoneSimulator/Debug/FacebookSampleiOS.exe \

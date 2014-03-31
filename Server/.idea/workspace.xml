@@ -27,7 +27,7 @@
     <file path="/RestApiProviderBase.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394267877529" ignored="false" />
     <file path="/Neo4jTxResource.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394351888325" ignored="false" />
     <file path="/SafeSupplier.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394355137843" ignored="false" />
-    <file path="/Dummy.txt" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1395557945261" ignored="false" />
+    <file path="/Dummy.txt" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1396075886626" ignored="false" />
     <file path="$USER_HOME$/Code/spatial/src/main/java/org/neo4j/gis/spatial/filter/AbstractSearchIntersection.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394854549858" ignored="false" />
     <file path="$USER_HOME$/Code/spatial/src/main/java/org/neo4j/gis/spatial/server/plugin/SpatialPlugin.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394854549858" ignored="false" />
     <file path="$USER_HOME$/Code/spatial/src/main/java/org/neo4j/gis/spatial/indexprovider/LayerNodeIndex.java" changelist="545720eb-f8b0-4493-9bf9-0edf3b041e18" time="1394854549858" ignored="false" />
@@ -76,6 +76,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -112,7 +113,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -126,16 +126,7 @@
         <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/RequestHandlerSvc.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="23" column="169" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="class#BookingInfo#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="class#RouteMatchInfo#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#createBooking#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#updateRouteMatch#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#getSortedMatches#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#poolRoutes#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#isNumPaxOptimistic#0;class#RequestHandlerSvc#0" expanded="false" />
-                <element signature="method#fetchAndProcessRoutes#0;class#RequestHandlerSvc#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,7 +134,7 @@
       <file leaf-file-name="MapPointProviderSvc.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/MapPointProviderSvc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="74" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.8333333">
+            <state line="85" column="74" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.5806011">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -154,7 +145,7 @@
       <file leaf-file-name="Rideshare" pinned="false" current="false" current-in-tab="false">
         <entry file="dbDummy://db-console:/f487c1e2/89b46a4d-682d-4202-a67b-3aae14262445/">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="75" selection-end="99" vertical-scroll-proportion="-0.51724136">
+            <state line="1" column="0" selection-start="75" selection-end="99" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -369,14 +360,14 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="Downloaded.Files.Path" value="$PROJECT_DIR$/lib" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="Downloaded.Files.Path" value="$PROJECT_DIR$/lib" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -483,6 +474,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -509,19 +513,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -618,32 +609,32 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="52" y="22" width="1388" height="878" extended-state="6" />
+    <frame x="52" y="22" width="1388" height="878" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27347243" sideWeight="0.67150396" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27347243" sideWeight="0.67150396" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973614" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32849604" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962743" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962743" sideWeight="0.60026383" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60026383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32849604" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -739,9 +730,7 @@
     </entry>
     <entry file="file://$USER_HOME$/Code/spatial/src/main/java/org/neo4j/gis/spatial/pipes/GeoPipeline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="47" selection-start="8022" selection-end="8022" vertical-scroll-proportion="0.3482906">
-          <folding />
-        </state>
+        <state line="193" column="47" selection-start="8022" selection-end="8022" vertical-scroll-proportion="0.3482906" />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Code/neo4j/graph-collections/src/main/java/org/neo4j/collections/rtree/filter/SearchResults.java">
@@ -751,39 +740,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/Route.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="256" selection-end="256" vertical-scroll-proportion="0.05479452">
-          <folding />
-        </state>
+        <state line="13" column="13" selection-start="256" selection-end="256" vertical-scroll-proportion="0.05479452" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/PooledRoute.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="60" selection-start="1441" selection-end="1441" vertical-scroll-proportion="0.11643836">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../idl/gen-java/com/savariwala/PooledBooking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="9" selection-start="5931" selection-end="5931" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="45" column="60" selection-start="1441" selection-end="1441" vertical-scroll-proportion="0.11643836" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../idl/gen-java/com/savariwala/MapPoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="9" selection-start="5647" selection-end="5647" vertical-scroll-proportion="2.9487178">
-          <folding />
-        </state>
+        <state line="135" column="9" selection-start="5647" selection-end="5647" vertical-scroll-proportion="2.9487178" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../idl/gen-java/com/savariwala/RequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="13" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.16025642">
-          <folding />
-        </state>
+        <state line="34" column="13" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.16025642" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/DBSyncer.java">
@@ -796,40 +768,32 @@
     <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/RequestHandlerSvc.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="169" selection-start="902" selection-end="902" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="class#BookingInfo#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="class#RouteMatchInfo#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#createBooking#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#updateRouteMatch#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#getSortedMatches#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#poolRoutes#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#isNumPaxOptimistic#0;class#RequestHandlerSvc#0" expanded="false" />
-            <element signature="method#fetchAndProcessRoutes#0;class#RequestHandlerSvc#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://db-console:/f487c1e2/89b46a4d-682d-4202-a67b-3aae14262445/">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="75" selection-end="99" vertical-scroll-proportion="-0.51724136">
+        <state line="1" column="0" selection-start="75" selection-end="99" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../idl/gen-java/com/savariwala/MapPointProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="54" selection-start="1235" selection-end="1235" vertical-scroll-proportion="0.5072464">
-          <folding>
-            <element signature="e#11598#11639#0" expanded="true" />
-            <element signature="e#12233#12250#0" expanded="true" />
-            <element signature="e#13988#14040#0" expanded="true" />
-          </folding>
+        <state line="43" column="54" selection-start="1235" selection-end="1235" vertical-scroll-proportion="0.5072464" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../idl/gen-java/com/savariwala/PooledBooking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="9" selection-start="5931" selection-end="5931" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/java/src/com/savariwala/MapPointProviderSvc.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="74" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.8333333">
+        <state line="85" column="74" selection-start="3330" selection-end="3330" vertical-scroll-proportion="0.5806011">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -43,7 +43,7 @@ namespace SavariWala.AndroidApp
 				string error = data.GetStringExtra ("Exception");
 
 				// TODO Localization for facebook errors
-				if (!String.IsNullOrEmpty(error))
+				if (!string.IsNullOrEmpty(error))
 					Utils.Alert (this, "Failed to Log In", "Reason: " + error, false);
 				else {
 					try

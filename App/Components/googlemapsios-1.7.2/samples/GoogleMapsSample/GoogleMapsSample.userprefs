@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../Ios/Screens/ReqBookingSrcScreen.cs">
+    <Files>
+      <File FileName="../../../../Ios/MapPointsControllerBase.cs" Line="148" Column="4" />
+      <File FileName="../../../../Ios/Screens/ReqBookingSrcScreen.cs" Line="58" Column="57" />
+      <File FileName="MapViewController.cs" Line="27" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="GoogleMapsSample" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/apoorvkulshrestha/Projects/SavariWala/App/Ios/Main.cs" line="25" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

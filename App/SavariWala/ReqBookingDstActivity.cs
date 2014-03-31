@@ -22,10 +22,9 @@ namespace SavariWala.AndroidApp
 	{
 
 		public ReqBookingDstActivity()
-			: base(Resource.Layout.ReqBookingDst, Resource.Id.viewDstPoint, 
-				new LatLng(AppCommon.Inst.Destination.Lat, AppCommon.Inst.Destination.Lng))
+			: base(Resource.Layout.ReqBookingDst, Resource.Id.viewDstPoint, AppCommon.Inst.Destination)
 		{
-			FetchNearestPoints (false);
+			_wRoutesMapperImpl.FetchNearestPoints (false);
 		}
 
 		protected override void OnPointSelected(MapPoint place)
