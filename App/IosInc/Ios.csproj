@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{21BCE980-B526-427A-9527-1C9740923C06}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Savariwala.Ios</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>IosInc</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="Facebook">
+      <HintPath>..\Components\facebook-sdk-6.2.1\lib\ios\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
+    <Reference Include="Thrift">
+      <HintPath>..\ext\Thrift.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Json" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMaps">
+      <HintPath>..\Components\googlemapsios-1.7.2\lib\ios\GoogleMaps.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="FacebookLoginElement.cs" />
+    <Compile Include="..\SavariWala\Common\AppCommon.cs">
+      <Link>Common\AppCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\AppData.cs">
+      <Link>Common\AppData.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\BookingsProvider.cs">
+      <Link>Common\BookingsProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\CommonUtils.cs">
+      <Link>Common\CommonUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\DirectionsProvider.cs">
+      <Link>Common\DirectionsProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\DynProp.cs">
+      <Link>Common\DynProp.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\ErrorTranslator.cs">
+      <Link>Common\ErrorTranslator.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\FluencyHelper.cs">
+      <Link>Common\FluencyHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\GeoProviderBase.cs">
+      <Link>Common\GeoProviderBase.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\ILocationProvider.cs">
+      <Link>Common\ILocationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\Logger.cs">
+      <Link>Common\Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\NearestPointProvider.cs">
+      <Link>Common\NearestPointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\PlacesProvider.cs">
+      <Link>Common\PlacesProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\RestApiProviderBase.cs">
+      <Link>Common\RestApiProviderBase.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\UserData.cs">
+      <Link>Common\UserData.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\WalkingRoutesMapper.cs">
+      <Link>Common\WalkingRoutesMapper.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\Locale\ErrorTranslatorEnglish.cs">
+      <Link>Common\Locale\ErrorTranslatorEnglish.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsCoordinate.cs">
+      <Link>Common\js\JsCoordinate.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsDirection.cs">
+      <Link>Common\js\JsDirection.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsDisplayValue.cs">
+      <Link>Common\js\JsDisplayValue.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsLeg.cs">
+      <Link>Common\js\JsLeg.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsPolyline.cs">
+      <Link>Common\js\JsPolyline.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsRoute.cs">
+      <Link>Common\js\JsRoute.cs</Link>
+    </Compile>
+    <Compile Include="..\SavariWala\Common\js\JsStep.cs">
+      <Link>Common\js\JsStep.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingMatchResults.cs">
+      <Link>gen-csharp\SavariWala\BookingMatchResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\BookingParams.cs">
+      <Link>gen-csharp\SavariWala\BookingParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ErrorCode.cs">
+      <Link>gen-csharp\SavariWala\ErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\GeoLoc.cs">
+      <Link>gen-csharp\SavariWala\GeoLoc.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPoint.cs">
+      <Link>gen-csharp\SavariWala\MapPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\MapPointProvider.cs">
+      <Link>gen-csharp\SavariWala\MapPointProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\PooledBooking.cs">
+      <Link>gen-csharp\SavariWala\PooledBooking.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\RequestHandler.cs">
+      <Link>gen-csharp\SavariWala\RequestHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\ServerError.cs">
+      <Link>gen-csharp\SavariWala\ServerError.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\User.cs">
+      <Link>gen-csharp\SavariWala\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\idl\gen-csharp\SavariWala\UsersManager.cs">
+      <Link>gen-csharp\SavariWala\UsersManager.cs</Link>
+    </Compile>
+    <Compile Include="Screens\ReqBookingSrcScreen.cs" />
+    <Compile Include="Screens\ReqBookingSrcScreen.designer.cs">
+      <DependentUpon>ReqBookingSrcScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ReqDetailsScreen.cs" />
+    <Compile Include="Screens\ReqDetailsScreen.designer.cs">
+      <DependentUpon>ReqDetailsScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\MapPointsControllerBase.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="LocationProvider.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <XamarinComponentReference Include="facebook-sdk">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>6.2.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="json.net">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>4.5.11</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="googlemapsios">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.7.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="gen-csharp\" />
+    <Folder Include="Screens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Screens\Passenger.storyboard" />
+    <InterfaceDefinition Include="Screens\Driver.storyboard" />
+  </ItemGroup>
+</Project>
